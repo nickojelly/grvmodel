@@ -1,0 +1,10 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(rjson)
+dat <- fromJSON(file = "C:\\Users\\Nick\\Desktop\\greyhound data\\price\\testdata")
+```
+

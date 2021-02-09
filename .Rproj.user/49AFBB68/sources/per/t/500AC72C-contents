@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+df_tbl %>% group_by(box,dist) %>% summarise(mean = mean(place), n = n()) %>% arrange(mean)
+```
+```{r}
+df_tbl %>% group_by(distance)
+```
+
+```{r}
+#creating backbook for dogs
+dataf
+```
+
+```{r}
+# finding a dogs previous race:
+form <- function(dog, current_race_id, dog_tbl){
+  return(filter(dog_tbl, dog_id == dog, race_id < current_race_id))
+}
+```
+
+```{r}
+#form(250185388, 501343196, df_tbl)
+filter(df_tbl, dog_id == 250185388)
+```
+
+
+```{r}
+library(tidyverse)
+dataf = read.csv('masterfile.csv', header = TRUE, skipNul = TRUE)
+dataf$race_id = as.factor(dataf$race_id)
+dataf$dog_id = as.factor(dataf$dog_id)
+dataf$box= as.factor(dataf$box)
+dataf$split_margins
+```
+
+
+
+```{r}
+df_tbl <- as_tibble(dataf)
+
+
+```
+
+```{r}
+basic_model <- glm(place ~ box, data = dataf)
+summary(basic_model)
+```
+
+
+
+
+```{r}
+library(ggplot2)
+p1 <- ggplot(dataf, aes(x=box, y = split_margins, fill = box)) +
+  geom_boxplot()
+p1
+```
+
