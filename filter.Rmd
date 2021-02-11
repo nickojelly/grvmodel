@@ -2,17 +2,33 @@
 title: "R Notebook"
 output: html_notebook
 ---
+
+```{r}
+#setup data
+library(tidyverse)
+dataf = read.csv('masterfile.csv', header = TRUE, skipNul = TRUE)
+dataf$race_id = as.factor(dataf$race_id)
+dataf$dog_id = as.factor(dataf$dog_id)
+dataf$box= as.factor(dataf$box)
+df_tbl <- as_tibble(dataf)
+```
+
+
+
 ```{r}
 df_tbl %>% group_by(box,dist) %>% summarise(mean = mean(place), n = n()) %>% arrange(mean)
 ```
+
 ```{r}
-df_tbl %>% group_by(distance)
+#number of races per distance
+df_tbl %>% group_by(dist) %>% summarise(mean = mean(place), n = n())
 ```
 
 ```{r}
-#creating backbook for dogs
-dataf
+#number of races per dog 
+df_tbl %>% group_by(dog_id) %>% summarise(mean = mean(n), n = n()) %>% summarise(mean = mean(n))
 ```
+
 
 ```{r}
 # finding a dogs previous race:
@@ -27,22 +43,7 @@ filter(df_tbl, dog_id == 250185388)
 ```
 
 
-```{r}
-library(tidyverse)
-dataf = read.csv('masterfile.csv', header = TRUE, skipNul = TRUE)
-dataf$race_id = as.factor(dataf$race_id)
-dataf$dog_id = as.factor(dataf$dog_id)
-dataf$box= as.factor(dataf$box)
-dataf$split_margins
-```
 
-
-
-```{r}
-df_tbl <- as_tibble(dataf)
-
-
-```
 
 ```{r}
 basic_model <- glm(place ~ box, data = dataf)
