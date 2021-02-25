@@ -65,6 +65,16 @@ def searchit(day_strings):
 
 
 def downloader(meets_list):
+    #mode 0 to download Results
+    #mode 1 to download Form
+    mode = 1
+
+    if mode:
+        xpath = '//button[text()="Download Full Format  (xml)"]'
+        download_dir = 'I:\\greyhound model\\grvmodel\\grv scraper\\full race form'
+    else:
+        xpath = '//button[text()="Download Race Results Format  (xml)"]'
+        download_dir = 'I:\\greyhound model\\grvmodel\\grv scraper\\full race results'
     print("\n\n\n --------- \n\n\n")
     #partial_url = 'https://fasttrack.grv.org.au/Meeting/Details/'
     chrome_options = Options()
@@ -74,7 +84,7 @@ def downloader(meets_list):
     #chrome_options.add_argument("--no-sandbox") # linux only
     #chrome_options.add_argument("--headless")
 
-    prefs = {'download.default_directory' : 'I:\\greyhound model\\grvmodel\\grv scraper\\new data',
+    prefs = {'download.default_directory' : download_dir,
              'download.prompt_for_download': False,
              'safebrowsing.enabled' : True,
              "download.directory_upgrade": True}
@@ -87,7 +97,7 @@ def downloader(meets_list):
         driver.get(i)
 
         try:
-            download_button = driver.find_element_by_xpath('//button[text()="Download Race Results Format  (xml)"]')
+            download_button = driver.find_element_by_xpath('//button[text()="Download Full Format  (xml)"]')
         except:
             print("no dl button found")
 
@@ -111,7 +121,7 @@ if __name__== "__main__":
     else:
         #this part downloads the xml documents
 
-        with open('meetsnewpart2.csv', newline='') as f:
+        with open('meetsnew.csv', newline='') as f:
             reader = csv.reader(f)
             meets_list = list(reader)[0]
 
