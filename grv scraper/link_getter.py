@@ -98,11 +98,12 @@ def downloader(meets_list):
 
         try:
             download_button = driver.find_element_by_xpath('//button[text()="Download Full Format  (xml)"]')
+            download_button.click()
+            time.sleep(0.2)
         except:
             print("no dl button found")
 
-        download_button.click()
-        time.sleep(0.2)
+
 
 
 if __name__== "__main__":
@@ -121,8 +122,8 @@ if __name__== "__main__":
     else:
         #this part downloads the xml documents
 
-        with open('meetsnew.csv', newline='') as f:
+        with open('meetsnewpart2.csv', newline='') as f:
             reader = csv.reader(f)
             meets_list = list(reader)[0]
 
-        downloader(meets_list)
+        downloader(meets_list[1000:])
