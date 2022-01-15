@@ -9743,3 +9743,17 @@ webdriverClickElement@chrome://marionette/content/interaction.js:179:31
 ###!!! [Child][MessageChannel] Error: (msgtype=0x3A00CE,name=PContent::Msg_SetGeolocationHigherAccuracy) Closed channel: cannot send/recv
 
 [Parent 27040, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1631888071319	geckodriver	INFO	Listening on 127.0.0.1:49483
+1631888074375	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Nick\\AppData\\Local\\Temp\\rust_mozprofile6ZgnGr"
+1631888084423	geckodriver	INFO	Listening on 127.0.0.1:49534
+1631888087472	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Nick\\AppData\\Local\\Temp\\rust_mozprofile9abCLx"
+1631888087807	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Nick\\AppData\\Local\\Temp\\rust_mozprofile9abCLx\\search.json.mozlz4", (void 0)))
+1631888089885	Marionette	INFO	Listening on port 49543
+1631888090155	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1631888119801	Marionette	INFO	Stopped listening on port 49543
+JavaScript error: resource:///modules/Interactions.jsm, line 209: NS_ERROR_FAILURE: Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIUserIdleService.removeIdleObserver]
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

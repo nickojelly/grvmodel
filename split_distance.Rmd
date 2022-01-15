@@ -22,7 +22,7 @@ tracks <- df_tbl %>% group_by(track,dist) %>% summarise(mean_time=mean(run_time)
 tracks
 tracks$split_dist_estim <- (tracks$dist/tracks$mean_time)*tracks$mean_split
 tracks$split_dist <- 0
-tracks$id <- paste(substring(tracks$track, 1,4),tracks$dist,sep = "-")
+tracks$track_id <- paste(substring(tracks$track, 1,4),tracks$dist,sep = "-")
 tracks
 ```
 
@@ -40,5 +40,14 @@ splitplot
 splitplot <- dataf %>% ggplot( aes(x=dist, y = speed,color = track)) +
   geom_point()
 splitplot
+```
+```{r}
+df_tbl$track_id <- paste(substring(df_tbl$track, 1,4),df_tbl$dist,sep = "-")
+df_joined <- left_join(df_tbl, tracks, by = c("track_id"))
+df_joined
+```
+
+```{r}
+
 ```
 
