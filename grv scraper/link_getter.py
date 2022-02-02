@@ -34,7 +34,6 @@ def race_numbers(url):
                 if elem.get_attribute("href") not in meets_list:
                     meets_list.append(elem.get_attribute("href"))
                     print(elem.get_attribute("href"))
-        time.sleep(2)
         #break
     with open('meets.csv', 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
@@ -74,7 +73,7 @@ def searchit(day_strings):
 def downloader(meets_list):
     #mode 0 to download Results
     #mode 1 to download Form
-    mode = 1
+    mode = 0
 
     if mode:
         xpath = '//button[text()="Download Full Format  (xml)"]'
@@ -85,12 +84,13 @@ def downloader(meets_list):
     print("\n\n\n --------- \n\n\n")
     #partial_url = 'https://fasttrack.grv.org.au/Meeting/Details/'
 
-
+    print(xpath)
     profile = webdriver.FirefoxProfile()
     profile.set_preference("browser.download.folderList", 2)
     profile.set_preference("browser.download.manager.showWhenStarting", False)
     profile.set_preference("browser.download.dir", download_dir)
-    profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/xml")
+    profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/xml")
+    profile.set_preference("browser.download.viewableInternally.enabledTypes", "")
 
     driver = webdriver.Firefox(firefox_profile=profile)
 
@@ -99,9 +99,8 @@ def downloader(meets_list):
         driver.get(i)
 
         try:
-            download_button = driver.find_element_by_xpath('//button[text()="Download Full Format  (xml)"]')
+            download_button = driver.find_element_by_xpath(xpath)
             download_button.click()
-            time.sleep(0.2)
         except:
             print("no dl button found")
 

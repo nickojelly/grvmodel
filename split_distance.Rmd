@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#setup data
+library(tidyverse)
+library(ggplot2)
+dataf = read.csv('masterfile.csv', header = TRUE, skipNul = TRUE)
+dataf$race_id = as.factor(dataf$race_id)
+dataf$dog_id = as.factor(dataf$dog_id)
+dataf$box= as.factor(dataf$box)
+dataf$dist = str_replace(dataf$dist, "m", "")
+dataf$dist = as.numeric(dataf$dist)
+dataf$speed = as.numeric(dataf$dist/dataf$run_time)
+df_tbl <- as_tibble(dataf)
+```
+
+```{r}
+tracks <- df_tbl %>% group_by(track,dist) %>% summarise(mean_time=mean(run_time), mean_split= mean(split_times))
+tracks
+tracks$split_dist_estim <- (tracks$dist/tracks$mean_time)*tracks$mean_split
+tracks$split_dist <- 0
+tracks$track_id <- paste(substring(tracks$track, 1,4),tracks$dist,sep = "-")
+tracks
+```
+
+```{r}
+rows_update(tracks, tibble)
+```
+
+
+```{r}
+splitplot <- dataf %>% ggplot( aes(x=dist, y = split_times,color = track)) +
+  geom_point()
+splitplot
+```
+```{r}
+splitplot <- dataf %>% ggplot( aes(x=dist, y = speed,color = track)) +
+  geom_point()
+splitplot
+```
+```{r}
+df_tbl$track_id <- paste(substring(df_tbl$track, 1,4),df_tbl$dist,sep = "-")
+df_joined <- left_join(df_tbl, tracks, by = c("track_id"))
+df_joined
+```
+
+```{r}
+
+```
+
