@@ -1,0 +1,2583 @@
+<?xml version="1.0"?>
+<!DOCTYPE Meet [<!ELEMENT Meet (Track,Date,Race+)>
+<!ELEMENT Track (#PCDATA)>
+<!ELEMENT Date (#PCDATA)>
+<!ELEMENT Race (RaceNum,RaceName,RaceTime,Distance,RaceGrade,Dog+,Times+,Dividends+,Exotics+)>
+<!ELEMENT RaceNum (#PCDATA)>
+<!ELEMENT RaceName (#PCDATA)>
+<!ELEMENT RaceTime (#PCDATA)>
+<!ELEMENT Distance (#PCDATA)>
+<!ELEMENT RaceGrade (#PCDATA)>
+<!ELEMENT Dog (Place,DogName,Trainer,Box,Rug,Weight,StartPrice,Handicap,Margin1,Margin2,PIR,SplitMargin,RunTime)>
+<!ELEMENT Place (#PCDATA)>
+<!ELEMENT DogName (#PCDATA)>
+<!ELEMENT Trainer (#PCDATA)>
+<!ELEMENT Box (#PCDATA)>
+<!ELEMENT Rug (#PCDATA)>
+<!ELEMENT Race (#PCDATA)>
+<!ELEMENT Weight (#PCDATA)>
+<!ELEMENT StartPrice (#PCDATA)>
+<!ELEMENT Handicap (#PCDATA)>
+<!ELEMENT Margin1 (#PCDATA)>
+<!ELEMENT Margin2 (#PCDATA)>
+<!ELEMENT PIR (#PCDATA)>
+<!ELEMENT SplitMargin (#PCDATA)>
+<!ELEMENT RunTime (#PCDATA)>
+<!ELEMENT Times (WinTime,Split1Time,Split1Rug,Split2Time,Split2Rug,Split3Time,Split3Rug)>
+<!ELEMENT WinTime (#PCDATA)>
+<!ELEMENT Split1Time (#PCDATA)>
+<!ELEMENT Split1Rug (#PCDATA)>
+<!ELEMENT Split2Time (#PCDATA)>
+<!ELEMENT Split2Rug (#PCDATA)>
+<!ELEMENT Split3Time (#PCDATA)>
+<!ELEMENT Split3Rug (#PCDATA)>
+<!ELEMENT Dividends (WinDiv,Place1Div,Place2Div,Place3Div)>
+<!ELEMENT WinDiv (#PCDATA)>
+<!ELEMENT Place1Div (#PCDATA)>
+<!ELEMENT Place2Div (#PCDATA)>
+<!ELEMENT Place3Div (#PCDATA)>
+<!ELEMENT Exotics (Quin,Exacta,Trifecta,Pick4,RD,DD,Quad)>
+<!ELEMENT Quin (#PCDATA)>
+<!ELEMENT Exacta (#PCDATA)>
+<!ELEMENT Trifecta (#PCDATA)>
+<!ELEMENT Pick4 (#PCDATA)>
+<!ELEMENT RD (#PCDATA)>
+<!ELEMENT DD (#PCDATA)>
+<!ELEMENT Quad (#PCDATA)>
+]>
+<Meet id="153784456">
+<Track>Warragul</Track>
+<Date>08 Nov 16</Date>
+<Race id="168648624">
+<RaceNum>1</RaceNum>
+<RaceName>MEL'S KITCHEN HT1</RaceName>
+<RaceTime>06:44PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Maiden Heat</RaceGrade>
+<Dog id="1182150084">
+<Place>1</Place>
+<DogName>RIVETING</DogName>
+<Trainer id="130608">K Leek</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>36.0</Weight>
+<StartPrice>$1.50F</StartPrice>
+<Handicap />
+<Margin1>6.26</Margin1>
+<Margin2 />
+<PIR>M/111</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.53</SplitMargin>
+<RunTime>25.60</RunTime>
+<Prizemoney>990.00</Prizemoney>
+</Dog>
+<Dog id="149400726">
+<Place>2</Place>
+<DogName>MY MATE HARRY</DogName>
+<Trainer id="129459">J Thompson</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>30.9</Weight>
+<StartPrice>$4.40</StartPrice>
+<Handicap />
+<Margin1>6.26</Margin1>
+<Margin2>6.26</Margin2>
+<PIR>M/222</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.54</SplitMargin>
+<RunTime>26.04</RunTime>
+<Prizemoney>285.00</Prizemoney>
+</Dog>
+<Dog id="1306460019">
+<Place>3</Place>
+<DogName>ARCHIE FIELDS</DogName>
+<Trainer id="192949">G O'Keeffe</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>32.5</Weight>
+<StartPrice>$11.90</StartPrice>
+<Handicap />
+<Margin1>8.47</Margin1>
+<Margin2>2.21</Margin2>
+<PIR>S/443</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.80</SplitMargin>
+<RunTime>26.19</RunTime>
+<Prizemoney>140.00</Prizemoney>
+</Dog>
+<Dog id="1340420026">
+<Place>4</Place>
+<DogName>ROGER'S DREAMIN'</DogName>
+<Trainer id="101224">K Gorman</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>31.6</Weight>
+<StartPrice>$17.50</StartPrice>
+<Handicap />
+<Margin1>10.91</Margin1>
+<Margin2>2.44</Margin2>
+<PIR>M/334</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.61</SplitMargin>
+<RunTime>26.36</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1478470097">
+<Place>5</Place>
+<DogName>FALKOR</DogName>
+<Trainer id="113523">G Jose</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>36.2</Weight>
+<StartPrice>$31.70</StartPrice>
+<Handicap />
+<Margin1>16.06</Margin1>
+<Margin2>5.14</Margin2>
+<PIR>S/555</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.87</SplitMargin>
+<RunTime>26.72</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1184050103">
+<Place>6</Place>
+<DogName>RUPCY</DogName>
+<Trainer id="240983">P Aulakh</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>28.7</Weight>
+<StartPrice>$64.10</StartPrice>
+<Handicap />
+<Margin1>18.13</Margin1>
+<Margin2>2.07</Margin2>
+<PIR>S/666</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.94</SplitMargin>
+<RunTime>26.87</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1166940003">
+<Place>7</Place>
+<DogName>FLYING FLUTTER</DogName>
+<Trainer id="130355">J Westerlo</Trainer>
+<Box>4</Box>
+<Rug>10</Rug>
+<Weight>30.0</Weight>
+<StartPrice>$13.60</StartPrice>
+<Handicap />
+<Margin1>19.50</Margin1>
+<Margin2>1.37</Margin2>
+<PIR>M/878</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>7.13</SplitMargin>
+<RunTime>26.96</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="963170005">
+<Place>8</Place>
+<DogName>ASTON POWERS</DogName>
+<Trainer id="132501">E Lieshout</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>33.6</Weight>
+<StartPrice>$34.10</StartPrice>
+<Handicap />
+<Margin1>21.49</Margin1>
+<Margin2>1.99</Margin2>
+<PIR>S/787</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>7.10</SplitMargin>
+<RunTime>27.10</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1068360033">
+<Place>S</Place>
+<DogName>SANTANA</DogName>
+<Trainer id="129817">G Tatti</Trainer>
+<Box />
+<Rug>4</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="1389280042">
+<Place>R</Place>
+<DogName>BAGEERA</DogName>
+<Trainer id="7380">A Warton</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>25.60</WinTime>
+<Split1Time>6.53</Split1Time>
+<Split1Rug>5</Split1Rug>
+<Split2Time>11.22</Split2Time>
+<Split2Rug>5</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>1.50</WinDiv>
+<Place1Div>1.04</Place1Div>
+<Place2Div>1.30</Place2Div>
+<Place3Div>3.60</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>2.40</Quin>
+<Exacta>3.60</Exacta>
+<Trifecta>22.40</Trifecta>
+<Pick4>74.80</Pick4>
+<RD />
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648625">
+<RaceNum>2</RaceNum>
+<RaceName>TOP CAT VIDEO HT2</RaceName>
+<RaceTime>07:06PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Maiden Heat</RaceGrade>
+<Dog id="1490820093">
+<Place>1</Place>
+<DogName>ASTON DEE BEE</DogName>
+<Trainer id="129459">J Thompson</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>35.0</Weight>
+<StartPrice>$1.30F</StartPrice>
+<Handicap />
+<Margin1>10.30</Margin1>
+<Margin2 />
+<PIR>M/111</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.44</SplitMargin>
+<RunTime>25.72</RunTime>
+<Prizemoney>990.00</Prizemoney>
+</Dog>
+<Dog id="1041390023">
+<Place>2</Place>
+<DogName>MAYBE HANNIBAL</DogName>
+<Trainer id="128785">I Bindley</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>31.9</Weight>
+<StartPrice>$7.80</StartPrice>
+<Handicap />
+<Margin1>10.30</Margin1>
+<Margin2>10.30</Margin2>
+<PIR>S/422</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.77</SplitMargin>
+<RunTime>26.44</RunTime>
+<Prizemoney>285.00</Prizemoney>
+</Dog>
+<Dog id="701340025">
+<Place>3</Place>
+<DogName>MAGGIE'S ALONE</DogName>
+<Trainer id="132768">I Dann</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>26.3</Weight>
+<StartPrice>$41.10</StartPrice>
+<Handicap />
+<Margin1>10.51</Margin1>
+<Margin2>0.21</Margin2>
+<PIR>S/643</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.88</SplitMargin>
+<RunTime>26.46</RunTime>
+<Prizemoney>140.00</Prizemoney>
+</Dog>
+<Dog id="1263700023">
+<Place>4</Place>
+<DogName>KRUZIN' CRIPPS</DogName>
+<Trainer id="8974">D Selby</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>28.6</Weight>
+<StartPrice>$19.00</StartPrice>
+<Handicap />
+<Margin1>11.11</Margin1>
+<Margin2>0.60</Margin2>
+<PIR>S/554</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.86</SplitMargin>
+<RunTime>26.50</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1362060005">
+<Place>5</Place>
+<DogName>SHOOT THE MOON</DogName>
+<Trainer id="115228">R Stephens</Trainer>
+<Box>3</Box>
+<Rug>10</Rug>
+<Weight>23.9</Weight>
+<StartPrice>$33.30</StartPrice>
+<Handicap />
+<Margin1>12.19</Margin1>
+<Margin2>1.07</Margin2>
+<PIR>M/335</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.70</SplitMargin>
+<RunTime>26.57</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1363300010">
+<Place>6</Place>
+<DogName>SPRITNEY BEERS</DogName>
+<Trainer id="132501">E Lieshout</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>25.0</Weight>
+<StartPrice>$11.30</StartPrice>
+<Handicap />
+<Margin1>15.26</Margin1>
+<Margin2>3.07</Margin2>
+<PIR>M/268</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.65</SplitMargin>
+<RunTime>26.79</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1748150069">
+<Place>7</Place>
+<DogName>SLICK AZZ EL</DogName>
+<Trainer id="84303">A Dillon</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>26.3</Weight>
+<StartPrice>$17.20</StartPrice>
+<Handicap />
+<Margin1>15.29</Margin1>
+<Margin2>0.03</Margin2>
+<PIR>S/787</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.95</SplitMargin>
+<RunTime>26.79</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="754430025">
+<Place>8</Place>
+<DogName>OUR WILD EMILY</DogName>
+<Trainer id="105803">P Romagnino</Trainer>
+<Box>7</Box>
+<Rug>9</Rug>
+<Weight>23.3</Weight>
+<StartPrice>$20.90</StartPrice>
+<Handicap />
+<Margin1>16.54</Margin1>
+<Margin2>1.26</Margin2>
+<PIR>S/876</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.95</SplitMargin>
+<RunTime>26.88</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1389280066">
+<Place>S</Place>
+<DogName>JUGGERNAUT TRAIN</DogName>
+<Trainer id="109186">D Selleck</Trainer>
+<Box />
+<Rug>3</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="1332800001">
+<Place>S</Place>
+<DogName>IT'S ALL OVER</DogName>
+<Trainer id="116422">M Rudd</Trainer>
+<Box />
+<Rug>7</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>25.72</WinTime>
+<Split1Time>6.44</Split1Time>
+<Split1Rug>5</Split1Rug>
+<Split2Time>11.11</Split2Time>
+<Split2Rug>5</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>1.30</WinDiv>
+<Place1Div>1.04</Place1Div>
+<Place2Div>1.80</Place2Div>
+<Place3Div>4.70</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>4.00</Quin>
+<Exacta>4.70</Exacta>
+<Trifecta>84.00</Trifecta>
+<Pick4>298.10</Pick4>
+<RD>4.90</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648626">
+<RaceNum>3</RaceNum>
+<RaceName>WWR SAWDUST HT3</RaceName>
+<RaceTime>07:24PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Maiden Heat</RaceGrade>
+<Dog id="1400900018">
+<Place>1</Place>
+<DogName>FLAWLESS BLING</DogName>
+<Trainer id="130355">J Westerlo</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>36.2</Weight>
+<StartPrice>$1.60F</StartPrice>
+<Handicap />
+<Margin1>10.60</Margin1>
+<Margin2 />
+<PIR>M/111</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.52</SplitMargin>
+<RunTime>25.75</RunTime>
+<Prizemoney>990.00</Prizemoney>
+</Dog>
+<Dog id="771030010">
+<Place>2</Place>
+<DogName>WHY NOT DAWN</DogName>
+<Trainer id="117169">G Carter</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>27.5</Weight>
+<StartPrice>$7.40</StartPrice>
+<Handicap />
+<Margin1>10.60</Margin1>
+<Margin2>10.60</Margin2>
+<PIR>M/333</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.63</SplitMargin>
+<RunTime>26.49</RunTime>
+<Prizemoney>285.00</Prizemoney>
+</Dog>
+<Dog id="1426130020">
+<Place>3</Place>
+<DogName>DON'T TRUST</DogName>
+<Trainer id="119287">P Ellul</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>34.5</Weight>
+<StartPrice>$9.20</StartPrice>
+<Handicap />
+<Margin1>11.50</Margin1>
+<Margin2>0.90</Margin2>
+<PIR>S/755</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.80</SplitMargin>
+<RunTime>26.56</RunTime>
+<Prizemoney>140.00</Prizemoney>
+</Dog>
+<Dog id="1419170022">
+<Place>4</Place>
+<DogName>NIMBLE LUCY</DogName>
+<Trainer id="102530">L Fitzpatrick</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>26.5</Weight>
+<StartPrice>$14.70</StartPrice>
+<Handicap />
+<Margin1>12.40</Margin1>
+<Margin2>0.90</Margin2>
+<PIR>M/444</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.70</SplitMargin>
+<RunTime>26.62</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1263700028">
+<Place>5</Place>
+<DogName>SON OF STEVE</DogName>
+<Trainer id="8974">D Selby</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>30.6</Weight>
+<StartPrice>$7.00</StartPrice>
+<Handicap />
+<Margin1>13.06</Margin1>
+<Margin2>0.66</Margin2>
+<PIR>M/222</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.59</SplitMargin>
+<RunTime>26.66</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="673190032">
+<Place>6</Place>
+<DogName>MEENIYAN HAWK</DogName>
+<Trainer id="130486">M Thomas</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>33.4</Weight>
+<StartPrice>$23.20</StartPrice>
+<Handicap />
+<Margin1>16.57</Margin1>
+<Margin2>3.51</Margin2>
+<PIR>M/566</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.73</SplitMargin>
+<RunTime>26.91</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1340420022">
+<Place>7</Place>
+<DogName>MAGIC NEO</DogName>
+<Trainer id="117822">M Fearnley</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>32.3</Weight>
+<StartPrice>$19.50</StartPrice>
+<Handicap />
+<Margin1>17.51</Margin1>
+<Margin2>0.94</Margin2>
+<PIR>S/677</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.80</SplitMargin>
+<RunTime>26.98</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1748150070">
+<Place>S</Place>
+<DogName>LAST DRINKS</DogName>
+<Trainer id="84303">A Dillon</Trainer>
+<Box />
+<Rug>6</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="1389280040">
+<Place>S</Place>
+<DogName>TRIUM</DogName>
+<Trainer id="7380">A Warton</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="931140068">
+<Place>R</Place>
+<DogName>TIANA</DogName>
+<Trainer id="122184">G McLachlan</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>25.75</WinTime>
+<Split1Time>6.52</Split1Time>
+<Split1Rug>4</Split1Rug>
+<Split2Time>11.20</Split2Time>
+<Split2Rug>4</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>1.60</WinDiv>
+<Place1Div>1.04</Place1Div>
+<Place2Div>1.80</Place2Div>
+<Place3Div>3.10</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>4.00</Quin>
+<Exacta>5.40</Exacta>
+<Trifecta>23.20</Trifecta>
+<Pick4>111.60</Pick4>
+<RD>1.70</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648630">
+<RaceNum>4</RaceNum>
+<RaceName>FIND US ON FACEBOOK</RaceName>
+<RaceTime>07:42PM</RaceTime>
+<Distance>400m</Distance>
+<RaceGrade>Mixed 6/7</RaceGrade>
+<Dog id="1152760002">
+<Place>1</Place>
+<DogName>LEGAL</DogName>
+<Trainer id="132862">J Condon</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>28.4</Weight>
+<StartPrice>$2.80F</StartPrice>
+<Handicap />
+<Margin1>3.00</Margin1>
+<Margin2 />
+<PIR>Q/11</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.44</SplitMargin>
+<RunTime>22.96</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="910710018">
+<Place>2</Place>
+<DogName>ROLAND VIEW</DogName>
+<Trainer id="127852">T Burns</Trainer>
+<Box>8</Box>
+<Rug>9</Rug>
+<Weight>31.2</Weight>
+<StartPrice>$13.80</StartPrice>
+<Handicap />
+<Margin1>3.00</Margin1>
+<Margin2>3.00</Margin2>
+<PIR>S/54</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.70</SplitMargin>
+<RunTime>23.17</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="1003440013">
+<Place>3</Place>
+<DogName>HELERAY MOOTAY</DogName>
+<Trainer id="110383">R Sellars</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>34.1</Weight>
+<StartPrice>$3.90</StartPrice>
+<Handicap />
+<Margin1>3.29</Margin1>
+<Margin2>0.29</Margin2>
+<PIR>M/22</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.58</SplitMargin>
+<RunTime>23.19</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="816730060">
+<Place>4</Place>
+<DogName>NATHAN BAXTER</DogName>
+<Trainer id="130148">T Womann</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>34.2</Weight>
+<StartPrice>$9.20</StartPrice>
+<Handicap />
+<Margin1>6.14</Margin1>
+<Margin2>2.86</Margin2>
+<PIR>M/45</PIR>
+<Checks>8</Checks>
+<Comments />
+<SplitMargin>8.65</SplitMargin>
+<RunTime>23.39</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="677880005">
+<Place>5</Place>
+<DogName>COURTHOUSE WALK</DogName>
+<Trainer id="132849">D Connor</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>27.4</Weight>
+<StartPrice>$8.30</StartPrice>
+<Handicap />
+<Margin1>9.57</Margin1>
+<Margin2>3.43</Margin2>
+<PIR>S/66</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.74</SplitMargin>
+<RunTime>23.63</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="913850015">
+<Place>6</Place>
+<DogName>HELLO NIMBLE</DogName>
+<Trainer id="105803">P Romagnino</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>31.1</Weight>
+<StartPrice>$5.30</StartPrice>
+<Handicap />
+<Margin1>9.64</Margin1>
+<Margin2>0.07</Margin2>
+<PIR>M/33</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>8.58</SplitMargin>
+<RunTime>23.64</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1022600005">
+<Place>7</Place>
+<DogName>ARMADALE LASS</DogName>
+<Trainer id="101046">P Bailey</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>26.2</Weight>
+<StartPrice>$32.90</StartPrice>
+<Handicap />
+<Margin1>9.79</Margin1>
+<Margin2>0.14</Margin2>
+<PIR>S/87</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>8.79</SplitMargin>
+<RunTime>23.65</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="250490006">
+<Place>8</Place>
+<DogName>LIL MISS GIGGLES</DogName>
+<Trainer id="121397">G Kantzidis</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>26.5</Weight>
+<StartPrice>$23.60</StartPrice>
+<Handicap />
+<Margin1>12.64</Margin1>
+<Margin2>2.86</Margin2>
+<PIR>M/78</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.77</SplitMargin>
+<RunTime>23.85</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="442910006">
+<Place>S</Place>
+<DogName>LAUREN KASEY</DogName>
+<Trainer id="112670">M Braithwaite</Trainer>
+<Box />
+<Rug>8</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="1068360036">
+<Place>R</Place>
+<DogName>JUPITER JONES</DogName>
+<Trainer id="129817">G Tatti</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>22.96</WinTime>
+<Split1Time>8.44</Split1Time>
+<Split1Rug>5</Split1Rug>
+<Split2Time />
+<Split2Rug />
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>2.80</WinDiv>
+<Place1Div>1.30</Place1Div>
+<Place2Div>2.70</Place2Div>
+<Place3Div>1.50</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>26.50</Quin>
+<Exacta>41.50</Exacta>
+<Trifecta>114.60</Trifecta>
+<Pick4>557.60</Pick4>
+<RD>17.50</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648635">
+<RaceNum>5</RaceNum>
+<RaceName>www.tab.com.au</RaceName>
+<RaceTime>08:05PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Grade 5</RaceGrade>
+<Dog id="1152760046">
+<Place>1</Place>
+<DogName>FLYING CASH</DogName>
+<Trainer id="113966">T Erenshaw</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>26.9</Weight>
+<StartPrice>$3.70</StartPrice>
+<Handicap />
+<Margin1>2.23</Margin1>
+<Margin2 />
+<PIR>M/111</PIR>
+<Checks>2</Checks>
+<Comments />
+<SplitMargin>6.59</SplitMargin>
+<RunTime>26.03</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="1209110012">
+<Place>2</Place>
+<DogName>IT'S MY SECRET</DogName>
+<Trainer id="132220">E Dowsey</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>29.5</Weight>
+<StartPrice>$3.60F</StartPrice>
+<Handicap />
+<Margin1>2.23</Margin1>
+<Margin2>2.23</Margin2>
+<PIR>M/533</PIR>
+<Checks>8</Checks>
+<Comments />
+<SplitMargin>6.82</SplitMargin>
+<RunTime>26.19</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="968060006">
+<Place>3</Place>
+<DogName>POPPY PETE</DogName>
+<Trainer id="137663">P Tharle</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>25.4</Weight>
+<StartPrice>$5.50</StartPrice>
+<Handicap />
+<Margin1>4.23</Margin1>
+<Margin2>2.00</Margin2>
+<PIR>M/222</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.64</SplitMargin>
+<RunTime>26.33</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="618440015">
+<Place>4</Place>
+<DogName>CREATIVE CRUISE</DogName>
+<Trainer id="107245">N Podmore</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>33.6</Weight>
+<StartPrice>$8.20</StartPrice>
+<Handicap />
+<Margin1>7.80</Margin1>
+<Margin2>3.57</Margin2>
+<PIR>M/345</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.75</SplitMargin>
+<RunTime>26.58</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="955860003">
+<Place>5</Place>
+<DogName>BLACK SALVE</DogName>
+<Trainer id="107481">M Mizzi</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>35.8</Weight>
+<StartPrice>$17.40</StartPrice>
+<Handicap />
+<Margin1>9.06</Margin1>
+<Margin2>1.26</Margin2>
+<PIR>M/784</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.92</SplitMargin>
+<RunTime>26.67</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="821660062">
+<Place>6</Place>
+<DogName>SUZIE</DogName>
+<Trainer id="107925">W McMahon</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>30.2</Weight>
+<StartPrice>$6.40</StartPrice>
+<Handicap />
+<Margin1>9.93</Margin1>
+<Margin2>0.87</Margin2>
+<PIR>M/456</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>6.77</SplitMargin>
+<RunTime>26.73</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="763790101">
+<Place>7</Place>
+<DogName>MISS MATHIESON</DogName>
+<Trainer id="101781">D Hay</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>25.5</Weight>
+<StartPrice>$15.00</StartPrice>
+<Handicap />
+<Margin1>12.67</Margin1>
+<Margin2>2.74</Margin2>
+<PIR>M/668</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.91</SplitMargin>
+<RunTime>26.92</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="385370002">
+<Place>8</Place>
+<DogName>RENBERG</DogName>
+<Trainer id="133034">J Clay</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>33.9</Weight>
+<StartPrice>$20.70</StartPrice>
+<Handicap />
+<Margin1>14.21</Margin1>
+<Margin2>1.54</Margin2>
+<PIR>S/877</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>7.17</SplitMargin>
+<RunTime>27.03</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="317650012">
+<Place>R</Place>
+<DogName>BIRD SPECIAL</DogName>
+<Trainer id="128785">I Bindley</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="1068360031">
+<Place>R</Place>
+<DogName>GALAXY STAR</DogName>
+<Trainer id="129817">G Tatti</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>26.03</WinTime>
+<Split1Time>6.59</Split1Time>
+<Split1Rug>6</Split1Rug>
+<Split2Time>11.42</Split2Time>
+<Split2Rug>6</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>3.70</WinDiv>
+<Place1Div>1.30</Place1Div>
+<Place2Div>1.70</Place2Div>
+<Place3Div>2.20</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>9.00</Quin>
+<Exacta>19.90</Exacta>
+<Trifecta>64.20</Trifecta>
+<Pick4>319.00</Pick4>
+<RD>25.20</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648634">
+<RaceNum>6</RaceNum>
+<RaceName>TOP RUN IMAGES</RaceName>
+<RaceTime>08:23PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Grade 5</RaceGrade>
+<Dog id="362700051">
+<Place>1</Place>
+<DogName>ZALL GOOD</DogName>
+<Trainer id="132779">I Brown</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>26.0</Weight>
+<StartPrice>$6.30</StartPrice>
+<Handicap />
+<Margin1>1.64</Margin1>
+<Margin2 />
+<PIR>M/222</PIR>
+<Checks>2</Checks>
+<Comments />
+<SplitMargin>6.66</SplitMargin>
+<RunTime>25.97</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="963700135">
+<Place>2</Place>
+<DogName>PAUA TO KAPAU</DogName>
+<Trainer id="107810">S White</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>34.3</Weight>
+<StartPrice>$1.70F</StartPrice>
+<Handicap />
+<Margin1>1.64</Margin1>
+<Margin2>1.64</Margin2>
+<PIR>M/111</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.57</SplitMargin>
+<RunTime>26.09</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="992550029">
+<Place>3</Place>
+<DogName>DR. MELEZAR</DogName>
+<Trainer id="107925">W McMahon</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>30.4</Weight>
+<StartPrice>$7.70</StartPrice>
+<Handicap />
+<Margin1>2.56</Margin1>
+<Margin2>0.91</Margin2>
+<PIR>S/554</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>6.80</SplitMargin>
+<RunTime>26.15</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="205160037">
+<Place>4</Place>
+<DogName>TOBIAS KELTON</DogName>
+<Trainer id="123078">S Toner</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>37.1</Weight>
+<StartPrice>$10.90</StartPrice>
+<Handicap />
+<Margin1>2.89</Margin1>
+<Margin2>0.33</Margin2>
+<PIR>S/667</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.83</SplitMargin>
+<RunTime>26.18</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="376320029">
+<Place>5</Place>
+<DogName>BEYOND TODAY</DogName>
+<Trainer id="130058">C Johannsen</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>31.2</Weight>
+<StartPrice>$44.10</StartPrice>
+<Handicap />
+<Margin1>3.09</Margin1>
+<Margin2>0.20</Margin2>
+<PIR>M/333</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>6.66</SplitMargin>
+<RunTime>26.19</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="917310020">
+<Place>6</Place>
+<DogName>DR. COMPULSION</DogName>
+<Trainer id="99554">J McMahon</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>35.6</Weight>
+<StartPrice>$8.20</StartPrice>
+<Handicap />
+<Margin1>6.30</Margin1>
+<Margin2>3.21</Margin2>
+<PIR>S/876</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.96</SplitMargin>
+<RunTime>26.42</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="-752115">
+<Place>7</Place>
+<DogName>PARANOIA</DogName>
+<Trainer id="130148">T Womann</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>32.9</Weight>
+<StartPrice>$31.20</StartPrice>
+<Handicap />
+<Margin1>7.17</Margin1>
+<Margin2>0.87</Margin2>
+<PIR>S/788</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.85</SplitMargin>
+<RunTime>26.48</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="-746218">
+<Place>8</Place>
+<DogName>HELERAY STEELE</DogName>
+<Trainer id="110384">H Sellars</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>31.8</Weight>
+<StartPrice>$20.30</StartPrice>
+<Handicap />
+<Margin1>7.24</Margin1>
+<Margin2>0.07</Margin2>
+<PIR>M/445</PIR>
+<Checks>8</Checks>
+<Comments />
+<SplitMargin>6.76</SplitMargin>
+<RunTime>26.48</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="-748642">
+<Place>R</Place>
+<DogName>RAMBO'S PARTY</DogName>
+<Trainer id="101200">M Hehir</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="745800025">
+<Place>R</Place>
+<DogName>WINTERSTEIN</DogName>
+<Trainer id="130058">C Johannsen</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>25.97</WinTime>
+<Split1Time>6.57</Split1Time>
+<Split1Rug>2</Split1Rug>
+<Split2Time>11.32</Split2Time>
+<Split2Rug>2</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>6.30</WinDiv>
+<Place1Div>2.00</Place1Div>
+<Place2Div>1.04</Place2Div>
+<Place3Div>1.90</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>6.70</Quin>
+<Exacta>22.60</Exacta>
+<Trifecta>74.60</Trifecta>
+<Pick4>227.00</Pick4>
+<RD>26.00</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648627">
+<RaceNum>7</RaceNum>
+<RaceName>AUSTRALIAN QUALITY PET FOODS</RaceName>
+<RaceTime>08:42PM</RaceTime>
+<Distance>400m</Distance>
+<RaceGrade>Mixed 4/5</RaceGrade>
+<Dog id="757840020">
+<Place>1</Place>
+<DogName>VIENNA BLACK</DogName>
+<Trainer id="132766">M Brown</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>27.5</Weight>
+<StartPrice>$2.30F</StartPrice>
+<Handicap />
+<Margin1>2.27</Margin1>
+<Margin2 />
+<PIR>M/22</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.28</SplitMargin>
+<RunTime>22.64</RunTime>
+<Prizemoney>1405.00</Prizemoney>
+</Dog>
+<Dog id="618440011">
+<Place>2</Place>
+<DogName>MISS ROSSI</DogName>
+<Trainer id="130148">T Womann</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>27.8</Weight>
+<StartPrice>$3.40</StartPrice>
+<Handicap />
+<Margin1>2.27</Margin1>
+<Margin2>2.27</Margin2>
+<PIR>M/11</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.28</SplitMargin>
+<RunTime>22.80</RunTime>
+<Prizemoney>400.00</Prizemoney>
+</Dog>
+<Dog id="642290394">
+<Place>3</Place>
+<DogName>LE SANDS</DogName>
+<Trainer id="105986">D Dean</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>32.4</Weight>
+<StartPrice>$9.20</StartPrice>
+<Handicap />
+<Margin1>4.77</Margin1>
+<Margin2>2.50</Margin2>
+<PIR>Q/33</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.35</SplitMargin>
+<RunTime>22.97</RunTime>
+<Prizemoney>200.00</Prizemoney>
+</Dog>
+<Dog id="690630014">
+<Place>4</Place>
+<DogName>ANGEL ICE</DogName>
+<Trainer id="105986">D Dean</Trainer>
+<Box>6</Box>
+<Rug>9</Rug>
+<Weight>27.5</Weight>
+<StartPrice>$21.30</StartPrice>
+<Handicap />
+<Margin1>4.86</Margin1>
+<Margin2>0.09</Margin2>
+<PIR>M/65</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.72</SplitMargin>
+<RunTime>22.98</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="917310026">
+<Place>5</Place>
+<DogName>DR. TORETTO</DogName>
+<Trainer id="107925">W McMahon</Trainer>
+<Box>1</Box>
+<Rug>10</Rug>
+<Weight>32.4</Weight>
+<StartPrice>$26.40</StartPrice>
+<Handicap />
+<Margin1>5.31</Margin1>
+<Margin2>0.46</Margin2>
+<PIR>M/44</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.56</SplitMargin>
+<RunTime>23.01</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="592760015">
+<Place>6</Place>
+<DogName>DR. BODACIOUS</DogName>
+<Trainer id="107925">W McMahon</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>32.1</Weight>
+<StartPrice>$39.70</StartPrice>
+<Handicap />
+<Margin1>10.66</Margin1>
+<Margin2>5.34</Margin2>
+<PIR>S/76</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.77</SplitMargin>
+<RunTime>23.39</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="224910008">
+<Place>7</Place>
+<DogName>MIDNIGHT RIDE</DogName>
+<Trainer id="100185">A Bahen</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>32.0</Weight>
+<StartPrice>$4.20</StartPrice>
+<Handicap />
+<Margin1>13.66</Margin1>
+<Margin2>3.00</Margin2>
+<PIR>M/57</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.67</SplitMargin>
+<RunTime>23.60</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="384150007">
+<Place>S</Place>
+<DogName>ELI'S JET</DogName>
+<Trainer id="0" />
+<Box />
+<Rug>1</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="-750619">
+<Place>S</Place>
+<DogName>DOWN EVERY ROAD</DogName>
+<Trainer id="133142">W Bickerton</Trainer>
+<Box />
+<Rug>5</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="766410078">
+<Place>S</Place>
+<DogName>FARCE ALLEN</DogName>
+<Trainer id="130148">T Womann</Trainer>
+<Box />
+<Rug>6</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>22.64</WinTime>
+<Split1Time>8.28</Split1Time>
+<Split1Rug>2</Split1Rug>
+<Split2Time />
+<Split2Rug />
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>2.30</WinDiv>
+<Place1Div>1.30</Place1Div>
+<Place2Div>2.00</Place2Div>
+<Place3Div>NTD</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>4.30</Quin>
+<Exacta>8.10</Exacta>
+<Trifecta>30.60</Trifecta>
+<Pick4>116.90</Pick4>
+<RD>11.20</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648633">
+<RaceNum>8</RaceNum>
+<RaceName>TAB REWARDS</RaceName>
+<RaceTime>09:05PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Mixed 4/5</RaceGrade>
+<Dog id="992550033">
+<Place>1</Place>
+<DogName>HARISTOTLE</DogName>
+<Trainer id="107925">W McMahon</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>32.5</Weight>
+<StartPrice>$2.00F</StartPrice>
+<Handicap />
+<Margin1>2.67</Margin1>
+<Margin2 />
+<PIR>M/221</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.49</SplitMargin>
+<RunTime>25.80</RunTime>
+<Prizemoney>1405.00</Prizemoney>
+</Dog>
+<Dog id="688090046">
+<Place>2</Place>
+<DogName>IKAIKA WARRIOR</DogName>
+<Trainer id="131066">K Greenough</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>34.0</Weight>
+<StartPrice>$9.20</StartPrice>
+<Handicap />
+<Margin1>2.67</Margin1>
+<Margin2>2.67</Margin2>
+<PIR>S/743</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.70</SplitMargin>
+<RunTime>25.99</RunTime>
+<Prizemoney>400.00</Prizemoney>
+</Dog>
+<Dog id="1238520019">
+<Place>3</Place>
+<DogName>FAST AZZ EL</DogName>
+<Trainer id="84303">A Dillon</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>26.6</Weight>
+<StartPrice>$10.60</StartPrice>
+<Handicap />
+<Margin1>3.69</Margin1>
+<Margin2>1.01</Margin2>
+<PIR>S/334</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.55</SplitMargin>
+<RunTime>26.06</RunTime>
+<Prizemoney>200.00</Prizemoney>
+</Dog>
+<Dog id="219770038">
+<Place>4</Place>
+<DogName>HAWKA TRON</DogName>
+<Trainer id="132207">M Mallia-Magri</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>33.3</Weight>
+<StartPrice>$10.70</StartPrice>
+<Handicap />
+<Margin1>4.77</Margin1>
+<Margin2>1.09</Margin2>
+<PIR>M/112</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.44</SplitMargin>
+<RunTime>26.13</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="917310012">
+<Place>5</Place>
+<DogName>DR. DARKRAI</DogName>
+<Trainer id="107925">W McMahon</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>32.5</Weight>
+<StartPrice>$3.40</StartPrice>
+<Handicap />
+<Margin1>5.07</Margin1>
+<Margin2>0.30</Margin2>
+<PIR>S/665</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.69</SplitMargin>
+<RunTime>26.16</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="563470030">
+<Place>6</Place>
+<DogName>MIZUKI</DogName>
+<Trainer id="112668">R Busuttil</Trainer>
+<Box>5</Box>
+<Rug>9</Rug>
+<Weight>31.7</Weight>
+<StartPrice>$42.30</StartPrice>
+<Handicap />
+<Margin1>6.49</Margin1>
+<Margin2>1.41</Margin2>
+<PIR>M/456</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.55</SplitMargin>
+<RunTime>26.25</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="790670078">
+<Place>7</Place>
+<DogName>FEARLESS FLYER</DogName>
+<Trainer id="103798">O McGovern</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>31.9</Weight>
+<StartPrice>$13.40</StartPrice>
+<Handicap />
+<Margin1>9.91</Margin1>
+<Margin2>3.43</Margin2>
+<PIR>M/577</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.69</SplitMargin>
+<RunTime>26.49</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="917310018">
+<Place>S</Place>
+<DogName>DR. YANMA</DogName>
+<Trainer id="99554">J McMahon</Trainer>
+<Box />
+<Rug>3</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="954560004">
+<Place>S</Place>
+<DogName>DEWANA INTEREST</DogName>
+<Trainer id="116745">M Dewan</Trainer>
+<Box />
+<Rug>5</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="508880004">
+<Place>S</Place>
+<DogName>SATURDAY SIP</DogName>
+<Trainer id="132129">P Galea</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>25.80</WinTime>
+<Split1Time>6.44</Split1Time>
+<Split1Rug>4</Split1Rug>
+<Split2Time>11.19</Split2Time>
+<Split2Rug>4</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>2.00</WinDiv>
+<Place1Div>1.40</Place1Div>
+<Place2Div>3.50</Place2Div>
+<Place3Div>NTD</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>12.80</Quin>
+<Exacta>13.10</Exacta>
+<Trifecta>74.70</Trifecta>
+<Pick4>231.70</Pick4>
+<RD>9.70</RD>
+<DD>32.90</DD>
+<Quad>374.50</Quad>
+</Exotics>
+</Race>
+<Race id="168648631">
+<RaceNum>9</RaceNum>
+<RaceName>Luca Neveelk@Stud</RaceName>
+<RaceTime>09:25PM</RaceTime>
+<Distance>400m</Distance>
+<RaceGrade>Mixed 6/7</RaceGrade>
+<Dog id="1198170004">
+<Place>1</Place>
+<DogName>FLEUR DE ROSE</DogName>
+<Trainer id="117258">V Gay</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>24.9</Weight>
+<StartPrice>$7.80</StartPrice>
+<Handicap />
+<Margin1>0.49</Margin1>
+<Margin2 />
+<PIR>Q/11</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.37</SplitMargin>
+<RunTime>22.96</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="1295000046">
+<Place>2</Place>
+<DogName>GOODNIGHT IRENE</DogName>
+<Trainer id="16801">B Limbach</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>27.6</Weight>
+<StartPrice>$3.00F</StartPrice>
+<Handicap />
+<Margin1>0.49</Margin1>
+<Margin2>0.49</Margin2>
+<PIR>M/32</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.48</SplitMargin>
+<RunTime>23.00</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="599490004">
+<Place>3</Place>
+<DogName>DEE BIG RIG</DogName>
+<Trainer id="132768">I Dann</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>32.7</Weight>
+<StartPrice>$5.50</StartPrice>
+<Handicap />
+<Margin1>2.66</Margin1>
+<Margin2>2.17</Margin2>
+<PIR>M/23</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.46</SplitMargin>
+<RunTime>23.15</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="1362060089">
+<Place>4</Place>
+<DogName>GOORAWIN</DogName>
+<Trainer id="118222">C Johnson</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>24.8</Weight>
+<StartPrice>$14.20</StartPrice>
+<Handicap />
+<Margin1>2.77</Margin1>
+<Margin2>0.11</Margin2>
+<PIR>M/44</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.67</SplitMargin>
+<RunTime>23.16</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="714150033">
+<Place>5</Place>
+<DogName>DESERT RANGER</DogName>
+<Trainer id="118439">B Selleck</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>35.5</Weight>
+<StartPrice>$26.80</StartPrice>
+<Handicap />
+<Margin1>4.64</Margin1>
+<Margin2>1.87</Margin2>
+<PIR>S/55</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.69</SplitMargin>
+<RunTime>23.29</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1306460025">
+<Place>6</Place>
+<DogName>IN A PICKLE</DogName>
+<Trainer id="113523">G Jose</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>33.4</Weight>
+<StartPrice>$18.00</StartPrice>
+<Handicap />
+<Margin1>4.73</Margin1>
+<Margin2>0.09</Margin2>
+<PIR>M/66</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.84</SplitMargin>
+<RunTime>23.30</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1209110004">
+<Place>7</Place>
+<DogName>SPRING RAIN</DogName>
+<Trainer id="132849">D Connor</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>27.2</Weight>
+<StartPrice>$12.40</StartPrice>
+<Handicap />
+<Margin1>7.10</Margin1>
+<Margin2>2.37</Margin2>
+<PIR>M/77</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.88</SplitMargin>
+<RunTime>23.46</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="677880016">
+<Place>8</Place>
+<DogName>RAY DONOVAN</DogName>
+<Trainer id="116422">M Rudd</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>34.9</Weight>
+<StartPrice>$3.40</StartPrice>
+<Handicap />
+<Margin1>7.90</Margin1>
+<Margin2>0.80</Margin2>
+<PIR>S/88</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.91</SplitMargin>
+<RunTime>23.52</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="910710018">
+<Place>R</Place>
+<DogName>ROLAND VIEW</DogName>
+<Trainer id="127852">T Burns</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="879520044">
+<Place>R</Place>
+<DogName>YORGI ROAD</DogName>
+<Trainer id="131028">J Grindley</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>22.96</WinTime>
+<Split1Time>8.37</Split1Time>
+<Split1Rug>6</Split1Rug>
+<Split2Time />
+<Split2Rug />
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>7.80</WinDiv>
+<Place1Div>2.00</Place1Div>
+<Place2Div>1.50</Place2Div>
+<Place3Div>2.00</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>9.30</Quin>
+<Exacta>38.40</Exacta>
+<Trifecta>108.70</Trifecta>
+<Pick4>514.30</Pick4>
+<RD>21.10</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648632">
+<RaceNum>10</RaceNum>
+<RaceName>MURPHY'S GREYHOUND COMPLEX</RaceName>
+<RaceTime>09:45PM</RaceTime>
+<Distance>460m</Distance>
+<RaceGrade>Grade 6</RaceGrade>
+<Dog id="1306460049">
+<Place>1</Place>
+<DogName>YUKEN DUET</DogName>
+<Trainer id="102549">G Hall</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>32.0</Weight>
+<StartPrice>$2.10F</StartPrice>
+<Handicap />
+<Margin1>3.27</Margin1>
+<Margin2 />
+<PIR>M/111</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.59</SplitMargin>
+<RunTime>25.97</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="1184050077">
+<Place>2</Place>
+<DogName>BULLDOG WARRIOR</DogName>
+<Trainer id="118033">G Clifton</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>33.0</Weight>
+<StartPrice>$7.20</StartPrice>
+<Handicap />
+<Margin1>3.27</Margin1>
+<Margin2>3.27</Margin2>
+<PIR>Q/222</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>6.59</SplitMargin>
+<RunTime>26.20</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="1152760023">
+<Place>3</Place>
+<DogName>NINETYMILE TOBY</DogName>
+<Trainer id="130311">G Whitford</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>33.1</Weight>
+<StartPrice>$22.50</StartPrice>
+<Handicap />
+<Margin1>6.57</Margin1>
+<Margin2>3.30</Margin2>
+<PIR>S/843</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.89</SplitMargin>
+<RunTime>26.43</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="1003440032">
+<Place>4</Place>
+<DogName>WAR RIG</DogName>
+<Trainer id="19344">A Jackson</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>28.1</Weight>
+<StartPrice>$5.90</StartPrice>
+<Handicap />
+<Margin1>6.81</Margin1>
+<Margin2>0.24</Margin2>
+<PIR>M/776</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.73</SplitMargin>
+<RunTime>26.45</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="954250065">
+<Place>5</Place>
+<DogName>LEMON PAW</DogName>
+<Trainer id="130058">C Johannsen</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>37.5</Weight>
+<StartPrice>$27.80</StartPrice>
+<Handicap />
+<Margin1>7.39</Margin1>
+<Margin2>0.57</Margin2>
+<PIR>M/655</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>6.72</SplitMargin>
+<RunTime>26.49</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1096450016">
+<Place>6</Place>
+<DogName>BORN MOLLY</DogName>
+<Trainer id="109900">T Churchill</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>26.8</Weight>
+<StartPrice>$34.90</StartPrice>
+<Handicap />
+<Margin1>7.71</Margin1>
+<Margin2>0.33</Margin2>
+<PIR>Q/534</PIR>
+<Checks>2</Checks>
+<Comments />
+<SplitMargin>6.70</SplitMargin>
+<RunTime>26.51</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1478470125">
+<Place>7</Place>
+<DogName>ONE REQUIRED</DogName>
+<Trainer id="113523">G Jose</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>31.2</Weight>
+<StartPrice>$4.20</StartPrice>
+<Handicap />
+<Margin1>8.57</Margin1>
+<Margin2>0.86</Margin2>
+<PIR>M/467</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>6.70</SplitMargin>
+<RunTime>26.57</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="701340130">
+<Place>8</Place>
+<DogName>MIGHTY BREE</DogName>
+<Trainer id="119258">J Brown</Trainer>
+<Box>5</Box>
+<Rug>9</Rug>
+<Weight>28.2</Weight>
+<StartPrice>$16.00</StartPrice>
+<Handicap />
+<Margin1>12.70</Margin1>
+<Margin2>4.13</Margin2>
+<PIR>Q/388</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>6.64</SplitMargin>
+<RunTime>26.86</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="688090043">
+<Place>S</Place>
+<DogName>NOTORIOUS ONE</DogName>
+<Trainer id="113784">W Vassallo</Trainer>
+<Box />
+<Rug>5</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="1068360036">
+<Place>R</Place>
+<DogName>JUPITER JONES</DogName>
+<Trainer id="129817">G Tatti</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>25.97</WinTime>
+<Split1Time>6.59</Split1Time>
+<Split1Rug>1</Split1Rug>
+<Split2Time>11.32</Split2Time>
+<Split2Rug>1</Split2Rug>
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>2.10</WinDiv>
+<Place1Div>1.20</Place1Div>
+<Place2Div>1.10</Place2Div>
+<Place3Div>3.60</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>4.50</Quin>
+<Exacta>10.20</Exacta>
+<Trifecta>49.20</Trifecta>
+<Pick4>250.40</Pick4>
+<RD>28.40</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648629">
+<RaceNum>11</RaceNum>
+<RaceName>MORLAND'S MEATS</RaceName>
+<RaceTime>10:09PM</RaceTime>
+<Distance>400m</Distance>
+<RaceGrade>Grade 5</RaceGrade>
+<Dog id="578460003">
+<Place>1</Place>
+<DogName>ACQUAINTED</DogName>
+<Trainer id="121603">F Vassallo</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>27.8</Weight>
+<StartPrice>$4.70</StartPrice>
+<Handicap />
+<Margin1>0.20</Margin1>
+<Margin2 />
+<PIR>S/32</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.42</SplitMargin>
+<RunTime>22.85</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="754430076">
+<Place>2</Place>
+<DogName>NO ROAD</DogName>
+<Trainer id="127853">P Burns</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>32.7</Weight>
+<StartPrice>$9.60</StartPrice>
+<Handicap />
+<Margin1>0.20</Margin1>
+<Margin2>0.20</Margin2>
+<PIR>M/21</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.37</SplitMargin>
+<RunTime>22.87</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="257120025">
+<Place>3</Place>
+<DogName>HUNTER'S HERO</DogName>
+<Trainer id="127852">T Burns</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>35.8</Weight>
+<StartPrice>$17.80</StartPrice>
+<Handicap />
+<Margin1>3.33</Margin1>
+<Margin2>3.13</Margin2>
+<PIR>M/43</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.47</SplitMargin>
+<RunTime>23.09</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="917310003">
+<Place>4</Place>
+<DogName>SWAN'S WADDLE</DogName>
+<Trainer id="99554">J McMahon</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>33.5</Weight>
+<StartPrice>$18.70</StartPrice>
+<Handicap />
+<Margin1>4.24</Margin1>
+<Margin2>0.91</Margin2>
+<PIR>S/65</PIR>
+<Checks>1</Checks>
+<Comments />
+<SplitMargin>8.62</SplitMargin>
+<RunTime>23.15</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="763790040">
+<Place>5</Place>
+<DogName>REALLY MAGIC</DogName>
+<Trainer id="132768">I Dann</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>25.9</Weight>
+<StartPrice>$4.50</StartPrice>
+<Handicap />
+<Margin1>4.49</Margin1>
+<Margin2>0.24</Margin2>
+<PIR>M/74</PIR>
+<Checks>8</Checks>
+<Comments />
+<SplitMargin>8.65</SplitMargin>
+<RunTime>23.17</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="205160040">
+<Place>6</Place>
+<DogName>XAVIER KELTON</DogName>
+<Trainer id="123078">S Toner</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>35.3</Weight>
+<StartPrice>$2.80F</StartPrice>
+<Handicap />
+<Margin1>4.69</Margin1>
+<Margin2>0.20</Margin2>
+<PIR>M/56</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.48</SplitMargin>
+<RunTime>23.18</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="531700011">
+<Place>7</Place>
+<DogName>SNOW GYPSY</DogName>
+<Trainer id="109354">P Brown</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>24.6</Weight>
+<StartPrice>$36.90</StartPrice>
+<Handicap />
+<Margin1>5.09</Margin1>
+<Margin2>0.40</Margin2>
+<PIR>M/88</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>8.81</SplitMargin>
+<RunTime>23.21</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1209110013">
+<Place>8</Place>
+<DogName>CRASH ZONE</DogName>
+<Trainer id="132220">E Dowsey</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>29.4</Weight>
+<StartPrice>$6.90</StartPrice>
+<Handicap />
+<Margin1>7.80</Margin1>
+<Margin2>2.71</Margin2>
+<PIR>M/17</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.35</SplitMargin>
+<RunTime>23.40</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="1141730026">
+<Place>R</Place>
+<DogName>MYSTIC POWERS</DogName>
+<Trainer id="105986">D Dean</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="-743544">
+<Place>R</Place>
+<DogName>MYSTIC CLOUD</DogName>
+<Trainer id="115328">S Hastie</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>22.85</WinTime>
+<Split1Time>8.35</Split1Time>
+<Split1Rug>7</Split1Rug>
+<Split2Time />
+<Split2Rug />
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>4.70</WinDiv>
+<Place1Div>1.70</Place1Div>
+<Place2Div>2.40</Place2Div>
+<Place3Div>2.80</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>35.80</Quin>
+<Exacta>50.80</Exacta>
+<Trifecta>229.00</Trifecta>
+<Pick4>1041.90</Pick4>
+<RD>26.90</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+<Race id="168648628">
+<RaceNum>12</RaceNum>
+<RaceName>ENDEAVOUR LOCKSMITHS</RaceName>
+<RaceTime>10:28PM</RaceTime>
+<Distance>400m</Distance>
+<RaceGrade>Grade 5</RaceGrade>
+<Dog id="851640034">
+<Place>1</Place>
+<DogName>ZAHRA BELLA</DogName>
+<Trainer id="121397">G Kantzidis</Trainer>
+<Box>6</Box>
+<Rug>6</Rug>
+<Weight>28.2</Weight>
+<StartPrice>$20.60</StartPrice>
+<Handicap />
+<Margin1>0.99</Margin1>
+<Margin2 />
+<PIR>M/11</PIR>
+<Checks>0</Checks>
+<Comments />
+<SplitMargin>8.32</SplitMargin>
+<RunTime>22.85</RunTime>
+<Prizemoney>1325.00</Prizemoney>
+</Dog>
+<Dog id="917310004">
+<Place>2</Place>
+<DogName>MOORE OF DARCY</DogName>
+<Trainer id="99554">J McMahon</Trainer>
+<Box>1</Box>
+<Rug>1</Rug>
+<Weight>35.3</Weight>
+<StartPrice>$2.60F</StartPrice>
+<Handicap />
+<Margin1>0.99</Margin1>
+<Margin2>0.99</Margin2>
+<PIR>M/33</PIR>
+<Checks>8</Checks>
+<Comments />
+<SplitMargin>8.44</SplitMargin>
+<RunTime>22.92</RunTime>
+<Prizemoney>375.00</Prizemoney>
+</Dog>
+<Dog id="630640002">
+<Place>3</Place>
+<DogName>ASTON REGAS</DogName>
+<Trainer id="132501">E Lieshout</Trainer>
+<Box>2</Box>
+<Rug>2</Rug>
+<Weight>28.5</Weight>
+<StartPrice>$3.20</StartPrice>
+<Handicap />
+<Margin1>1.71</Margin1>
+<Margin2>0.73</Margin2>
+<PIR>Q/22</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>8.41</SplitMargin>
+<RunTime>22.97</RunTime>
+<Prizemoney>190.00</Prizemoney>
+</Dog>
+<Dog id="1092430131">
+<Place>4</Place>
+<DogName>BLACK PONTIAC</DogName>
+<Trainer id="109186">D Selleck</Trainer>
+<Box>8</Box>
+<Rug>8</Rug>
+<Weight>28.4</Weight>
+<StartPrice>$9.10</StartPrice>
+<Handicap />
+<Margin1>2.86</Margin1>
+<Margin2>1.14</Margin2>
+<PIR>S/74</PIR>
+<Checks>5</Checks>
+<Comments />
+<SplitMargin>8.60</SplitMargin>
+<RunTime>23.05</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="-748365">
+<Place>5</Place>
+<DogName>LOVING ANGELS</DogName>
+<Trainer id="130058">C Johannsen</Trainer>
+<Box>3</Box>
+<Rug>3</Rug>
+<Weight>27.2</Weight>
+<StartPrice>$49.20</StartPrice>
+<Handicap />
+<Margin1>4.06</Margin1>
+<Margin2>1.20</Margin2>
+<PIR>S/56</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.51</SplitMargin>
+<RunTime>23.14</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="896030000">
+<Place>6</Place>
+<DogName>RICK GRIMES</DogName>
+<Trainer id="117867">C Bahen</Trainer>
+<Box>5</Box>
+<Rug>5</Rug>
+<Weight>31.9</Weight>
+<StartPrice>$6.80</StartPrice>
+<Handicap />
+<Margin1>4.33</Margin1>
+<Margin2>0.27</Margin2>
+<PIR>S/87</PIR>
+<Checks>8</Checks>
+<Comments />
+<SplitMargin>8.67</SplitMargin>
+<RunTime>23.16</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="563470031">
+<Place>7</Place>
+<DogName>ELSWYK MAX</DogName>
+<Trainer id="117019">M Busuttil</Trainer>
+<Box>7</Box>
+<Rug>7</Rug>
+<Weight>32.3</Weight>
+<StartPrice>$56.40</StartPrice>
+<Handicap />
+<Margin1>6.81</Margin1>
+<Margin2>2.49</Margin2>
+<PIR>M/45</PIR>
+<Checks>4</Checks>
+<Comments />
+<SplitMargin>8.51</SplitMargin>
+<RunTime>23.33</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="774870008">
+<Place>8</Place>
+<DogName>SHADES OF SASSY</DogName>
+<Trainer id="72678">T Collins</Trainer>
+<Box>4</Box>
+<Rug>4</Rug>
+<Weight>31.0</Weight>
+<StartPrice>$7.20</StartPrice>
+<Handicap />
+<Margin1>8.51</Margin1>
+<Margin2>1.70</Margin2>
+<PIR>M/68</PIR>
+<Checks>11</Checks>
+<Comments />
+<SplitMargin>8.53</SplitMargin>
+<RunTime>23.45</RunTime>
+<Prizemoney>0.00</Prizemoney>
+</Dog>
+<Dog id="224910011">
+<Place>R</Place>
+<DogName>MIDNIGHT OUTLAW</DogName>
+<Trainer id="100185">A Bahen</Trainer>
+<Box />
+<Rug>9</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Dog id="317730001">
+<Place>R</Place>
+<DogName>LULU NOIR</DogName>
+<Trainer id="276391">M Long</Trainer>
+<Box />
+<Rug>10</Rug>
+<Weight />
+<StartPrice />
+<Handicap />
+<Margin1 />
+<Margin2 />
+<PIR />
+<Checks>0</Checks>
+<Comments />
+<SplitMargin />
+<RunTime />
+<Prizemoney />
+</Dog>
+<Times>
+<WinTime>22.85</WinTime>
+<Split1Time>8.32</Split1Time>
+<Split1Rug>6</Split1Rug>
+<Split2Time />
+<Split2Rug />
+<Split3Time />
+<Split3Rug />
+</Times>
+<Dividends>
+<WinDiv>20.60</WinDiv>
+<Place1Div>6.80</Place1Div>
+<Place2Div>1.04</Place2Div>
+<Place3Div>1.20</Place3Div>
+</Dividends>
+<Exotics>
+<Quin>34.00</Quin>
+<Exacta>79.30</Exacta>
+<Trifecta>404.70</Trifecta>
+<Pick4>1021.10</Pick4>
+<RD>94.10</RD>
+<DD />
+<Quad />
+</Exotics>
+</Race>
+</Meet>
