@@ -5,9 +5,10 @@ output: html_notebook
 
 ```{r}
 #setup data
+set
 library(tidyverse)
 library(ggplot2)
-dataf = read.csv('masterfilenew.csv', header = TRUE, skipNul = TRUE)
+dataf = read.csv('C:/Users/Nick/Documents/GitHub/grvmodel/DATA/Master/masterfilenew.csv', header = TRUE, skipNul = TRUE)
 dataf$race_id = as.factor(dataf$race_id)
 dataf$dog_id = as.factor(dataf$dog_id)
 dataf$box= as.factor(dataf$box)

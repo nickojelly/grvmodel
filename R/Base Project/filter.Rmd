@@ -6,10 +6,19 @@ output: html_notebook
 ```{r}
 #setup data
 library(tidyverse)
-dataf = read.csv('masterfilenew.csv', header = TRUE, skipNul = TRUE)
+library("ggplot2")
+library("GGally")
+dataf = read.csv('C:/Users/Nick/Documents/GitHub/grvmodel/DATA/Master/masterfile.csv', header = TRUE, skipNul = TRUE)
 dataf$race_id = as.factor(dataf$race_id)
 dataf$dog_id = as.factor(dataf$dog_id)
 dataf$box= as.factor(dataf$box)
+dataf$race_id = as.factor(dataf$race_id)
+dataf$dog_id = as.factor(dataf$dog_id)
+dataf$box= as.factor(dataf$box)
+dataf$dist = str_replace(dataf$dist, "m", "")
+dataf$dist = as.numeric(dataf$dist)
+dataf$weight = as.numeric(dataf$weigth)
+dataf$speed = as.numeric(dataf$dist/dataf$run_time)
 df_tbl <- as_tibble(dataf)
 ```
 
@@ -38,9 +47,22 @@ form <- function(dog, current_race_id, dog_tbl){
 ```
 
 ```{r}
+numeric_dataf <- dataf %>% select(dist,place,split_margins,split_times,run_time,weight,margin,speed) %>% slice_sample(n=5000)
+tiff("test.tiff", units="in", width=15, height=15, res=300)
+ggpairs(numeric_dataf,pch = 18)
+dev.off()
+```
+
+
+```{r}
+SingleDogModel <- filter(df_tbl, dog_id == 1328610013) %>% lm(place~ poly(q,3))
+```
+
+
+```{r}
 #form(250185388, 501343196, df_tbl)
-filter(df_tbl, dog_id == 1328610013) %>% ggplot(aes(x=dist,y=place)) + geom_point()+ 
-  geom_smooth(formula = y ~ poly(x,2))
+filter(df_tbl, dog_id == 1328610013) %>% ggplot(aes(x=dist,y=margin)) + geom_point()+ 
+  geom_smooth(formula = y ~ poly(x,1, raw=TRUE))
 ```
 
 
