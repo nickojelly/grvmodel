@@ -1,0 +1,80 @@
+//load the integrator macro library
+require library('integrator'); 
+
+// adapt protocol, host, port here to match your setup
+define('ETL_URL','http://127.0.0.1:7775');
+
+// wait for job to finish prior returning status
+define('WAIT_FOR_FINISH', true);
+
+// max execution time of script in seconds used in combination with WAIT_FOR_FINISH
+define('MAX_EXECUTION_TIME', 10);
+
+function copy_kpis(){
+  $flag = activesheet()->range('J6');
+  
+  //$ind=activesheet()->range('H7');
+  if($flag->value=="Y"){
+	activeworkbook()->sheets('Splash')->calculate();
+  	
+	$loadToggleCell = activeworkbook()->sheets('Splash')->Range('H2');
+	$loadToggleCell->value=1;
+  	
+	$flag->value="N"; 
+	activeworkbook()->sheets('Splash')->calculate();
+	$loadToggleCell->value=0;
+  }else{
+	
+	 return __msgbox("Please enter 'Y' in the flag box to copy.", 'Confirmation', 'Info');
+  }
+ 
+  //$loadToggleCell->value=5;
+  
+  
+  
+}
+function startJob()
+{
+  $s = activesheet();
+  $statusCell = strval($s->range('K8')->value);
+  $flag = activesheet()->range('J6');
+  $cellC8 = $s->range('C8')->value; //Source
+  $cellG6 = $s->range('G6')->value; // Copy Mode
+  $cellH3 = $s->range('J3')->value; // KPI Setting
+  $cellH5 = $s->range('J5')->value; // KPI Num
+  $cellH8 = $s->range('J8')->value; // Target
+  try{
+  	if($flag->value=="Y"){
+		
+	  $project = 'GC OSC';
+	  $name = 'KPI Attribute Copy Task';
+
+	  if( empty($name) || empty($project) ) return;
+
+	  //$variables = getVariables($name);	
+	  	  $variables = array(array('name' => 'KPICopySourceEntity', 'value' => $cellC8),
+                        array('name' => 'KPIsingleCopy', 'value' => $cellH5),
+						array('name' => 'KPICopyTargetMode', 'value' => $cellG6),
+                        array('name' => 'KPICopyTargetEntity', 'value' => $cellH8), 
+                        array('name' => 'KPICopySourceAttributes', 'value' => $cellH3),
+                        array('name' => 'Cube', 'value' => $cellD12));
+	  $id = integrator_start_job($project, $name, $variables, WAIT_FOR_FINISH, MAX_EXECUTION_TIME, array('type' => 'cell', 'name' => $statusCell), $_JEDOX['OLAP_SESSION_ID'], ETL_URL);
+	  $s->range('M5')->value = $id;
+	  $flag->value="N";
+	}
+  	else{
+	
+	 return __msgbox("Please enter 'Y' in the flag box to copy.", 'Confirmation', 'Info');
+  
+	}
+  }
+  
+  catch (SoapFault $fault)
+  {
+    $s->range($statusCell)->value = 'ERROR: '.$fault->faultstring.' (Code: '.$fault->faultcode.')';
+  }
+  catch (Exception $e)
+  {
+    $s->range($statusCell)->value = $e->getMessage();
+  }  
+}
