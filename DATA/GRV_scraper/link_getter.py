@@ -5,7 +5,11 @@ from selenium.webdriver.common.keys import Keys
 import time
 from tkinter import Tk
 import os
-from selenium.webdriver.chrome.options import Options
+#from selenium.webdriver.chrome.options import Options
+from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+
 #Working again as of feburary 2
 #This program opens a list of meeting numbers "meets.csv" and downloads the
 # xml data file for them
@@ -13,7 +17,7 @@ from selenium.webdriver.chrome.options import Options
 #planning to iterate over serach by month to get all links
 #now working getting meet numbers searching by day with function searchit using predifined strings from day-day_strings
 
-driver_path = 'C:/Users/Nick/Documents/GitHub/grvmodel/grv scraper/chromedriver_win32/chromedriver.exe'
+driver_path = 'C:/Users/Nick/Documents/GitHub/grvmodel/DATA/GRV_scraper/chromedriver_win32/chromedriver.exe'
 
 # do not use anymore
 #depreciated
@@ -45,7 +49,12 @@ def searchit(day_strings):
     cur = os.getcwd()
     print(cur)
 
-    driver = webdriver.Firefox(r'C:\Users\Nick\Documents\GitHub\grvmodel\grv scraper\csipt')
+
+    service = Service(r'C:\Users\Nick\Documents\GitHub\grvmodel\DATA\GRV_scraper\gdriver\geckodriver.exe')
+
+    driver = Firefox(service=service)
+
+
     meets_list = []
     print(day_strings)
     for i in day_strings:
@@ -85,14 +94,16 @@ def downloader(meets_list):
     #partial_url = 'https://fasttrack.grv.org.au/Meeting/Details/'
 
     print(xpath)
-    profile = webdriver.FirefoxProfile()
-    profile.set_preference("browser.download.folderList", 2)
-    profile.set_preference("browser.download.manager.showWhenStarting", False)
-    profile.set_preference("browser.download.dir", download_dir)
-    profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/xml")
-    profile.set_preference("browser.download.viewableInternally.enabledTypes", "")
+    service = Service(r'C:\Users\Nick\Documents\GitHub\grvmodel\DATA\GRV_scraper\gdriver\geckodriver.exe')
+    options=Options()
+    
+    options.set_preference("browser.download.manager.showWhenStarting", False)
+    options.set_preference("browser.download.folderList", 2)
+    options.set_preference("browser.download.dir", download_dir)
+    options.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/xml")
+    options.set_preference("browser.download.viewableInternally.enabledTypes", "")
 
-    driver = webdriver.Firefox(firefox_profile=profile)
+    driver = Firefox(service=service, options=options)
 
     for i in meets_list:
         print("\n"+i+"\n")
@@ -109,8 +120,8 @@ def downloader(meets_list):
 
 if __name__== "__main__":
     print("oiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-    #mode 0 to generate race race_numbers
-    #mode 1 to download race meetings
+    #mode 1 to generate race race_numbers
+    #mode 0 to download race meetings
 
     mode = 0
 
