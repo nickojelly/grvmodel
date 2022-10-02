@@ -123,6 +123,8 @@ if __name__== "__main__":
     #mode 1 to generate race race_numbers
     #mode 0 to download race meetings
 
+    os.chdir(r"C:\Users\Nick\Documents\GitHub\grvmodel\DATA\GRV_scraper")
+
     mode = 0
 
     if mode:
