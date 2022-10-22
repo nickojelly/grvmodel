@@ -65,6 +65,9 @@ def searchit(day_strings):
 
         #searchs for meeting in that day and adds them to list
         elems = driver.find_elements_by_xpath("//a[@href]")
+        if not elems:
+            continue
+
         for elem in elems:
             #print(elem.get_attribute("href"), 1)
             if "Meeting/Details" in elem.get_attribute("href"):
@@ -126,6 +129,7 @@ if __name__== "__main__":
     os.chdir(r"C:\Users\Nick\Documents\GitHub\grvmodel\DATA\GRV_scraper")
 
     mode = 0
+    
 
     if mode:
         #this part obtains the meeting race_numbers
