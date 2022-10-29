@@ -1,0 +1,1184 @@
+2022-10-27 21:07:22,961:INFO:Adding strategy LayStrategy
+2022-10-27 21:07:22,961:INFO:Creating new <class 'flumine.streams.marketstream.MarketStream'> (2000) for strategy LayStrategy
+2022-10-27 21:07:22,962:INFO:Starting flumine
+2022-10-27 21:07:24,256:INFO:Client login
+2022-10-27 21:07:25,284:INFO:Client update account details
+2022-10-27 21:07:25,284:INFO:Adding worker keep_alive
+2022-10-27 21:07:25,285:INFO:Adding worker poll_market_catalogue
+2022-10-27 21:07:25,285:INFO:Adding worker poll_account_balance
+2022-10-27 21:07:25,285:INFO:Adding worker poll_market_closure
+2022-10-27 21:07:25,285:INFO:BackgroundWorker keep_alive starting
+2022-10-27 21:07:25,285:INFO:BackgroundWorker poll_market_catalogue starting
+2022-10-27 21:07:25,286:INFO:BackgroundWorker poll_account_balance starting
+2022-10-27 21:07:25,286:INFO:BackgroundWorker poll_market_closure starting
+2022-10-27 21:07:25,286:INFO:Starting streams..
+2022-10-27 21:07:25,286:INFO:Starting OrderStream 1000
+2022-10-27 21:07:25,287:INFO:Starting output_thread (OrderStream 1000)
+2022-10-27 21:07:25,287:INFO:[Register: 1001]: orderSubscription
+2022-10-27 21:07:25,287:INFO:[OrderStream: 1001]: "OrderStream" created
+2022-10-27 21:07:26,137:INFO:[OrderStream: 1001]: connection_id: 202-271022100725-1844273
+2022-10-27 21:07:26,321:INFO:Starting MarketStream 2000
+2022-10-27 21:07:26,321:INFO:Starting output_thread (MarketStream 2000)
+2022-10-27 21:07:26,321:INFO:[Register: 2001]: marketSubscription
+2022-10-27 21:07:26,321:INFO:[MarketStream: 2001]: "MarketStream" created
+2022-10-27 21:07:26,435:INFO:[OrderStream: 1002]: SUCCESS (9 connections available)
+2022-10-27 21:07:26,659:INFO:[OrderStream: 1001]: SUCCESS (9 connections available)
+2022-10-27 21:07:26,675:INFO:[OrderStream: 1001]: 0 oc added
+2022-10-27 21:07:27,107:INFO:[MarketStream: 2001]: connection_id: 206-271022100726-1899695
+2022-10-27 21:07:27,384:INFO:[MarketStream: 2002]: SUCCESS (8 connections available)
+2022-10-27 21:07:27,408:INFO:[MarketStream: 2001]: SUCCESS (8 connections available)
+2022-10-27 21:07:28,239:INFO:[MarketStream: 2001]: 1.205602582 added, 1 markets in cache
+2022-10-27 21:07:28,242:INFO:[MarketStream: 2001]: 1.205604404 added, 2 markets in cache
+2022-10-27 21:07:28,243:INFO:[MarketStream: 2001]: 1.205602587 added, 3 markets in cache
+2022-10-27 21:07:28,244:INFO:[MarketStream: 2001]: 1.205604399 added, 4 markets in cache
+2022-10-27 21:07:28,244:INFO:[MarketStream: 2001]: 1.205604409 added, 5 markets in cache
+2022-10-27 21:07:28,245:INFO:[MarketStream: 2001]: 1.205602592 added, 6 markets in cache
+2022-10-27 21:07:28,246:INFO:[MarketStream: 2001]: 1.205604414 added, 7 markets in cache
+2022-10-27 21:07:28,247:INFO:[MarketStream: 2001]: 1.205604394 added, 8 markets in cache
+2022-10-27 21:07:28,247:INFO:[MarketStream: 2001]: 1.205602602 added, 9 markets in cache
+2022-10-27 21:07:28,247:INFO:[MarketStream: 2001]: 1.205602577 added, 10 markets in cache
+2022-10-27 21:07:28,248:INFO:[MarketStream: 2001]: 1.205602607 added, 11 markets in cache
+2022-10-27 21:07:28,248:INFO:[MarketStream: 2001]: 1.205604389 added, 12 markets in cache
+2022-10-27 21:07:28,249:INFO:[MarketStream: 2001]: 1.205602597 added, 13 markets in cache
+2022-10-27 21:07:28,249:INFO:[MarketStream: 2001]: 1.205604369 added, 14 markets in cache
+2022-10-27 21:07:28,249:INFO:[MarketStream: 2001]: 1.205602552 added, 15 markets in cache
+2022-10-27 21:07:28,250:INFO:[MarketStream: 2001]: 1.205602557 added, 16 markets in cache
+2022-10-27 21:07:28,250:INFO:[MarketStream: 2001]: 1.205602572 added, 17 markets in cache
+2022-10-27 21:07:28,250:INFO:[MarketStream: 2001]: 1.205604384 added, 18 markets in cache
+2022-10-27 21:07:28,251:INFO:[MarketStream: 2001]: 1.205602965 added, 19 markets in cache
+2022-10-27 21:07:28,252:INFO:[MarketStream: 2001]: 1.205606848 added, 20 markets in cache
+2022-10-27 21:07:28,252:INFO:[MarketStream: 2001]: 1.205604549 added, 21 markets in cache
+2022-10-27 21:07:28,253:INFO:[MarketStream: 2001]: 1.205606853 added, 22 markets in cache
+2022-10-27 21:07:28,253:INFO:[MarketStream: 2001]: 1.205604534 added, 23 markets in cache
+2022-10-27 21:07:28,254:INFO:[MarketStream: 2001]: 1.205602970 added, 24 markets in cache
+2022-10-27 21:07:28,255:INFO:[MarketStream: 2001]: 1.205602975 added, 25 markets in cache
+2022-10-27 21:07:28,256:INFO:[MarketStream: 2001]: 1.205604544 added, 26 markets in cache
+2022-10-27 21:07:28,256:INFO:[MarketStream: 2001]: 1.205606858 added, 27 markets in cache
+2022-10-27 21:07:28,257:INFO:[MarketStream: 2001]: 1.205602986 added, 28 markets in cache
+2022-10-27 21:07:28,257:INFO:[MarketStream: 2001]: 1.205604539 added, 29 markets in cache
+2022-10-27 21:07:28,258:INFO:[MarketStream: 2001]: 1.205606903 added, 30 markets in cache
+2022-10-27 21:07:28,258:INFO:[MarketStream: 2001]: 1.205602991 added, 31 markets in cache
+2022-10-27 21:07:28,258:INFO:[MarketStream: 2001]: 1.205604559 added, 32 markets in cache
+2022-10-27 21:07:28,259:INFO:[MarketStream: 2001]: 1.205602980 added, 33 markets in cache
+2022-10-27 21:07:28,259:INFO:[MarketStream: 2001]: 1.205604554 added, 34 markets in cache
+2022-10-27 21:07:28,260:INFO:[MarketStream: 2001]: 1.205604519 added, 35 markets in cache
+2022-10-27 21:07:28,260:INFO:[MarketStream: 2001]: 1.205604514 added, 36 markets in cache
+2022-10-27 21:07:28,260:INFO:[MarketStream: 2001]: 1.205606888 added, 37 markets in cache
+2022-10-27 21:07:28,261:INFO:[MarketStream: 2001]: 1.205606878 added, 38 markets in cache
+2022-10-27 21:07:28,261:INFO:[MarketStream: 2001]: 1.205602945 added, 39 markets in cache
+2022-10-27 21:07:28,261:INFO:[MarketStream: 2001]: 1.205604529 added, 40 markets in cache
+2022-10-27 21:07:28,262:INFO:[MarketStream: 2001]: 1.205602960 added, 41 markets in cache
+2022-10-27 21:07:28,262:INFO:[MarketStream: 2001]: 1.205606898 added, 42 markets in cache
+2022-10-27 21:07:28,263:INFO:[MarketStream: 2001]: 1.205602955 added, 43 markets in cache
+2022-10-27 21:07:28,263:INFO:[MarketStream: 2001]: 1.205606893 added, 44 markets in cache
+2022-10-27 21:07:28,264:INFO:[MarketStream: 2001]: 1.205606883 added, 45 markets in cache
+2022-10-27 21:07:28,264:INFO:[MarketStream: 2001]: 1.205606873 added, 46 markets in cache
+2022-10-27 21:07:28,264:INFO:[MarketStream: 2001]: 1.205604564 added, 47 markets in cache
+2022-10-27 21:07:28,264:INFO:[MarketStream: 2001]: 1.205606868 added, 48 markets in cache
+2022-10-27 21:07:28,264:INFO:[MarketStream: 2001]: 1.205606863 added, 49 markets in cache
+2022-10-27 21:07:28,265:INFO:[MarketStream: 2001]: 1.205604524 added, 50 markets in cache
+2022-10-27 21:07:28,265:INFO:[MarketStream: 2001]: 1.205602950 added, 51 markets in cache
+2022-10-27 21:07:28,266:INFO:[MarketStream: 2001]: 1.205607984 added, 52 markets in cache
+2022-10-27 21:07:28,267:INFO:[MarketStream: 2001]: 1.205607987 added, 53 markets in cache
+2022-10-27 21:07:28,267:INFO:[MarketStream: 2001]: 1.205606838 added, 54 markets in cache
+2022-10-27 21:07:28,268:INFO:[MarketStream: 2001]: 1.205606840 added, 55 markets in cache
+2022-10-27 21:07:28,268:INFO:[MarketStream: 2001]: 1.205606844 added, 56 markets in cache
+2022-10-27 21:07:28,269:INFO:[MarketStream: 2001]: 1.205606842 added, 57 markets in cache
+2022-10-27 21:07:28,270:INFO:[MarketStream: 2001]: 1.205606836 added, 58 markets in cache
+2022-10-27 21:07:28,270:INFO:[MarketStream: 2001]: 1.205607981 added, 59 markets in cache
+2022-10-27 21:07:28,270:INFO:[MarketStream: 2001]: 1.205606846 added, 60 markets in cache
+2022-10-27 21:07:28,271:INFO:[MarketStream: 2001]: 1.205606834 added, 61 markets in cache
+2022-10-27 21:07:28,271:INFO:[MarketStream: 2001]: 1.205607978 added, 62 markets in cache
+2022-10-27 21:07:28,272:INFO:[MarketStream: 2001]: 1.205606832 added, 63 markets in cache
+2022-10-27 21:07:28,272:INFO:[MarketStream: 2001]: 1.205607975 added, 64 markets in cache
+2022-10-27 21:07:28,273:INFO:[MarketStream: 2001]: 64 mc added
+2022-10-27 21:07:28,273:WARNING:[MarketStream: 2001]: Latency high: 1.8818509578704834
+2022-10-27 21:07:28,274:INFO:BackgroundWorker keep_alive shutting down
+2022-10-27 21:07:28,274:WARNING:[MarketStream: 2001]: Latency high: 1.7158515453338623
+2022-10-27 21:07:28,274:WARNING:[MarketStream: 2001]: Latency high: 1.6818516254425049
+2022-10-27 21:07:28,274:WARNING:[MarketStream: 2001]: Latency high: 1.5668516159057617
+2022-10-27 21:07:28,275:WARNING:[MarketStream: 2001]: Latency high: 1.4968533515930176
+2022-10-27 21:07:28,275:WARNING:[MarketStream: 2001]: Latency high: 1.470853328704834
+2022-10-27 21:07:28,275:WARNING:[MarketStream: 2001]: Latency high: 1.409853458404541
+2022-10-27 21:07:28,275:WARNING:[MarketStream: 2001]: Latency high: 1.3568534851074219
+2022-10-27 21:07:28,275:WARNING:[MarketStream: 2001]: Latency high: 1.2658534049987793
+2022-10-27 21:07:28,276:WARNING:[MarketStream: 2001]: Latency high: 1.2458539009094238
+2022-10-27 21:07:28,277:WARNING:[MarketStream: 2001]: Latency high: 1.1650373935699463
+2022-10-27 21:07:28,277:WARNING:[MarketStream: 2001]: Latency high: 1.1440374851226807
+2022-10-27 21:07:28,303:WARNING:[MarketStream: 2001]: Latency high: 1.0908784866333008
+2022-10-27 21:07:28,331:WARNING:[MarketStream: 2001]: Latency high: 1.0925421714782715
+2022-10-27 21:07:28,410:WARNING:[MarketStream: 2001]: Latency high: 1.0932776927947998
+2022-10-27 21:07:28,419:WARNING:[MarketStream: 2001]: Latency high: 1.091291904449463
+2022-10-27 21:07:28,480:WARNING:[MarketStream: 2001]: Latency high: 1.0875239372253418
+2022-10-27 21:07:28,518:WARNING:[MarketStream: 2001]: Latency high: 1.0828256607055664
+2022-10-27 21:07:28,571:WARNING:[MarketStream: 2001]: Latency high: 1.082874059677124
+2022-10-27 21:07:28,645:WARNING:[MarketStream: 2001]: Latency high: 1.0849435329437256
+2022-10-27 21:07:28,691:WARNING:[MarketStream: 2001]: Latency high: 1.088829755783081
+2022-10-27 21:07:28,697:WARNING:[MarketStream: 2001]: Latency high: 1.0888347625732422
+2022-10-27 21:07:28,762:WARNING:[MarketStream: 2001]: Latency high: 1.0848259925842285
+2022-10-27 21:07:28,780:WARNING:[MarketStream: 2001]: Latency high: 1.0818421840667725
+2022-10-27 21:07:28,797:WARNING:[MarketStream: 2001]: Latency high: 1.083857774734497
+2022-10-27 21:07:28,835:WARNING:[MarketStream: 2001]: Latency high: 1.086571216583252
+2022-10-27 21:07:28,894:WARNING:[MarketStream: 2001]: Latency high: 1.0835721492767334
+2022-10-27 21:07:28,897:WARNING:[MarketStream: 2001]: Latency high: 1.0832555294036865
+2022-10-27 21:07:28,955:WARNING:[MarketStream: 2001]: Latency high: 1.0843093395233154
+2022-10-27 21:07:28,988:WARNING:[MarketStream: 2001]: Latency high: 1.0828051567077637
+2022-10-27 21:07:29,055:WARNING:[MarketStream: 2001]: Latency high: 1.0820612907409668
+2022-10-27 21:07:29,111:WARNING:[MarketStream: 2001]: Latency high: 1.0825209617614746
+2022-10-27 21:07:29,158:WARNING:[MarketStream: 2001]: Latency high: 1.083186149597168
+2022-10-27 21:07:29,172:WARNING:[MarketStream: 2001]: Latency high: 1.0829603672027588
+2022-10-27 21:07:29,196:WARNING:[MarketStream: 2001]: Latency high: 1.0829863548278809
+2022-10-27 21:07:29,278:WARNING:[MarketStream: 2001]: Latency high: 1.082247018814087
+2022-10-27 21:07:29,293:WARNING:[MarketStream: 2001]: Latency high: 1.0828778743743896
+2022-10-27 21:07:29,294:WARNING:[MarketStream: 2001]: Latency high: 1.082878589630127
+2022-10-27 21:07:29,307:WARNING:[MarketStream: 2001]: Latency high: 1.082167148590088
+2022-10-27 21:07:29,380:WARNING:[MarketStream: 2001]: Latency high: 1.0853075981140137
+2022-10-27 21:07:29,402:WARNING:[MarketStream: 2001]: Latency high: 1.087327241897583
+2022-10-27 21:07:29,412:WARNING:[MarketStream: 2001]: Latency high: 1.0893380641937256
+2022-10-27 21:07:29,429:WARNING:[MarketStream: 2001]: Latency high: 1.0917258262634277
+2022-10-27 21:07:29,480:WARNING:[MarketStream: 2001]: Latency high: 1.092191457748413
+2022-10-27 21:07:29,506:WARNING:[MarketStream: 2001]: Latency high: 1.0902163982391357
+2022-10-27 21:07:29,574:WARNING:[MarketStream: 2001]: Latency high: 1.0852386951446533
+2022-10-27 21:07:29,580:WARNING:[MarketStream: 2001]: Latency high: 1.0842444896697998
+2022-10-27 21:07:29,677:WARNING:[MarketStream: 2001]: Latency high: 1.0863292217254639
+2022-10-27 21:07:29,782:WARNING:[MarketStream: 2001]: Latency high: 1.0860652923583984
+2022-10-27 21:07:29,793:WARNING:[MarketStream: 2001]: Latency high: 1.0880751609802246
+2022-10-27 21:07:29,832:WARNING:[MarketStream: 2001]: Latency high: 1.0867459774017334
+2022-10-27 21:07:29,848:WARNING:[MarketStream: 2001]: Latency high: 1.0864570140838623
+2022-10-27 21:07:29,879:WARNING:[MarketStream: 2001]: Latency high: 1.0847089290618896
+2022-10-27 21:07:29,925:WARNING:[MarketStream: 2001]: Latency high: 1.0830185413360596
+2022-10-27 21:07:29,959:WARNING:[MarketStream: 2001]: Latency high: 1.0818817615509033
+2022-10-27 21:07:29,992:WARNING:[MarketStream: 2001]: Latency high: 1.0823321342468262
+2022-10-27 21:07:30,060:WARNING:[MarketStream: 2001]: Latency high: 1.085320234298706
+2022-10-27 21:07:30,082:WARNING:[MarketStream: 2001]: Latency high: 1.0850410461425781
+2022-10-27 21:07:30,112:WARNING:[MarketStream: 2001]: Latency high: 1.0823044776916504
+2022-10-27 21:07:30,200:WARNING:[MarketStream: 2001]: Latency high: 1.082401990890503
+2022-10-27 21:07:30,226:WARNING:[MarketStream: 2001]: Latency high: 1.0834300518035889
+2022-10-27 21:07:30,257:WARNING:[MarketStream: 2001]: Latency high: 1.0827131271362305
+2022-10-27 21:07:30,365:WARNING:[MarketStream: 2001]: Latency high: 1.0830001831054688
+2022-10-27 21:07:30,395:WARNING:[MarketStream: 2001]: Latency high: 1.0828628540039062
+2022-10-27 21:07:30,478:WARNING:[MarketStream: 2001]: Latency high: 1.0829336643218994
+2022-10-27 21:07:30,498:WARNING:[MarketStream: 2001]: Latency high: 1.082953929901123
+2022-10-27 21:07:30,509:WARNING:[MarketStream: 2001]: Latency high: 1.0819637775421143
+2022-10-27 21:07:30,578:WARNING:[MarketStream: 2001]: Latency high: 1.0822539329528809
+2022-10-27 21:07:30,616:WARNING:[MarketStream: 2001]: Latency high: 1.0832881927490234
+2022-10-27 21:07:30,617:WARNING:[MarketStream: 2001]: Latency high: 1.0822899341583252
+2022-10-27 21:07:30,653:WARNING:[MarketStream: 2001]: Latency high: 1.0823233127593994
+2022-10-27 21:07:30,722:WARNING:[MarketStream: 2001]: Latency high: 1.082387924194336
+2022-10-27 21:07:30,783:WARNING:[MarketStream: 2001]: Latency high: 1.0814459323883057
+2022-10-27 21:07:30,810:WARNING:[MarketStream: 2001]: Latency high: 1.0824708938598633
+2022-10-27 21:07:30,834:WARNING:[MarketStream: 2001]: Latency high: 1.0814924240112305
+2022-10-27 21:07:30,879:WARNING:[MarketStream: 2001]: Latency high: 1.0820691585540771
+2022-10-27 21:07:30,883:WARNING:[MarketStream: 2001]: Latency high: 1.0820729732513428
+2022-10-27 21:07:30,966:WARNING:[MarketStream: 2001]: Latency high: 1.0823144912719727
+2022-10-27 21:07:31,030:WARNING:[MarketStream: 2001]: Latency high: 1.0825164318084717
+2022-10-27 21:07:31,083:WARNING:[MarketStream: 2001]: Latency high: 1.0825657844543457
+2022-10-27 21:07:31,086:WARNING:[MarketStream: 2001]: Latency high: 1.0835683345794678
+2022-10-27 21:07:31,179:WARNING:[MarketStream: 2001]: Latency high: 1.081653356552124
+2022-10-27 21:07:31,187:WARNING:[MarketStream: 2001]: Latency high: 1.082660436630249
+2022-10-27 21:07:31,239:WARNING:[MarketStream: 2001]: Latency high: 1.082401990890503
+2022-10-27 21:07:31,288:WARNING:[MarketStream: 2001]: Latency high: 1.0829315185546875
+2022-10-27 21:07:31,301:WARNING:[MarketStream: 2001]: Latency high: 1.0829436779022217
+2022-10-27 21:07:31,414:WARNING:[MarketStream: 2001]: Latency high: 1.086374282836914
+2022-10-27 21:07:31,461:WARNING:[MarketStream: 2001]: Latency high: 1.0831506252288818
+2022-10-27 21:07:31,514:WARNING:[MarketStream: 2001]: Latency high: 1.0838558673858643
+2022-10-27 21:07:31,578:WARNING:[MarketStream: 2001]: Latency high: 1.082611322402954
+2022-10-27 21:07:31,609:WARNING:[MarketStream: 2001]: Latency high: 1.0832850933074951
+2022-10-27 21:07:31,661:WARNING:[MarketStream: 2001]: Latency high: 1.083331823348999
+2022-10-27 21:07:31,715:WARNING:[MarketStream: 2001]: Latency high: 1.0840802192687988
+2022-10-27 21:07:31,718:WARNING:[MarketStream: 2001]: Latency high: 1.083082914352417
+2022-10-27 21:07:31,786:WARNING:[MarketStream: 2001]: Latency high: 1.0904386043548584
+2022-10-27 21:07:31,813:WARNING:[MarketStream: 2001]: Latency high: 1.0904409885406494
+2022-10-27 21:07:31,822:WARNING:[MarketStream: 2001]: Latency high: 1.087449550628662
+2022-10-27 21:07:31,865:WARNING:[MarketStream: 2001]: Latency high: 1.0856046676635742
+2022-10-27 21:07:31,924:WARNING:[MarketStream: 2001]: Latency high: 1.08266019821167
+2022-10-27 21:07:31,963:WARNING:[MarketStream: 2001]: Latency high: 1.0823819637298584
+2022-10-27 21:07:32,022:WARNING:[MarketStream: 2001]: Latency high: 1.0824363231658936
+2022-10-27 21:07:32,075:WARNING:[MarketStream: 2001]: Latency high: 1.0840873718261719
+2022-10-27 21:07:32,148:WARNING:[MarketStream: 2001]: Latency high: 1.0836589336395264
+2022-10-27 21:07:32,193:WARNING:[MarketStream: 2001]: Latency high: 1.0822889804840088
+2022-10-27 21:07:32,275:INFO:BackgroundWorker poll_market_catalogue shutting down
+2022-10-27 21:07:32,278:WARNING:[MarketStream: 2001]: Latency high: 1.0830729007720947
+2022-10-27 21:07:32,347:WARNING:[MarketStream: 2001]: Latency high: 1.083636999130249
+2022-10-27 21:07:32,355:WARNING:[MarketStream: 2001]: Latency high: 1.0826451778411865
+2022-10-27 21:07:32,403:WARNING:[MarketStream: 2001]: Latency high: 1.0825598239898682
+2022-10-27 21:07:32,416:WARNING:[MarketStream: 2001]: Latency high: 1.084324598312378
+2022-10-27 21:07:32,463:WARNING:[MarketStream: 2001]: Latency high: 1.0825419425964355
+2022-10-27 21:07:32,507:WARNING:[MarketStream: 2001]: Latency high: 1.0858666896820068
+2022-10-27 21:07:32,569:WARNING:[MarketStream: 2001]: Latency high: 1.0822880268096924
+2022-10-27 21:07:32,607:WARNING:[MarketStream: 2001]: Latency high: 1.0836362838745117
+2022-10-27 21:07:32,676:WARNING:[MarketStream: 2001]: Latency high: 1.0817570686340332
+2022-10-27 21:07:32,703:WARNING:[MarketStream: 2001]: Latency high: 1.082608938217163
+2022-10-27 21:07:32,767:WARNING:[MarketStream: 2001]: Latency high: 1.0827646255493164
+2022-10-27 21:07:32,810:WARNING:[MarketStream: 2001]: Latency high: 1.0828056335449219
+2022-10-27 21:07:32,871:WARNING:[MarketStream: 2001]: Latency high: 1.0816760063171387
+2022-10-27 21:07:32,907:WARNING:[MarketStream: 2001]: Latency high: 1.0823535919189453
+2022-10-27 21:07:32,964:WARNING:[MarketStream: 2001]: Latency high: 1.0820178985595703
+2022-10-27 21:07:33,024:WARNING:[MarketStream: 2001]: Latency high: 1.0823841094970703
+2022-10-27 21:07:33,080:WARNING:[MarketStream: 2001]: Latency high: 1.0849082469940186
+2022-10-27 21:07:33,127:WARNING:[MarketStream: 2001]: Latency high: 1.081954002380371
+2022-10-27 21:07:33,160:WARNING:[MarketStream: 2001]: Latency high: 1.0829858779907227
+2022-10-27 21:07:33,187:WARNING:[MarketStream: 2001]: Latency high: 1.0820112228393555
+2022-10-27 21:07:33,244:WARNING:[MarketStream: 2001]: Latency high: 1.0850632190704346
+2022-10-27 21:07:33,295:WARNING:[MarketStream: 2001]: Latency high: 1.0832338333129883
+2022-10-27 21:07:33,296:WARNING:[MarketStream: 2001]: Latency high: 1.0832340717315674
+2022-10-27 21:07:33,398:WARNING:[MarketStream: 2001]: Latency high: 1.0848336219787598
+2022-10-27 21:07:33,399:WARNING:[MarketStream: 2001]: Latency high: 1.0838344097137451
+2022-10-27 21:07:33,500:WARNING:[MarketStream: 2001]: Latency high: 1.082925796508789
+2022-10-27 21:07:33,562:WARNING:[MarketStream: 2001]: Latency high: 1.081984281539917
+2022-10-27 21:07:33,593:WARNING:[MarketStream: 2001]: Latency high: 1.0820112228393555
+2022-10-27 21:07:33,671:WARNING:[MarketStream: 2001]: Latency high: 1.0890839099884033
+2022-10-27 21:07:33,705:WARNING:[MarketStream: 2001]: Latency high: 1.0871145725250244
+2022-10-27 21:07:33,776:WARNING:[MarketStream: 2001]: Latency high: 1.084179401397705
+2022-10-27 21:07:33,816:WARNING:[MarketStream: 2001]: Latency high: 1.0882160663604736
+2022-10-27 21:07:33,918:WARNING:[MarketStream: 2001]: Latency high: 1.0853090286254883
+2022-10-27 21:07:33,979:WARNING:[MarketStream: 2001]: Latency high: 1.0823643207550049
+2022-10-27 21:07:34,017:WARNING:[MarketStream: 2001]: Latency high: 1.0883986949920654
+2022-10-27 21:07:34,103:WARNING:[MarketStream: 2001]: Latency high: 1.0824766159057617
+2022-10-27 21:07:34,114:WARNING:[MarketStream: 2001]: Latency high: 1.0824878215789795
+2022-10-27 21:07:34,176:WARNING:[MarketStream: 2001]: Latency high: 1.08754301071167
+2022-10-27 21:07:34,219:WARNING:[MarketStream: 2001]: Latency high: 1.0915827751159668
+2022-10-27 21:07:34,222:WARNING:[MarketStream: 2001]: Latency high: 1.0905852317810059
+2022-10-27 21:07:34,228:WARNING:[MarketStream: 2001]: Latency high: 1.0895905494689941
+2022-10-27 21:07:34,291:WARNING:[MarketStream: 2001]: Latency high: 1.0999431610107422
+2022-10-27 21:07:34,294:WARNING:[MarketStream: 2001]: Latency high: 1.0999457836151123
+2022-10-27 21:07:34,351:WARNING:[MarketStream: 2001]: Latency high: 1.096998929977417
+2022-10-27 21:07:34,390:WARNING:[MarketStream: 2001]: Latency high: 1.0900325775146484
+2022-10-27 21:07:34,428:WARNING:[MarketStream: 2001]: Latency high: 1.0850670337677002
+2022-10-27 21:07:34,449:WARNING:[MarketStream: 2001]: Latency high: 1.083146572113037
+2022-10-27 21:07:34,480:WARNING:[MarketStream: 2001]: Latency high: 1.082174301147461
+2022-10-27 21:07:34,543:WARNING:[MarketStream: 2001]: Latency high: 1.0902314186096191
+2022-10-27 21:07:34,575:WARNING:[MarketStream: 2001]: Latency high: 1.0872604846954346
+2022-10-27 21:07:34,642:WARNING:[MarketStream: 2001]: Latency high: 1.0836358070373535
+2022-10-27 21:07:34,674:WARNING:[MarketStream: 2001]: Latency high: 1.0818312168121338
+2022-10-27 21:07:34,690:WARNING:[MarketStream: 2001]: Latency high: 1.0820624828338623
+2022-10-27 21:07:34,757:WARNING:[MarketStream: 2001]: Latency high: 1.0824851989746094
+2022-10-27 21:07:34,787:WARNING:[MarketStream: 2001]: Latency high: 1.0825636386871338
+2022-10-27 21:07:34,798:WARNING:[MarketStream: 2001]: Latency high: 1.082573413848877
+2022-10-27 21:07:34,845:WARNING:[MarketStream: 2001]: Latency high: 1.0824389457702637
+2022-10-27 21:07:34,906:WARNING:[MarketStream: 2001]: Latency high: 1.085860013961792
+2022-10-27 21:07:34,956:WARNING:[MarketStream: 2001]: Latency high: 1.08841872215271
+2022-10-27 21:07:34,997:WARNING:[MarketStream: 2001]: Latency high: 1.0861485004425049
+2022-10-27 21:07:35,068:WARNING:[MarketStream: 2001]: Latency high: 1.0877411365509033
+2022-10-27 21:07:35,115:WARNING:[MarketStream: 2001]: Latency high: 1.0910069942474365
+2022-10-27 21:07:35,175:WARNING:[MarketStream: 2001]: Latency high: 1.088604211807251
+2022-10-27 21:07:35,202:WARNING:[MarketStream: 2001]: Latency high: 1.0881521701812744
+2022-10-27 21:07:35,211:WARNING:[MarketStream: 2001]: Latency high: 1.088287353515625
+2022-10-27 21:07:35,276:WARNING:[MarketStream: 2001]: Latency high: 1.0829346179962158
+2022-10-27 21:07:35,296:WARNING:[MarketStream: 2001]: Latency high: 1.084240198135376
+2022-10-27 21:07:35,306:WARNING:[MarketStream: 2001]: Latency high: 1.0852484703063965
+2022-10-27 21:07:35,313:WARNING:[MarketStream: 2001]: Latency high: 1.086254358291626
+2022-10-27 21:07:35,376:WARNING:[MarketStream: 2001]: Latency high: 1.0868809223175049
+2022-10-27 21:07:35,380:WARNING:[MarketStream: 2001]: Latency high: 1.0858840942382812
+2022-10-27 21:07:35,403:WARNING:[MarketStream: 2001]: Latency high: 1.0875463485717773
+2022-10-27 21:07:35,479:WARNING:[MarketStream: 2001]: Latency high: 1.0873439311981201
+2022-10-27 21:07:35,507:WARNING:[MarketStream: 2001]: Latency high: 1.0880703926086426
+2022-10-27 21:07:35,570:WARNING:[MarketStream: 2001]: Latency high: 1.0896947383880615
+2022-10-27 21:07:35,634:WARNING:[MarketStream: 2001]: Latency high: 1.0996010303497314
+2022-10-27 21:07:35,678:WARNING:[MarketStream: 2001]: Latency high: 1.0995407104492188
+2022-10-27 21:07:35,696:WARNING:[MarketStream: 2001]: Latency high: 1.102557897567749
+2022-10-27 21:07:35,728:WARNING:[MarketStream: 2001]: Latency high: 1.1016325950622559
+2022-10-27 21:07:35,742:WARNING:[MarketStream: 2001]: Latency high: 1.1006460189819336
+2022-10-27 21:07:35,779:WARNING:[MarketStream: 2001]: Latency high: 1.096672534942627
+2022-10-27 21:07:35,850:WARNING:[MarketStream: 2001]: Latency high: 1.0927612781524658
+2022-10-27 21:07:35,885:WARNING:[MarketStream: 2001]: Latency high: 1.092071294784546
+2022-10-27 21:07:35,942:WARNING:[MarketStream: 2001]: Latency high: 1.0879144668579102
+2022-10-27 21:07:35,958:WARNING:[MarketStream: 2001]: Latency high: 1.088569164276123
+2022-10-27 21:07:35,982:WARNING:[MarketStream: 2001]: Latency high: 1.0875906944274902
+2022-10-27 21:07:36,051:WARNING:[MarketStream: 2001]: Latency high: 1.0890717506408691
+2022-10-27 21:07:36,090:WARNING:[MarketStream: 2001]: Latency high: 1.0943148136138916
+2022-10-27 21:07:36,094:INFO:Client update account details
+2022-10-27 21:07:36,101:WARNING:[MarketStream: 2001]: Latency high: 1.099325180053711
+2022-10-27 21:07:36,110:WARNING:[MarketStream: 2001]: Latency high: 1.0953328609466553
+2022-10-27 21:07:36,166:WARNING:[MarketStream: 2001]: Latency high: 1.0902791023254395
+2022-10-27 21:07:36,210:WARNING:[MarketStream: 2001]: Latency high: 1.0871553421020508
+2022-10-27 21:07:36,273:WARNING:[MarketStream: 2001]: Latency high: 1.0877423286437988
+2022-10-27 21:07:36,281:INFO:BackgroundWorker poll_account_balance shutting down
+2022-10-27 21:07:36,294:WARNING:[MarketStream: 2001]: Latency high: 1.0864946842193604
+2022-10-27 21:07:36,296:WARNING:[MarketStream: 2001]: Latency high: 1.087177038192749
+2022-10-27 21:07:36,357:WARNING:[MarketStream: 2001]: Latency high: 1.0849392414093018
+2022-10-27 21:07:36,388:WARNING:[MarketStream: 2001]: Latency high: 1.0837287902832031
+2022-10-27 21:07:36,464:WARNING:[MarketStream: 2001]: Latency high: 1.082533836364746
+2022-10-27 21:07:36,563:WARNING:[MarketStream: 2001]: Latency high: 1.0833048820495605
+2022-10-27 21:07:36,667:WARNING:[MarketStream: 2001]: Latency high: 1.0823264122009277
+2022-10-27 21:07:36,784:WARNING:[MarketStream: 2001]: Latency high: 1.0823085308074951
+2022-10-27 21:07:36,831:WARNING:[MarketStream: 2001]: Latency high: 1.082878589630127
+2022-10-27 21:07:36,875:WARNING:[MarketStream: 2001]: Latency high: 1.0822694301605225
+2022-10-27 21:07:36,973:WARNING:[MarketStream: 2001]: Latency high: 1.0826325416564941
+2022-10-27 21:07:36,987:WARNING:[MarketStream: 2001]: Latency high: 1.084540843963623
+2022-10-27 21:07:37,011:WARNING:[MarketStream: 2001]: Latency high: 1.0820252895355225
+2022-10-27 21:07:37,063:WARNING:[MarketStream: 2001]: Latency high: 1.0828993320465088
+2022-10-27 21:07:37,075:WARNING:[MarketStream: 2001]: Latency high: 1.0819101333618164
+2022-10-27 21:07:37,152:WARNING:[MarketStream: 2001]: Latency high: 1.0824317932128906
+2022-10-27 21:07:37,310:WARNING:[MarketStream: 2001]: Latency high: 1.084439754486084
+2022-10-27 21:07:37,328:WARNING:[MarketStream: 2001]: Latency high: 1.0850796699523926
+2022-10-27 21:07:37,369:WARNING:[MarketStream: 2001]: Latency high: 1.0828063488006592
+2022-10-27 21:07:37,469:WARNING:[MarketStream: 2001]: Latency high: 1.0869765281677246
+2022-10-27 21:07:37,574:WARNING:[MarketStream: 2001]: Latency high: 1.0880131721496582
+2022-10-27 21:07:37,674:WARNING:[MarketStream: 2001]: Latency high: 1.0839600563049316
+2022-10-27 21:07:37,793:WARNING:[MarketStream: 2001]: Latency high: 1.0943615436553955
+2022-10-27 21:07:37,891:WARNING:[MarketStream: 2001]: Latency high: 1.093933343887329
+2022-10-27 21:07:38,100:WARNING:[MarketStream: 2001]: Latency high: 1.0842630863189697
+2022-10-27 21:07:38,157:WARNING:[MarketStream: 2001]: Latency high: 1.0822198390960693
+2022-10-27 21:07:38,254:WARNING:[MarketStream: 2001]: Latency high: 1.0829453468322754
+2022-10-27 21:07:38,360:WARNING:[MarketStream: 2001]: Latency high: 1.0834636688232422
+2022-10-27 21:07:38,441:WARNING:[MarketStream: 2001]: Latency high: 1.082909107208252
+2022-10-27 21:07:38,550:WARNING:[MarketStream: 2001]: Latency high: 1.0822365283966064
+2022-10-27 21:07:38,603:WARNING:[MarketStream: 2001]: Latency high: 1.083251714706421
+2022-10-27 21:07:38,837:WARNING:[MarketStream: 2001]: Latency high: 1.0830802917480469
+2022-10-27 21:07:38,884:WARNING:[MarketStream: 2001]: Latency high: 1.082162857055664
+2022-10-27 21:07:38,917:WARNING:[MarketStream: 2001]: Latency high: 1.0822644233703613
+2022-10-27 21:07:38,934:WARNING:[MarketStream: 2001]: Latency high: 1.0827581882476807
+2022-10-27 21:07:39,075:WARNING:[MarketStream: 2001]: Latency high: 1.0826656818389893
+2022-10-27 21:07:39,174:WARNING:[MarketStream: 2001]: Latency high: 1.0822675228118896
+2022-10-27 21:07:39,282:WARNING:[MarketStream: 2001]: Latency high: 1.0832407474517822
+2022-10-27 21:07:39,456:WARNING:[MarketStream: 2001]: Latency high: 1.082352876663208
+2022-10-27 21:07:39,564:WARNING:[MarketStream: 2001]: Latency high: 1.0831756591796875
+2022-10-27 21:07:39,969:WARNING:[MarketStream: 2001]: Latency high: 1.0939123630523682
+2022-10-27 21:07:40,082:WARNING:[MarketStream: 2001]: Latency high: 1.0978150367736816
+2022-10-27 21:07:40,290:INFO:BackgroundWorker poll_market_closure shutting down
+2022-10-27 21:07:40,293:WARNING:[MarketStream: 2001]: Latency high: 1.081995964050293
+2022-10-27 21:07:40,345:WARNING:[MarketStream: 2001]: Latency high: 1.0867912769317627
+2022-10-27 21:07:40,418:WARNING:[MarketStream: 2001]: Latency high: 1.0822231769561768
+2022-10-27 21:07:40,618:WARNING:[MarketStream: 2001]: Latency high: 1.0850920677185059
+2022-10-27 21:07:40,841:WARNING:[MarketStream: 2001]: Latency high: 1.085742712020874
+2022-10-27 21:07:40,948:WARNING:[MarketStream: 2001]: Latency high: 1.0889594554901123
+2022-10-27 21:07:40,954:WARNING:[MarketStream: 2001]: Latency high: 1.0886235237121582
+2022-10-27 21:07:41,115:WARNING:[MarketStream: 2001]: Latency high: 1.082197666168213
+2022-10-27 21:07:41,177:WARNING:[MarketStream: 2001]: Latency high: 1.0849785804748535
+2022-10-27 21:07:41,301:WARNING:[MarketStream: 2001]: Latency high: 1.0831081867218018
+2022-10-27 21:07:41,375:WARNING:[MarketStream: 2001]: Latency high: 1.0829813480377197
+2022-10-27 21:07:41,404:WARNING:[MarketStream: 2001]: Latency high: 1.0823423862457275
+2022-10-27 21:07:41,520:WARNING:[MarketStream: 2001]: Latency high: 1.082188367843628
+2022-10-27 21:07:41,630:WARNING:[MarketStream: 2001]: Latency high: 1.0832324028015137
+2022-10-27 21:07:41,672:WARNING:[MarketStream: 2001]: Latency high: 1.082369327545166
+2022-10-27 21:07:41,724:WARNING:[MarketStream: 2001]: Latency high: 1.0820817947387695
+2022-10-27 21:07:41,801:WARNING:[MarketStream: 2001]: Latency high: 1.0831551551818848
+2022-10-27 21:07:41,832:WARNING:[MarketStream: 2001]: Latency high: 1.0835919380187988
+2022-10-27 21:07:41,880:WARNING:[MarketStream: 2001]: Latency high: 1.0823628902435303
+2022-10-27 21:07:41,892:WARNING:[MarketStream: 2001]: Latency high: 1.082655668258667
+2022-10-27 21:07:41,929:WARNING:[MarketStream: 2001]: Latency high: 1.0821592807769775
+2022-10-27 21:07:41,991:WARNING:[MarketStream: 2001]: Latency high: 1.0838737487792969
+2022-10-27 21:07:44,040:INFO:Adding strategy LayStrategy
+2022-10-27 21:07:44,040:INFO:Creating new <class 'flumine.streams.marketstream.MarketStream'> (2000) for strategy LayStrategy
+2022-10-27 21:07:44,041:INFO:Starting flumine
+2022-10-27 21:07:44,931:INFO:Client login
+2022-10-27 21:07:45,788:INFO:Client update account details
+2022-10-27 21:07:45,788:INFO:Adding worker keep_alive
+2022-10-27 21:07:45,788:INFO:Adding worker poll_market_catalogue
+2022-10-27 21:07:45,788:INFO:Adding worker poll_account_balance
+2022-10-27 21:07:45,788:INFO:Adding worker poll_market_closure
+2022-10-27 21:07:45,789:INFO:BackgroundWorker keep_alive starting
+2022-10-27 21:07:45,789:INFO:BackgroundWorker poll_market_catalogue starting
+2022-10-27 21:07:45,789:INFO:BackgroundWorker poll_account_balance starting
+2022-10-27 21:07:45,789:INFO:BackgroundWorker poll_market_closure starting
+2022-10-27 21:07:45,790:INFO:Starting streams..
+2022-10-27 21:07:45,791:INFO:Starting OrderStream 1000
+2022-10-27 21:07:45,791:INFO:Starting output_thread (OrderStream 1000)
+2022-10-27 21:07:45,791:INFO:[Register: 1001]: orderSubscription
+2022-10-27 21:07:45,791:INFO:[OrderStream: 1001]: "OrderStream" created
+2022-10-27 21:07:46,574:INFO:[OrderStream: 1001]: connection_id: 205-271022100745-1867411
+2022-10-27 21:07:46,837:INFO:Starting MarketStream 2000
+2022-10-27 21:07:46,837:INFO:Starting output_thread (MarketStream 2000)
+2022-10-27 21:07:46,838:INFO:[Register: 2001]: marketSubscription
+2022-10-27 21:07:46,838:INFO:[MarketStream: 2001]: "MarketStream" created
+2022-10-27 21:07:46,847:INFO:[OrderStream: 1002]: SUCCESS (9 connections available)
+2022-10-27 21:07:46,847:INFO:[OrderStream: 1001]: SUCCESS (9 connections available)
+2022-10-27 21:07:46,862:INFO:[OrderStream: 1001]: 0 oc added
+2022-10-27 21:07:47,612:INFO:[MarketStream: 2001]: connection_id: 210-271022100746-1915755
+2022-10-27 21:07:47,884:INFO:[MarketStream: 2002]: SUCCESS (8 connections available)
+2022-10-27 21:07:47,910:INFO:[MarketStream: 2001]: SUCCESS (8 connections available)
+2022-10-27 21:07:48,709:INFO:[MarketStream: 2001]: 1.205604409 added, 1 markets in cache
+2022-10-27 21:07:48,710:INFO:[MarketStream: 2001]: 1.205602587 added, 2 markets in cache
+2022-10-27 21:07:48,711:INFO:[MarketStream: 2001]: 1.205604399 added, 3 markets in cache
+2022-10-27 21:07:48,712:INFO:[MarketStream: 2001]: 1.205602582 added, 4 markets in cache
+2022-10-27 21:07:48,712:INFO:[MarketStream: 2001]: 1.205604404 added, 5 markets in cache
+2022-10-27 21:07:48,713:INFO:[MarketStream: 2001]: 1.205602592 added, 6 markets in cache
+2022-10-27 21:07:48,714:INFO:[MarketStream: 2001]: 1.205604414 added, 7 markets in cache
+2022-10-27 21:07:48,715:INFO:[MarketStream: 2001]: 1.205604394 added, 8 markets in cache
+2022-10-27 21:07:48,715:INFO:[MarketStream: 2001]: 1.205602602 added, 9 markets in cache
+2022-10-27 21:07:48,716:INFO:[MarketStream: 2001]: 1.205602577 added, 10 markets in cache
+2022-10-27 21:07:48,717:INFO:[MarketStream: 2001]: 1.205602607 added, 11 markets in cache
+2022-10-27 21:07:48,717:INFO:[MarketStream: 2001]: 1.205604389 added, 12 markets in cache
+2022-10-27 21:07:48,718:INFO:[MarketStream: 2001]: 1.205602597 added, 13 markets in cache
+2022-10-27 21:07:48,718:INFO:[MarketStream: 2001]: 1.205604369 added, 14 markets in cache
+2022-10-27 21:07:48,719:INFO:[MarketStream: 2001]: 1.205602552 added, 15 markets in cache
+2022-10-27 21:07:48,719:INFO:[MarketStream: 2001]: 1.205602557 added, 16 markets in cache
+2022-10-27 21:07:48,720:INFO:[MarketStream: 2001]: 1.205602572 added, 17 markets in cache
+2022-10-27 21:07:48,720:INFO:[MarketStream: 2001]: 1.205604384 added, 18 markets in cache
+2022-10-27 21:07:48,721:INFO:[MarketStream: 2001]: 1.205602567 added, 19 markets in cache
+2022-10-27 21:07:48,721:INFO:[MarketStream: 2001]: 1.205602965 added, 20 markets in cache
+2022-10-27 21:07:48,722:INFO:[MarketStream: 2001]: 1.205606853 added, 21 markets in cache
+2022-10-27 21:07:48,723:INFO:[MarketStream: 2001]: 1.205606848 added, 22 markets in cache
+2022-10-27 21:07:48,724:INFO:[MarketStream: 2001]: 1.205602970 added, 23 markets in cache
+2022-10-27 21:07:48,725:INFO:[MarketStream: 2001]: 1.205604534 added, 24 markets in cache
+2022-10-27 21:07:48,726:INFO:[MarketStream: 2001]: 1.205604549 added, 25 markets in cache
+2022-10-27 21:07:48,727:INFO:[MarketStream: 2001]: 1.205602975 added, 26 markets in cache
+2022-10-27 21:07:48,728:INFO:[MarketStream: 2001]: 1.205604544 added, 27 markets in cache
+2022-10-27 21:07:48,730:INFO:[MarketStream: 2001]: 1.205606858 added, 28 markets in cache
+2022-10-27 21:07:48,730:INFO:[MarketStream: 2001]: 1.205602986 added, 29 markets in cache
+2022-10-27 21:07:48,731:INFO:[MarketStream: 2001]: 1.205604539 added, 30 markets in cache
+2022-10-27 21:07:48,732:INFO:[MarketStream: 2001]: 1.205606903 added, 31 markets in cache
+2022-10-27 21:07:48,733:INFO:[MarketStream: 2001]: 1.205602991 added, 32 markets in cache
+2022-10-27 21:07:48,733:INFO:[MarketStream: 2001]: 1.205604559 added, 33 markets in cache
+2022-10-27 21:07:48,734:INFO:[MarketStream: 2001]: 1.205602980 added, 34 markets in cache
+2022-10-27 21:07:48,735:INFO:[MarketStream: 2001]: 1.205604554 added, 35 markets in cache
+2022-10-27 21:07:48,736:INFO:[MarketStream: 2001]: 1.205604519 added, 36 markets in cache
+2022-10-27 21:07:48,736:INFO:[MarketStream: 2001]: 1.205604514 added, 37 markets in cache
+2022-10-27 21:07:48,736:INFO:[MarketStream: 2001]: 1.205606888 added, 38 markets in cache
+2022-10-27 21:07:48,737:INFO:[MarketStream: 2001]: 1.205606878 added, 39 markets in cache
+2022-10-27 21:07:48,738:INFO:[MarketStream: 2001]: 1.205602945 added, 40 markets in cache
+2022-10-27 21:07:48,738:INFO:[MarketStream: 2001]: 1.205604529 added, 41 markets in cache
+2022-10-27 21:07:48,739:INFO:[MarketStream: 2001]: 1.205602960 added, 42 markets in cache
+2022-10-27 21:07:48,739:INFO:[MarketStream: 2001]: 1.205606898 added, 43 markets in cache
+2022-10-27 21:07:48,739:INFO:[MarketStream: 2001]: 1.205602955 added, 44 markets in cache
+2022-10-27 21:07:48,740:INFO:[MarketStream: 2001]: 1.205606893 added, 45 markets in cache
+2022-10-27 21:07:48,741:INFO:[MarketStream: 2001]: 1.205606883 added, 46 markets in cache
+2022-10-27 21:07:48,741:INFO:[MarketStream: 2001]: 1.205606873 added, 47 markets in cache
+2022-10-27 21:07:48,742:INFO:[MarketStream: 2001]: 1.205604564 added, 48 markets in cache
+2022-10-27 21:07:48,743:INFO:[MarketStream: 2001]: 1.205606868 added, 49 markets in cache
+2022-10-27 21:07:48,744:INFO:[MarketStream: 2001]: 1.205606863 added, 50 markets in cache
+2022-10-27 21:07:48,744:INFO:[MarketStream: 2001]: 1.205604524 added, 51 markets in cache
+2022-10-27 21:07:48,745:INFO:[MarketStream: 2001]: 1.205602950 added, 52 markets in cache
+2022-10-27 21:07:48,745:INFO:[MarketStream: 2001]: 1.205607984 added, 53 markets in cache
+2022-10-27 21:07:48,747:INFO:[MarketStream: 2001]: 1.205606838 added, 54 markets in cache
+2022-10-27 21:07:48,747:INFO:[MarketStream: 2001]: 1.205607987 added, 55 markets in cache
+2022-10-27 21:07:48,748:INFO:[MarketStream: 2001]: 1.205606840 added, 56 markets in cache
+2022-10-27 21:07:48,749:INFO:[MarketStream: 2001]: 1.205606844 added, 57 markets in cache
+2022-10-27 21:07:48,750:INFO:[MarketStream: 2001]: 1.205606842 added, 58 markets in cache
+2022-10-27 21:07:48,751:INFO:[MarketStream: 2001]: 1.205606836 added, 59 markets in cache
+2022-10-27 21:07:48,751:INFO:[MarketStream: 2001]: 1.205607981 added, 60 markets in cache
+2022-10-27 21:07:48,752:INFO:[MarketStream: 2001]: 1.205606846 added, 61 markets in cache
+2022-10-27 21:07:48,752:INFO:[MarketStream: 2001]: 1.205606834 added, 62 markets in cache
+2022-10-27 21:07:48,753:INFO:[MarketStream: 2001]: 1.205607978 added, 63 markets in cache
+2022-10-27 21:07:48,754:INFO:[MarketStream: 2001]: 1.205606832 added, 64 markets in cache
+2022-10-27 21:07:48,755:INFO:[MarketStream: 2001]: 1.205607975 added, 65 markets in cache
+2022-10-27 21:07:48,757:INFO:[MarketStream: 2001]: 65 mc added
+2022-10-27 21:07:48,757:WARNING:[MarketStream: 2001]: Latency high: 1.8993194103240967
+2022-10-27 21:07:48,757:WARNING:[MarketStream: 2001]: Latency high: 1.7103195190429688
+2022-10-27 21:07:48,757:INFO:Adding: 1.205604409 to markets
+2022-10-27 21:07:48,758:WARNING:[MarketStream: 2001]: Latency high: 1.6041772365570068
+2022-10-27 21:07:48,758:INFO:Adding: 1.205602587 to markets
+2022-10-27 21:07:48,758:WARNING:[MarketStream: 2001]: Latency high: 1.395319938659668
+2022-10-27 21:07:48,758:INFO:Adding: 1.205604399 to markets
+2022-10-27 21:07:48,759:WARNING:[MarketStream: 2001]: Latency high: 1.3723208904266357
+2022-10-27 21:07:48,759:INFO:Adding: 1.205602582 to markets
+2022-10-27 21:07:48,759:WARNING:[MarketStream: 2001]: Latency high: 1.301321029663086
+2022-10-27 21:07:48,760:WARNING:[MarketStream: 2001]: Latency high: 1.2364511489868164
+2022-10-27 21:07:48,759:INFO:Adding: 1.205604404 to markets
+2022-10-27 21:07:48,760:WARNING:[MarketStream: 2001]: Latency high: 1.201451063156128
+2022-10-27 21:07:48,760:INFO:Adding: 1.205602592 to markets
+2022-10-27 21:07:48,761:INFO:Adding: 1.205604414 to markets
+2022-10-27 21:07:48,761:WARNING:[MarketStream: 2001]: Latency high: 1.1394550800323486
+2022-10-27 21:07:48,761:INFO:Adding: 1.205604394 to markets
+2022-10-27 21:07:48,761:INFO:Adding: 1.205602602 to markets
+2022-10-27 21:07:48,762:INFO:Adding: 1.205602577 to markets
+2022-10-27 21:07:48,762:INFO:Adding: 1.205602607 to markets
+2022-10-27 21:07:48,761:WARNING:[MarketStream: 2001]: Latency high: 1.1284551620483398
+2022-10-27 21:07:48,762:INFO:Adding: 1.205604389 to markets
+2022-10-27 21:07:48,762:INFO:Adding: 1.205602597 to markets
+2022-10-27 21:07:48,762:INFO:Adding: 1.205604369 to markets
+2022-10-27 21:07:48,762:INFO:Adding: 1.205602552 to markets
+2022-10-27 21:07:48,762:INFO:Adding: 1.205602557 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205602572 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205604384 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205602567 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205602965 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205606853 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205606848 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205602970 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205604534 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205604549 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205602975 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205604544 to markets
+2022-10-27 21:07:48,763:INFO:Adding: 1.205606858 to markets
+2022-10-27 21:07:48,764:INFO:Adding: 1.205602986 to markets
+2022-10-27 21:07:48,764:INFO:Adding: 1.205604539 to markets
+2022-10-27 21:07:48,764:INFO:Adding: 1.205606903 to markets
+2022-10-27 21:07:48,764:INFO:Adding: 1.205602991 to markets
+2022-10-27 21:07:48,764:INFO:Adding: 1.205604559 to markets
+2022-10-27 21:07:48,764:INFO:Adding: 1.205602980 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205604554 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205604519 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205604514 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205606888 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205606878 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205602945 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205604529 to markets
+2022-10-27 21:07:48,765:INFO:Adding: 1.205602960 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205606898 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205602955 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205606893 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205606883 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205606873 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205604564 to markets
+2022-10-27 21:07:48,766:INFO:Adding: 1.205606868 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205606863 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205604524 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205602950 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205607984 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205606838 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205607987 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205606840 to markets
+2022-10-27 21:07:48,767:INFO:Adding: 1.205606844 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205606842 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205606836 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205607981 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205606846 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205606834 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205607978 to markets
+2022-10-27 21:07:48,768:INFO:Adding: 1.205606832 to markets
+2022-10-27 21:07:48,769:INFO:Adding: 1.205607975 to markets
+2022-10-27 21:07:48,769:INFO:Market 1.205604394 closed
+2022-10-27 21:07:48,770:INFO:Market closed
+2022-10-27 21:07:48,770:INFO:Market 1.205602577 closed
+2022-10-27 21:07:48,770:INFO:Market closed
+2022-10-27 21:07:48,770:INFO:Market 1.205604389 closed
+2022-10-27 21:07:48,770:INFO:Market closed
+2022-10-27 21:07:48,770:INFO:Market 1.205604369 closed
+2022-10-27 21:07:48,770:INFO:Market closed
+2022-10-27 21:07:48,770:INFO:Market 1.205602552 closed
+2022-10-27 21:07:48,771:INFO:Market closed
+2022-10-27 21:07:48,771:INFO:Market 1.205602557 closed
+2022-10-27 21:07:48,771:INFO:Market closed
+2022-10-27 21:07:48,771:INFO:Market 1.205602572 closed
+2022-10-27 21:07:48,771:INFO:Market closed
+2022-10-27 21:07:48,771:INFO:Market 1.205604384 closed
+2022-10-27 21:07:48,771:INFO:Market closed
+2022-10-27 21:07:48,771:INFO:Market 1.205602567 closed
+2022-10-27 21:07:48,772:INFO:Market closed
+2022-10-27 21:07:48,772:INFO:Market 1.205604519 closed
+2022-10-27 21:07:48,772:INFO:Market closed
+2022-10-27 21:07:48,772:INFO:Market 1.205604514 closed
+2022-10-27 21:07:48,772:INFO:Market closed
+2022-10-27 21:07:48,772:INFO:Market 1.205602945 closed
+2022-10-27 21:07:48,773:INFO:Market closed
+2022-10-27 21:07:48,773:INFO:Market 1.205604529 closed
+2022-10-27 21:07:48,773:INFO:Market closed
+2022-10-27 21:07:48,773:INFO:Market 1.205602960 closed
+2022-10-27 21:07:48,773:INFO:Market closed
+2022-10-27 21:07:48,773:INFO:Market 1.205602955 closed
+2022-10-27 21:07:48,773:INFO:Market closed
+2022-10-27 21:07:48,774:INFO:Market 1.205604524 closed
+2022-10-27 21:07:48,774:INFO:Market closed
+2022-10-27 21:07:48,774:INFO:Market 1.205602950 closed
+2022-10-27 21:07:48,774:INFO:Market closed
+2022-10-27 21:07:48,774:INFO:Market 1.205606836 closed
+2022-10-27 21:07:48,774:INFO:Market closed
+2022-10-27 21:07:48,774:INFO:Market 1.205607981 closed
+2022-10-27 21:07:48,774:INFO:Market closed
+2022-10-27 21:07:48,775:INFO:Market 1.205606834 closed
+2022-10-27 21:07:48,775:INFO:Market closed
+2022-10-27 21:07:48,775:INFO:Market 1.205607978 closed
+2022-10-27 21:07:48,775:INFO:Market closed
+2022-10-27 21:07:48,775:INFO:Market 1.205606832 closed
+2022-10-27 21:07:48,775:INFO:Market closed
+2022-10-27 21:07:48,775:INFO:Market 1.205607975 closed
+2022-10-27 21:07:48,776:INFO:Market closed
+2022-10-27 21:07:48,855:WARNING:[MarketStream: 2001]: Latency high: 1.078345775604248
+2022-10-27 21:07:48,904:WARNING:[MarketStream: 2001]: Latency high: 1.07839035987854
+2022-10-27 21:07:48,918:WARNING:[MarketStream: 2001]: Latency high: 1.078404188156128
+2022-10-27 21:07:49,012:WARNING:[MarketStream: 2001]: Latency high: 1.0785820484161377
+2022-10-27 21:07:49,013:WARNING:[MarketStream: 2001]: Latency high: 1.0785832405090332
+2022-10-27 21:07:49,110:WARNING:[MarketStream: 2001]: Latency high: 1.079460620880127
+2022-10-27 21:07:49,318:WARNING:[MarketStream: 2001]: Latency high: 1.0789566040039062
+2022-10-27 21:07:49,447:WARNING:[MarketStream: 2001]: Latency high: 1.0805351734161377
+2022-10-27 21:07:49,527:WARNING:[MarketStream: 2001]: Latency high: 1.0833804607391357
+2022-10-27 21:07:49,542:WARNING:[MarketStream: 2001]: Latency high: 1.0846664905548096
+2022-10-27 21:07:49,677:WARNING:[MarketStream: 2001]: Latency high: 1.0879781246185303
+2022-10-27 21:07:49,797:WARNING:[MarketStream: 2001]: Latency high: 1.090710163116455
+2022-10-27 21:07:49,861:WARNING:[MarketStream: 2001]: Latency high: 1.0815091133117676
+2022-10-27 21:07:49,873:WARNING:[MarketStream: 2001]: Latency high: 1.0825200080871582
+2022-10-27 21:07:50,033:WARNING:[MarketStream: 2001]: Latency high: 1.091233253479004
+2022-10-27 21:07:50,113:WARNING:[MarketStream: 2001]: Latency high: 1.0920190811157227
+2022-10-27 21:07:50,163:WARNING:[MarketStream: 2001]: Latency high: 1.0856173038482666
+2022-10-27 21:07:50,232:WARNING:[MarketStream: 2001]: Latency high: 1.0818259716033936
+2022-10-27 21:07:50,305:WARNING:[MarketStream: 2001]: Latency high: 1.07938814163208
+2022-10-27 21:07:50,519:WARNING:[MarketStream: 2001]: Latency high: 1.0855205059051514
+2022-10-27 21:07:50,631:WARNING:[MarketStream: 2001]: Latency high: 1.078967809677124
+2022-10-27 21:07:50,738:WARNING:[MarketStream: 2001]: Latency high: 1.0780658721923828
+2022-10-27 21:07:50,848:WARNING:[MarketStream: 2001]: Latency high: 1.0781497955322266
+2022-10-27 21:07:50,959:WARNING:[MarketStream: 2001]: Latency high: 1.0780799388885498
+2022-10-27 21:07:50,972:WARNING:[MarketStream: 2001]: Latency high: 1.0780198574066162
+2022-10-27 21:07:51,070:WARNING:[MarketStream: 2001]: Latency high: 1.0780084133148193
+2022-10-27 21:07:51,155:WARNING:[MarketStream: 2001]: Latency high: 1.0780723094940186
+2022-10-27 21:07:51,193:WARNING:[MarketStream: 2001]: Latency high: 1.0788190364837646
+2022-10-27 21:07:51,236:WARNING:[MarketStream: 2001]: Latency high: 1.0785725116729736
+2022-10-27 21:07:51,319:WARNING:[MarketStream: 2001]: Latency high: 1.0784895420074463
+2022-10-27 21:07:51,363:WARNING:[MarketStream: 2001]: Latency high: 1.0805292129516602
+2022-10-27 21:07:51,409:WARNING:[MarketStream: 2001]: Latency high: 1.07857084274292
+2022-10-27 21:07:51,417:WARNING:[MarketStream: 2001]: Latency high: 1.078578233718872
+2022-10-27 21:07:51,544:WARNING:[MarketStream: 2001]: Latency high: 1.078955888748169
+2022-10-27 21:07:51,559:WARNING:[MarketStream: 2001]: Latency high: 1.0786287784576416
+2022-10-27 21:07:51,635:WARNING:[MarketStream: 2001]: Latency high: 1.0791783332824707
+2022-10-27 21:07:51,640:WARNING:[MarketStream: 2001]: Latency high: 1.079181432723999
+2022-10-27 21:07:51,686:WARNING:[MarketStream: 2001]: Latency high: 1.0782239437103271
+2022-10-27 21:07:51,729:WARNING:[MarketStream: 2001]: Latency high: 1.0782644748687744
+2022-10-27 21:07:51,836:WARNING:[MarketStream: 2001]: Latency high: 1.0779600143432617
+2022-10-27 21:07:51,946:WARNING:[MarketStream: 2001]: Latency high: 1.0788698196411133
+2022-10-27 21:07:51,981:WARNING:[MarketStream: 2001]: Latency high: 1.0806338787078857
+2022-10-27 21:07:52,046:WARNING:[MarketStream: 2001]: Latency high: 1.0788624286651611
+2022-10-27 21:07:52,351:WARNING:[MarketStream: 2001]: Latency high: 1.0788052082061768
+2022-10-27 21:07:52,424:WARNING:[MarketStream: 2001]: Latency high: 1.078871488571167
+2022-10-27 21:07:52,508:WARNING:[MarketStream: 2001]: Latency high: 1.0789523124694824
+2022-10-27 21:07:52,621:WARNING:[MarketStream: 2001]: Latency high: 1.0800559520721436
+2022-10-27 21:07:52,740:WARNING:[MarketStream: 2001]: Latency high: 1.0778329372406006
+2022-10-27 21:07:52,834:WARNING:[MarketStream: 2001]: Latency high: 1.0791358947753906
+2022-10-27 21:07:52,867:WARNING:[MarketStream: 2001]: Latency high: 1.0791656970977783
+2022-10-27 21:07:52,943:WARNING:[MarketStream: 2001]: Latency high: 1.0786046981811523
+2022-10-27 21:07:52,961:WARNING:[MarketStream: 2001]: Latency high: 1.0783097743988037
+2022-10-27 21:07:53,053:WARNING:[MarketStream: 2001]: Latency high: 1.078695297241211
+2022-10-27 21:07:53,085:WARNING:[MarketStream: 2001]: Latency high: 1.0787246227264404
+2022-10-27 21:07:53,140:WARNING:[MarketStream: 2001]: Latency high: 1.0786290168762207
+2022-10-27 21:07:53,155:WARNING:[MarketStream: 2001]: Latency high: 1.0793862342834473
+2022-10-27 21:07:53,361:WARNING:[MarketStream: 2001]: Latency high: 1.0794198513031006
+2022-10-27 21:07:53,442:WARNING:[MarketStream: 2001]: Latency high: 1.0793397426605225
+2022-10-27 21:07:53,454:WARNING:[MarketStream: 2001]: Latency high: 1.0783507823944092
+2022-10-27 21:07:53,468:WARNING:[MarketStream: 2001]: Latency high: 1.0793654918670654
+2022-10-27 21:07:53,675:WARNING:[MarketStream: 2001]: Latency high: 1.0803465843200684
+2022-10-27 21:07:53,784:WARNING:[MarketStream: 2001]: Latency high: 1.0954465866088867
+2022-10-27 21:07:53,799:WARNING:[MarketStream: 2001]: Latency high: 1.0984644889831543
+2022-10-27 21:07:53,850:WARNING:[MarketStream: 2001]: Latency high: 1.0987930297851562
+2022-10-27 21:07:53,941:WARNING:[MarketStream: 2001]: Latency high: 1.0972652435302734
+2022-10-27 21:07:54,033:WARNING:[MarketStream: 2001]: Latency high: 1.0873513221740723
+2022-10-27 21:07:54,114:WARNING:[MarketStream: 2001]: Latency high: 1.0789334774017334
+2022-10-27 21:07:54,231:WARNING:[MarketStream: 2001]: Latency high: 1.0787296295166016
+2022-10-27 21:07:54,337:WARNING:[MarketStream: 2001]: Latency high: 1.079547643661499
+2022-10-27 21:07:54,427:WARNING:[MarketStream: 2001]: Latency high: 1.0803146362304688
+2022-10-27 21:07:54,444:WARNING:[MarketStream: 2001]: Latency high: 1.0790297985076904
+2022-10-27 21:07:54,536:WARNING:[MarketStream: 2001]: Latency high: 1.0788018703460693
+2022-10-27 21:07:54,658:WARNING:[MarketStream: 2001]: Latency high: 1.0914745330810547
+2022-10-27 21:07:54,669:WARNING:[MarketStream: 2001]: Latency high: 1.0924854278564453
+2022-10-27 21:07:54,755:WARNING:[MarketStream: 2001]: Latency high: 1.087479829788208
+2022-10-27 21:07:54,764:WARNING:[MarketStream: 2001]: Latency high: 1.0864880084991455
+2022-10-27 21:07:54,855:WARNING:[MarketStream: 2001]: Latency high: 1.0785751342773438
+2022-10-27 21:07:54,864:WARNING:[MarketStream: 2001]: Latency high: 1.0795834064483643
+2022-10-27 21:07:54,975:WARNING:[MarketStream: 2001]: Latency high: 1.0782535076141357
+2022-10-27 21:07:55,071:WARNING:[MarketStream: 2001]: Latency high: 1.0790679454803467
+2022-10-27 21:07:55,164:WARNING:[MarketStream: 2001]: Latency high: 1.0794806480407715
+2022-10-27 21:07:55,249:WARNING:[MarketStream: 2001]: Latency high: 1.0834650993347168
+2022-10-27 21:07:55,275:WARNING:[MarketStream: 2001]: Latency high: 1.080559253692627
+2022-10-27 21:07:55,326:WARNING:[MarketStream: 2001]: Latency high: 1.0815365314483643
+2022-10-27 21:07:55,335:WARNING:[MarketStream: 2001]: Latency high: 1.0825448036193848
+2022-10-27 21:07:55,420:WARNING:[MarketStream: 2001]: Latency high: 1.081331729888916
+2022-10-27 21:07:55,518:WARNING:[MarketStream: 2001]: Latency high: 1.0790529251098633
+2022-10-27 21:07:55,633:WARNING:[MarketStream: 2001]: Latency high: 1.0783298015594482
+2022-10-27 21:07:56,007:WARNING:[MarketStream: 2001]: Latency high: 1.0790989398956299
+2022-10-27 21:07:56,136:WARNING:[MarketStream: 2001]: Latency high: 1.0791184902191162
+2022-10-27 21:07:56,161:WARNING:[MarketStream: 2001]: Latency high: 1.0791716575622559
+2022-10-27 21:07:56,223:WARNING:[MarketStream: 2001]: Latency high: 1.0792274475097656
+2022-10-27 21:07:56,227:WARNING:[MarketStream: 2001]: Latency high: 1.0782315731048584
+2022-10-27 21:07:56,248:INFO:Created marketCatalogue for 1.205602582
+2022-10-27 21:07:56,248:INFO:Created marketCatalogue for 1.205602965
+2022-10-27 21:07:56,248:INFO:Created marketCatalogue for 1.205604534
+2022-10-27 21:07:56,249:INFO:Created marketCatalogue for 1.205604399
+2022-10-27 21:07:56,249:INFO:Created marketCatalogue for 1.205602587
+2022-10-27 21:07:56,249:INFO:Created marketCatalogue for 1.205602970
+2022-10-27 21:07:56,249:INFO:Created marketCatalogue for 1.205604539
+2022-10-27 21:07:56,249:INFO:Created marketCatalogue for 1.205606848
+2022-10-27 21:07:56,250:INFO:Created marketCatalogue for 1.205604404
+2022-10-27 21:07:56,250:INFO:Created marketCatalogue for 1.205602592
+2022-10-27 21:07:56,250:INFO:Created marketCatalogue for 1.205602975
+2022-10-27 21:07:56,250:INFO:Created marketCatalogue for 1.205604544
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205606853
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205604409
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205602597
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205602980
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205604549
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205606858
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205604414
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205602602
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205602986
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205602607
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205602991
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205604559
+2022-10-27 21:07:56,251:INFO:Created marketCatalogue for 1.205606903
+2022-10-27 21:07:56,327:WARNING:[MarketStream: 2001]: Latency high: 1.0783209800720215
+2022-10-27 21:07:56,337:WARNING:[MarketStream: 2001]: Latency high: 1.0803306102752686
+2022-10-27 21:07:56,432:WARNING:[MarketStream: 2001]: Latency high: 1.0785820484161377
+2022-10-27 21:07:56,521:INFO:1.205604394: 0 cleared orders found, more available: False
+2022-10-27 21:07:56,522:INFO:Market cleared
+2022-10-27 21:07:56,553:WARNING:[MarketStream: 2001]: Latency high: 1.0786921977996826
+2022-10-27 21:07:56,595:INFO:Client update account details
+2022-10-27 21:07:56,636:INFO:Created marketCatalogue for 1.205607984
+2022-10-27 21:07:56,636:INFO:Created marketCatalogue for 1.205606838
+2022-10-27 21:07:56,636:INFO:Created marketCatalogue for 1.205607987
+2022-10-27 21:07:56,636:INFO:Created marketCatalogue for 1.205606840
+2022-10-27 21:07:56,636:INFO:Created marketCatalogue for 1.205606842
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606844
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205604554
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606846
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606863
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606868
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205604564
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606873
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606878
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606883
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606888
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606893
+2022-10-27 21:07:56,637:INFO:Created marketCatalogue for 1.205606898
+2022-10-27 21:07:56,654:WARNING:[MarketStream: 2001]: Latency high: 1.0845065116882324
+2022-10-27 21:07:56,760:WARNING:[MarketStream: 2001]: Latency high: 1.0880482196807861
+2022-10-27 21:07:56,975:WARNING:[MarketStream: 2001]: Latency high: 1.0783507823944092
+2022-10-27 21:07:57,007:WARNING:[MarketStream: 2001]: Latency high: 1.0783805847167969
+2022-10-27 21:07:57,121:WARNING:[MarketStream: 2001]: Latency high: 1.078484296798706
+2022-10-27 21:07:57,231:WARNING:[MarketStream: 2001]: Latency high: 1.0794048309326172
+2022-10-27 21:07:57,292:INFO:1.205602577: 0 cleared orders found, more available: False
+2022-10-27 21:07:57,293:INFO:Market cleared
+2022-10-27 21:07:58,101:INFO:1.205604389: 0 cleared orders found, more available: False
+2022-10-27 21:07:58,102:INFO:Market cleared
+2022-10-27 21:07:58,158:WARNING:[MarketStream: 2001]: Latency high: 1.0949313640594482
+2022-10-27 21:07:58,173:WARNING:[MarketStream: 2001]: Latency high: 1.08994722366333
+2022-10-27 21:07:58,425:WARNING:[MarketStream: 2001]: Latency high: 1.0785942077636719
+2022-10-27 21:07:58,518:WARNING:[MarketStream: 2001]: Latency high: 1.0792884826660156
+2022-10-27 21:07:58,614:WARNING:[MarketStream: 2001]: Latency high: 1.0787694454193115
+2022-10-27 21:07:58,622:WARNING:[MarketStream: 2001]: Latency high: 1.0777764320373535
+2022-10-27 21:07:58,720:WARNING:[MarketStream: 2001]: Latency high: 1.0805318355560303
+2022-10-27 21:07:58,817:WARNING:[MarketStream: 2001]: Latency high: 1.0794003009796143
+2022-10-27 21:07:58,859:WARNING:[MarketStream: 2001]: Latency high: 1.081169605255127
+2022-10-27 21:07:58,874:INFO:1.205604369: 0 cleared orders found, more available: False
+2022-10-27 21:07:58,874:INFO:Market cleared
+2022-10-27 21:07:58,936:WARNING:[MarketStream: 2001]: Latency high: 1.0812101364135742
+2022-10-27 21:07:58,943:WARNING:[MarketStream: 2001]: Latency high: 1.08121657371521
+2022-10-27 21:07:59,031:WARNING:[MarketStream: 2001]: Latency high: 1.083296775817871
+2022-10-27 21:07:59,051:WARNING:[MarketStream: 2001]: Latency high: 1.081315517425537
+2022-10-27 21:07:59,144:WARNING:[MarketStream: 2001]: Latency high: 1.079399824142456
+2022-10-27 21:07:59,609:INFO:1.205602552: 0 cleared orders found, more available: False
+2022-10-27 21:07:59,609:INFO:Market cleared
+2022-10-27 21:07:59,677:WARNING:[MarketStream: 2001]: Latency high: 1.079500436782837
+2022-10-27 21:07:59,778:WARNING:[MarketStream: 2001]: Latency high: 1.0825927257537842
+2022-10-27 21:07:59,805:WARNING:[MarketStream: 2001]: Latency high: 1.079618215560913
+2022-10-27 21:07:59,919:WARNING:[MarketStream: 2001]: Latency high: 1.0847218036651611
+2022-10-27 21:08:00,027:WARNING:[MarketStream: 2001]: Latency high: 1.0918312072753906
+2022-10-27 21:08:00,221:WARNING:[MarketStream: 2001]: Latency high: 1.079007863998413
+2022-10-27 21:08:00,374:WARNING:[MarketStream: 2001]: Latency high: 1.07814621925354
+2022-10-27 21:08:00,416:INFO:1.205602557: 0 cleared orders found, more available: False
+2022-10-27 21:08:00,416:INFO:Market cleared
+2022-10-27 21:08:00,449:WARNING:[MarketStream: 2001]: Latency high: 1.0792150497436523
+2022-10-27 21:08:00,533:WARNING:[MarketStream: 2001]: Latency high: 1.0812904834747314
+2022-10-27 21:08:00,542:WARNING:[MarketStream: 2001]: Latency high: 1.0813665390014648
+2022-10-27 21:08:00,655:WARNING:[MarketStream: 2001]: Latency high: 1.0791666507720947
+2022-10-27 21:08:00,746:WARNING:[MarketStream: 2001]: Latency high: 1.079249382019043
+2022-10-27 21:08:00,848:WARNING:[MarketStream: 2001]: Latency high: 1.0783417224884033
+2022-10-27 21:08:00,962:WARNING:[MarketStream: 2001]: Latency high: 1.078446388244629
+2022-10-27 21:08:00,966:WARNING:[MarketStream: 2001]: Latency high: 1.0794494152069092
+2022-10-27 21:08:01,149:INFO:1.205602572: 0 cleared orders found, more available: False
+2022-10-27 21:08:01,149:INFO:Market cleared
+2022-10-27 21:08:01,149:WARNING:[MarketStream: 2001]: Latency high: 1.0836162567138672
+2022-10-27 21:08:01,158:WARNING:[MarketStream: 2001]: Latency high: 1.0816240310668945
+2022-10-27 21:08:01,267:WARNING:[MarketStream: 2001]: Latency high: 1.0787239074707031
+2022-10-27 21:08:01,304:WARNING:[MarketStream: 2001]: Latency high: 1.0787568092346191
+2022-10-27 21:08:01,368:WARNING:[MarketStream: 2001]: Latency high: 1.0778143405914307
+2022-10-27 21:08:01,373:WARNING:[MarketStream: 2001]: Latency high: 1.079819917678833
+2022-10-27 21:08:01,412:WARNING:[MarketStream: 2001]: Latency high: 1.078855276107788
+2022-10-27 21:08:01,421:WARNING:[MarketStream: 2001]: Latency high: 1.0788633823394775
+2022-10-27 21:08:01,425:WARNING:[MarketStream: 2001]: Latency high: 1.0788671970367432
+2022-10-27 21:08:01,522:WARNING:[MarketStream: 2001]: Latency high: 1.0789554119110107
+2022-10-27 21:08:01,527:WARNING:[MarketStream: 2001]: Latency high: 1.0789604187011719
+2022-10-27 21:08:01,535:WARNING:[MarketStream: 2001]: Latency high: 1.0789668560028076
+2022-10-27 21:08:01,626:WARNING:[MarketStream: 2001]: Latency high: 1.0787444114685059
+2022-10-27 21:08:01,798:WARNING:[MarketStream: 2001]: Latency high: 1.0782504081726074
+2022-10-27 21:08:01,838:WARNING:[MarketStream: 2001]: Latency high: 1.0790963172912598
+2022-10-27 21:08:01,849:WARNING:[MarketStream: 2001]: Latency high: 1.0777721405029297
+2022-10-27 21:08:01,907:INFO:1.205604384: 0 cleared orders found, more available: False
+2022-10-27 21:08:01,907:INFO:Market cleared
+2022-10-27 21:08:01,938:WARNING:[MarketStream: 2001]: Latency high: 1.0788538455963135
+2022-10-27 21:08:01,960:WARNING:[MarketStream: 2001]: Latency high: 1.0818734169006348
+2022-10-27 21:08:02,040:WARNING:[MarketStream: 2001]: Latency high: 1.0849459171295166
+2022-10-27 21:08:02,068:WARNING:[MarketStream: 2001]: Latency high: 1.0849719047546387
+2022-10-27 21:08:02,149:WARNING:[MarketStream: 2001]: Latency high: 1.0850448608398438
+2022-10-27 21:08:02,165:WARNING:[MarketStream: 2001]: Latency high: 1.0840590000152588
+2022-10-27 21:08:02,347:WARNING:[MarketStream: 2001]: Latency high: 1.0792245864868164
+2022-10-27 21:08:02,462:WARNING:[MarketStream: 2001]: Latency high: 1.0854825973510742
+2022-10-27 21:08:02,517:WARNING:[MarketStream: 2001]: Latency high: 1.0841712951660156
+2022-10-27 21:08:02,561:WARNING:[MarketStream: 2001]: Latency high: 1.078214168548584
+2022-10-27 21:08:02,617:WARNING:[MarketStream: 2001]: Latency high: 1.0792651176452637
+2022-10-27 21:08:02,658:INFO:1.205602567: 0 cleared orders found, more available: False
+2022-10-27 21:08:02,658:INFO:Market cleared
+2022-10-27 21:08:02,740:WARNING:[MarketStream: 2001]: Latency high: 1.0783777236938477
+2022-10-27 21:08:02,741:WARNING:[MarketStream: 2001]: Latency high: 1.0783782005310059
+2022-10-27 21:08:02,826:WARNING:[MarketStream: 2001]: Latency high: 1.0784554481506348
+2022-10-27 21:08:02,831:WARNING:[MarketStream: 2001]: Latency high: 1.0784595012664795
+2022-10-27 21:08:02,930:WARNING:[MarketStream: 2001]: Latency high: 1.0784046649932861
+2022-10-27 21:08:02,944:WARNING:[MarketStream: 2001]: Latency high: 1.0794174671173096
+2022-10-27 21:08:03,034:WARNING:[MarketStream: 2001]: Latency high: 1.0794997215270996
+2022-10-27 21:08:03,128:WARNING:[MarketStream: 2001]: Latency high: 1.0805854797363281
+2022-10-27 21:08:03,134:WARNING:[MarketStream: 2001]: Latency high: 1.079590082168579
+2022-10-27 21:08:03,238:WARNING:[MarketStream: 2001]: Latency high: 1.0796847343444824
+2022-10-27 21:08:03,384:INFO:1.205604519: 0 cleared orders found, more available: False
+2022-10-27 21:08:03,385:INFO:Market cleared
+2022-10-27 21:08:03,448:WARNING:[MarketStream: 2001]: Latency high: 1.0885770320892334
+2022-10-27 21:08:03,455:WARNING:[MarketStream: 2001]: Latency high: 1.0885839462280273
+2022-10-27 21:08:03,581:WARNING:[MarketStream: 2001]: Latency high: 1.0783097743988037
+2022-10-27 21:08:03,652:WARNING:[MarketStream: 2001]: Latency high: 1.0782177448272705
+2022-10-27 21:08:03,656:WARNING:[MarketStream: 2001]: Latency high: 1.078221082687378
+2022-10-27 21:08:03,722:WARNING:[MarketStream: 2001]: Latency high: 1.0792808532714844
+2022-10-27 21:08:03,760:WARNING:[MarketStream: 2001]: Latency high: 1.081315279006958
+2022-10-27 21:08:03,815:WARNING:[MarketStream: 2001]: Latency high: 1.0783653259277344
+2022-10-27 21:08:03,817:WARNING:[MarketStream: 2001]: Latency high: 1.0783677101135254
+2022-10-27 21:08:03,921:WARNING:[MarketStream: 2001]: Latency high: 1.0784623622894287
+2022-10-27 21:08:03,922:WARNING:[MarketStream: 2001]: Latency high: 1.078462839126587
+2022-10-27 21:08:04,020:WARNING:[MarketStream: 2001]: Latency high: 1.077552080154419
+2022-10-27 21:08:04,034:WARNING:[MarketStream: 2001]: Latency high: 1.0785651206970215
+2022-10-27 21:08:04,122:WARNING:[MarketStream: 2001]: Latency high: 1.0786445140838623
+2022-10-27 21:08:04,125:WARNING:[MarketStream: 2001]: Latency high: 1.0786476135253906
+2022-10-27 21:08:04,169:INFO:1.205604514: 0 cleared orders found, more available: False
+2022-10-27 21:08:04,170:INFO:Market cleared
+2022-10-27 21:08:04,230:WARNING:[MarketStream: 2001]: Latency high: 1.0777440071105957
+2022-10-27 21:08:04,338:WARNING:[MarketStream: 2001]: Latency high: 1.081841230392456
+2022-10-27 21:08:04,344:WARNING:[MarketStream: 2001]: Latency high: 1.0778470039367676
+2022-10-27 21:08:04,391:WARNING:[MarketStream: 2001]: Latency high: 1.0788893699645996
+2022-10-27 21:08:04,435:WARNING:[MarketStream: 2001]: Latency high: 1.0789291858673096
+2022-10-27 21:08:04,439:WARNING:[MarketStream: 2001]: Latency high: 1.0799334049224854
+2022-10-27 21:08:04,450:WARNING:[MarketStream: 2001]: Latency high: 1.0809431076049805
+2022-10-27 21:08:04,537:WARNING:[MarketStream: 2001]: Latency high: 1.0790212154388428
+2022-10-27 21:08:04,541:WARNING:[MarketStream: 2001]: Latency high: 1.0780248641967773
+2022-10-27 21:08:04,647:WARNING:[MarketStream: 2001]: Latency high: 1.0831220149993896
+2022-10-27 21:08:04,911:INFO:1.205602945: 0 cleared orders found, more available: False
+2022-10-27 21:08:04,911:INFO:Market cleared
+2022-10-27 21:08:05,326:WARNING:[MarketStream: 2001]: Latency high: 1.0785086154937744
+2022-10-27 21:08:05,419:WARNING:[MarketStream: 2001]: Latency high: 1.0789527893066406
+2022-10-27 21:08:05,426:WARNING:[MarketStream: 2001]: Latency high: 1.077958345413208
+2022-10-27 21:08:05,521:WARNING:[MarketStream: 2001]: Latency high: 1.0842585563659668
+2022-10-27 21:08:05,638:WARNING:[MarketStream: 2001]: Latency high: 1.0867946147918701
+2022-10-27 21:08:05,647:INFO:1.205604529: 0 cleared orders found, more available: False
+2022-10-27 21:08:05,648:INFO:Market cleared
+2022-10-27 21:08:05,691:WARNING:[MarketStream: 2001]: Latency high: 1.0838429927825928
+2022-10-27 21:08:05,731:WARNING:[MarketStream: 2001]: Latency high: 1.0888795852661133
+2022-10-27 21:08:05,735:WARNING:[MarketStream: 2001]: Latency high: 1.0878829956054688
+2022-10-27 21:08:05,740:WARNING:[MarketStream: 2001]: Latency high: 1.0888879299163818
+2022-10-27 21:08:05,845:WARNING:[MarketStream: 2001]: Latency high: 1.086756944656372
+2022-10-27 21:08:05,857:WARNING:[MarketStream: 2001]: Latency high: 1.0887675285339355
+2022-10-27 21:08:05,914:WARNING:[MarketStream: 2001]: Latency high: 1.089820384979248
+2022-10-27 21:08:05,954:WARNING:[MarketStream: 2001]: Latency high: 1.096855640411377
+2022-10-27 21:08:06,151:WARNING:[MarketStream: 2001]: Latency high: 1.089033842086792
+2022-10-27 21:08:06,212:WARNING:[MarketStream: 2001]: Latency high: 1.085639476776123
+2022-10-27 21:08:06,268:WARNING:[MarketStream: 2001]: Latency high: 1.0891509056091309
+2022-10-27 21:08:06,357:WARNING:[MarketStream: 2001]: Latency high: 1.089050054550171
+2022-10-27 21:08:06,367:WARNING:[MarketStream: 2001]: Latency high: 1.0882117748260498
+2022-10-27 21:08:06,467:WARNING:[MarketStream: 2001]: Latency high: 1.0977437496185303
+2022-10-27 21:08:06,471:WARNING:[MarketStream: 2001]: Latency high: 1.097747564315796
+2022-10-27 21:08:06,558:WARNING:[MarketStream: 2001]: Latency high: 1.0828263759613037
+2022-10-27 21:08:06,621:INFO:1.205602960: 0 cleared orders found, more available: False
+2022-10-27 21:08:06,621:INFO:Market cleared
+2022-10-27 21:08:06,666:WARNING:[MarketStream: 2001]: Latency high: 1.0870509147644043
+2022-10-27 21:08:06,727:WARNING:[MarketStream: 2001]: Latency high: 1.0881059169769287
+2022-10-27 21:08:06,736:WARNING:[MarketStream: 2001]: Latency high: 1.0851142406463623
+2022-10-27 21:08:06,777:WARNING:[MarketStream: 2001]: Latency high: 1.079150915145874
+2022-10-27 21:08:06,837:WARNING:[MarketStream: 2001]: Latency high: 1.0862061977386475
+2022-10-27 21:08:06,941:WARNING:[MarketStream: 2001]: Latency high: 1.0965514183044434
+2022-10-27 21:08:06,949:WARNING:[MarketStream: 2001]: Latency high: 1.0945591926574707
+2022-10-27 21:08:07,031:WARNING:[MarketStream: 2001]: Latency high: 1.0885722637176514
+2022-10-27 21:08:07,383:INFO:1.205602955: 0 cleared orders found, more available: False
+2022-10-27 21:08:07,383:INFO:Market cleared
+2022-10-27 21:08:07,551:WARNING:[MarketStream: 2001]: Latency high: 1.0792548656463623
+2022-10-27 21:08:07,643:WARNING:[MarketStream: 2001]: Latency high: 1.0783381462097168
+2022-10-27 21:08:07,761:WARNING:[MarketStream: 2001]: Latency high: 1.0824456214904785
+2022-10-27 21:08:07,870:WARNING:[MarketStream: 2001]: Latency high: 1.083383321762085
+2022-10-27 21:08:08,059:WARNING:[MarketStream: 2001]: Latency high: 1.0785892009735107
+2022-10-27 21:08:08,075:WARNING:[MarketStream: 2001]: Latency high: 1.0786042213439941
+2022-10-27 21:08:08,112:INFO:1.205604524: 0 cleared orders found, more available: False
+2022-10-27 21:08:08,112:INFO:Market cleared
+2022-10-27 21:08:08,183:WARNING:[MarketStream: 2001]: Latency high: 1.0789620876312256
+2022-10-27 21:08:08,296:WARNING:[MarketStream: 2001]: Latency high: 1.0785982608795166
+2022-10-27 21:08:08,485:WARNING:[MarketStream: 2001]: Latency high: 1.0794217586517334
+2022-10-27 21:08:08,579:WARNING:[MarketStream: 2001]: Latency high: 1.079301118850708
+2022-10-27 21:08:08,747:WARNING:[MarketStream: 2001]: Latency high: 1.0791051387786865
+2022-10-27 21:08:08,850:WARNING:[MarketStream: 2001]: Latency high: 1.078655481338501
+2022-10-27 21:08:08,860:INFO:1.205602950: 0 cleared orders found, more available: False
+2022-10-27 21:08:08,860:INFO:Market cleared
+2022-10-27 21:08:08,939:WARNING:[MarketStream: 2001]: Latency high: 1.0790917873382568
+2022-10-27 21:08:08,954:WARNING:[MarketStream: 2001]: Latency high: 1.0787842273712158
+2022-10-27 21:08:09,056:WARNING:[MarketStream: 2001]: Latency high: 1.0792055130004883
+2022-10-27 21:08:09,373:WARNING:[MarketStream: 2001]: Latency high: 1.0829529762268066
+2022-10-27 21:08:09,470:WARNING:[MarketStream: 2001]: Latency high: 1.082958698272705
+2022-10-27 21:08:09,477:WARNING:[MarketStream: 2001]: Latency high: 1.0789647102355957
+2022-10-27 21:08:09,521:WARNING:[MarketStream: 2001]: Latency high: 1.078749656677246
+2022-10-27 21:08:09,575:WARNING:[MarketStream: 2001]: Latency high: 1.079054594039917
+2022-10-27 21:08:09,595:INFO:1.205606836: 0 cleared orders found, more available: False
+2022-10-27 21:08:09,596:INFO:Market cleared
+2022-10-27 21:08:09,637:WARNING:[MarketStream: 2001]: Latency high: 1.083691120147705
+2022-10-27 21:08:09,684:WARNING:[MarketStream: 2001]: Latency high: 1.0802137851715088
+2022-10-27 21:08:09,741:WARNING:[MarketStream: 2001]: Latency high: 1.081376314163208
+2022-10-27 21:08:09,743:WARNING:[MarketStream: 2001]: Latency high: 1.0803778171539307
+2022-10-27 21:08:09,823:WARNING:[MarketStream: 2001]: Latency high: 1.0806219577789307
+2022-10-27 21:08:09,832:WARNING:[MarketStream: 2001]: Latency high: 1.0806307792663574
+2022-10-27 21:08:10,050:WARNING:[MarketStream: 2001]: Latency high: 1.0946791172027588
+2022-10-27 21:08:10,051:INFO:BackgroundWorker keep_alive shutting down
+2022-10-27 21:08:10,159:WARNING:[MarketStream: 2001]: Latency high: 1.0885014533996582
+2022-10-27 21:08:10,379:WARNING:[MarketStream: 2001]: Latency high: 1.0962424278259277
+2022-10-27 21:08:10,389:INFO:1.205607981: 0 cleared orders found, more available: False
+2022-10-27 21:08:10,476:WARNING:[MarketStream: 2001]: Latency high: 1.0952222347259521
+2022-10-27 21:08:10,477:WARNING:[MarketStream: 2001]: Latency high: 1.0952701568603516
+2022-10-27 21:08:10,565:WARNING:[MarketStream: 2001]: Latency high: 1.0962650775909424
+2022-10-27 21:08:10,574:WARNING:[MarketStream: 2001]: Latency high: 1.0942738056182861
+2022-10-27 21:08:10,669:WARNING:[MarketStream: 2001]: Latency high: 1.081730604171753
+2022-10-27 21:08:10,878:WARNING:[MarketStream: 2001]: Latency high: 1.0786397457122803
+2022-10-27 21:08:10,965:WARNING:[MarketStream: 2001]: Latency high: 1.077726125717163
+2022-10-27 21:08:11,079:WARNING:[MarketStream: 2001]: Latency high: 1.0792357921600342
+2022-10-27 21:08:11,194:INFO:1.205606834: 0 cleared orders found, more available: False
+2022-10-27 21:08:11,235:WARNING:[MarketStream: 2001]: Latency high: 1.0814805030822754
+2022-10-27 21:08:11,293:WARNING:[MarketStream: 2001]: Latency high: 1.0879442691802979
+2022-10-27 21:08:11,352:WARNING:[MarketStream: 2001]: Latency high: 1.093451976776123
+2022-10-27 21:08:11,554:WARNING:[MarketStream: 2001]: Latency high: 1.0803930759429932
+2022-10-27 21:08:11,630:WARNING:[MarketStream: 2001]: Latency high: 1.0794620513916016
+2022-10-27 21:08:11,786:WARNING:[MarketStream: 2001]: Latency high: 1.0786044597625732
+2022-10-27 21:08:11,825:WARNING:[MarketStream: 2001]: Latency high: 1.0793251991271973
+2022-10-27 21:08:11,829:WARNING:[MarketStream: 2001]: Latency high: 1.0793309211730957
+2022-10-27 21:08:11,929:WARNING:[MarketStream: 2001]: Latency high: 1.079066276550293
+2022-10-27 21:08:11,941:INFO:1.205607978: 0 cleared orders found, more available: False
+2022-10-27 21:08:12,040:WARNING:[MarketStream: 2001]: Latency high: 1.0808866024017334
+2022-10-27 21:08:12,044:WARNING:[MarketStream: 2001]: Latency high: 1.081890344619751
+2022-10-27 21:08:12,127:WARNING:[MarketStream: 2001]: Latency high: 1.0789663791656494
+2022-10-27 21:08:12,136:WARNING:[MarketStream: 2001]: Latency high: 1.0789740085601807
+2022-10-27 21:08:12,243:WARNING:[MarketStream: 2001]: Latency high: 1.0789453983306885
+2022-10-27 21:08:12,456:WARNING:[MarketStream: 2001]: Latency high: 1.0783565044403076
+2022-10-27 21:08:12,694:INFO:1.205606832: 0 cleared orders found, more available: False
+2022-10-27 21:08:12,749:WARNING:[MarketStream: 2001]: Latency high: 1.078493595123291
+2022-10-27 21:08:12,864:WARNING:[MarketStream: 2001]: Latency high: 1.078212022781372
+2022-10-27 21:08:12,954:WARNING:[MarketStream: 2001]: Latency high: 1.078840732574463
+2022-10-27 21:08:13,074:WARNING:[MarketStream: 2001]: Latency high: 1.0786354541778564
+2022-10-27 21:08:13,181:WARNING:[MarketStream: 2001]: Latency high: 1.0786468982696533
+2022-10-27 21:08:13,276:WARNING:[MarketStream: 2001]: Latency high: 1.0788788795471191
+2022-10-27 21:08:13,291:WARNING:[MarketStream: 2001]: Latency high: 1.0788941383361816
+2022-10-27 21:08:13,342:WARNING:[MarketStream: 2001]: Latency high: 1.078906536102295
+2022-10-27 21:08:13,393:WARNING:[MarketStream: 2001]: Latency high: 1.0796098709106445
+2022-10-27 21:08:13,427:WARNING:[MarketStream: 2001]: Latency high: 1.0792181491851807
+2022-10-27 21:08:13,430:INFO:1.205607975: 0 cleared orders found, more available: False
+2022-10-27 21:08:13,431:WARNING:[MarketStream: 2001]: Latency high: 1.0788891315460205
+2022-10-27 21:08:13,534:WARNING:[MarketStream: 2001]: Latency high: 1.078500509262085
+2022-10-27 21:08:13,539:WARNING:[MarketStream: 2001]: Latency high: 1.079505205154419
+2022-10-27 21:08:13,626:WARNING:[MarketStream: 2001]: Latency high: 1.0783886909484863
+2022-10-27 21:08:13,647:WARNING:[MarketStream: 2001]: Latency high: 1.0780348777770996
+2022-10-27 21:08:13,683:WARNING:[MarketStream: 2001]: Latency high: 1.0810651779174805
+2022-10-27 21:08:13,686:WARNING:[MarketStream: 2001]: Latency high: 1.0790677070617676
+2022-10-27 21:08:13,784:WARNING:[MarketStream: 2001]: Latency high: 1.0787427425384521
+2022-10-27 21:08:13,842:WARNING:[MarketStream: 2001]: Latency high: 1.078390121459961
+2022-10-27 21:08:13,853:WARNING:[MarketStream: 2001]: Latency high: 1.078399419784546
+2022-10-27 21:08:13,892:WARNING:[MarketStream: 2001]: Latency high: 1.0793876647949219
+2022-10-27 21:08:13,934:WARNING:[MarketStream: 2001]: Latency high: 1.0791292190551758
+2022-10-27 21:08:14,036:WARNING:[MarketStream: 2001]: Latency high: 1.0789108276367188
+2022-10-27 21:08:14,059:INFO:BackgroundWorker poll_market_catalogue shutting down
+2022-10-27 21:08:14,144:WARNING:[MarketStream: 2001]: Latency high: 1.0783588886260986
+2022-10-27 21:08:14,204:WARNING:[MarketStream: 2001]: Latency high: 1.0794572830200195
+2022-10-27 21:08:14,307:WARNING:[MarketStream: 2001]: Latency high: 1.0783114433288574
+2022-10-27 21:08:14,346:WARNING:[MarketStream: 2001]: Latency high: 1.0786535739898682
+2022-10-27 21:08:14,350:WARNING:[MarketStream: 2001]: Latency high: 1.078660249710083
+2022-10-27 21:08:14,472:WARNING:[MarketStream: 2001]: Latency high: 1.078751802444458
+2022-10-27 21:08:14,505:WARNING:[MarketStream: 2001]: Latency high: 1.0787835121154785
+2022-10-27 21:08:14,555:WARNING:[MarketStream: 2001]: Latency high: 1.0786216259002686
+2022-10-27 21:08:14,566:WARNING:[MarketStream: 2001]: Latency high: 1.080631971359253
+2022-10-27 21:08:14,660:WARNING:[MarketStream: 2001]: Latency high: 1.0790021419525146
+2022-10-27 21:08:14,673:WARNING:[MarketStream: 2001]: Latency high: 1.0780138969421387
+2022-10-27 21:08:14,762:WARNING:[MarketStream: 2001]: Latency high: 1.0787479877471924
+2022-10-27 21:08:14,778:WARNING:[MarketStream: 2001]: Latency high: 1.0787622928619385
+2022-10-27 21:08:14,867:WARNING:[MarketStream: 2001]: Latency high: 1.0785250663757324
+2022-10-27 21:08:14,879:WARNING:[MarketStream: 2001]: Latency high: 1.0785367488861084
+2022-10-27 21:08:14,927:WARNING:[MarketStream: 2001]: Latency high: 1.0792250633239746
+2022-10-27 21:08:15,049:WARNING:[MarketStream: 2001]: Latency high: 1.0795364379882812
+2022-10-27 21:08:15,221:WARNING:[MarketStream: 2001]: Latency high: 1.0822112560272217
+2022-10-27 21:08:15,238:WARNING:[MarketStream: 2001]: Latency high: 1.083226203918457
+2022-10-27 21:08:15,314:WARNING:[MarketStream: 2001]: Latency high: 1.0896868705749512
+2022-10-27 21:08:15,342:WARNING:[MarketStream: 2001]: Latency high: 1.0867195129394531
+2022-10-27 21:08:15,508:WARNING:[MarketStream: 2001]: Latency high: 1.0785439014434814
+2022-10-27 21:08:15,534:WARNING:[MarketStream: 2001]: Latency high: 1.0788633823394775
+2022-10-27 21:08:15,543:WARNING:[MarketStream: 2001]: Latency high: 1.0788753032684326
+2022-10-27 21:08:15,639:WARNING:[MarketStream: 2001]: Latency high: 1.0782177448272705
+2022-10-27 21:08:15,645:WARNING:[MarketStream: 2001]: Latency high: 1.0790066719055176
+2022-10-27 21:08:15,744:WARNING:[MarketStream: 2001]: Latency high: 1.0790953636169434
+2022-10-27 21:08:15,848:WARNING:[MarketStream: 2001]: Latency high: 1.0785775184631348
+2022-10-27 21:08:15,961:WARNING:[MarketStream: 2001]: Latency high: 1.080308437347412
+2022-10-27 21:08:16,055:WARNING:[MarketStream: 2001]: Latency high: 1.0788276195526123
+2022-10-27 21:08:16,068:WARNING:[MarketStream: 2001]: Latency high: 1.078840732574463
+2022-10-27 21:08:16,183:WARNING:[MarketStream: 2001]: Latency high: 1.0787124633789062
+2022-10-27 21:08:16,194:WARNING:[MarketStream: 2001]: Latency high: 1.0787227153778076
+2022-10-27 21:08:16,270:WARNING:[MarketStream: 2001]: Latency high: 1.0788791179656982
+2022-10-27 21:08:16,367:WARNING:[MarketStream: 2001]: Latency high: 1.0794179439544678
+2022-10-27 21:08:16,386:WARNING:[MarketStream: 2001]: Latency high: 1.0795695781707764
+2022-10-27 21:08:16,485:WARNING:[MarketStream: 2001]: Latency high: 1.0792291164398193
+2022-10-27 21:08:16,537:WARNING:[MarketStream: 2001]: Latency high: 1.0837109088897705
+2022-10-27 21:08:16,579:WARNING:[MarketStream: 2001]: Latency high: 1.0875203609466553
+2022-10-27 21:08:16,592:WARNING:[MarketStream: 2001]: Latency high: 1.0877201557159424
+2022-10-27 21:08:16,660:WARNING:[MarketStream: 2001]: Latency high: 1.087477684020996
+2022-10-27 21:08:16,734:WARNING:[MarketStream: 2001]: Latency high: 1.079174280166626
+2022-10-27 21:08:16,841:WARNING:[MarketStream: 2001]: Latency high: 1.0783052444458008
+2022-10-27 21:08:17,047:WARNING:[MarketStream: 2001]: Latency high: 1.0790328979492188
+2022-10-27 21:08:17,137:WARNING:[MarketStream: 2001]: Latency high: 1.0794658660888672
+2022-10-27 21:08:17,149:WARNING:[MarketStream: 2001]: Latency high: 1.0790996551513672
+2022-10-27 21:08:17,210:WARNING:[MarketStream: 2001]: Latency high: 1.0791587829589844
+2022-10-27 21:08:17,362:WARNING:[MarketStream: 2001]: Latency high: 1.0778439044952393
+2022-10-27 21:08:17,380:WARNING:[MarketStream: 2001]: Latency high: 1.0788600444793701
+2022-10-27 21:08:17,457:WARNING:[MarketStream: 2001]: Latency high: 1.0791022777557373
+2022-10-27 21:08:17,472:WARNING:[MarketStream: 2001]: Latency high: 1.080115795135498
+2022-10-27 21:08:17,562:WARNING:[MarketStream: 2001]: Latency high: 1.0788829326629639
+2022-10-27 21:08:17,567:WARNING:[MarketStream: 2001]: Latency high: 1.0788874626159668
+2022-10-27 21:08:17,668:WARNING:[MarketStream: 2001]: Latency high: 1.0783500671386719
+2022-10-27 21:08:17,690:WARNING:[MarketStream: 2001]: Latency high: 1.0793697834014893
+2022-10-27 21:08:17,790:WARNING:[MarketStream: 2001]: Latency high: 1.0782129764556885
+2022-10-27 21:08:17,996:WARNING:[MarketStream: 2001]: Latency high: 1.079524278640747
+2022-10-27 21:08:18,003:WARNING:[MarketStream: 2001]: Latency high: 1.079530954360962
+2022-10-27 21:08:18,038:WARNING:[MarketStream: 2001]: Latency high: 1.0797874927520752
+2022-10-27 21:08:18,067:INFO:BackgroundWorker poll_account_balance shutting down
+2022-10-27 21:08:18,097:WARNING:[MarketStream: 2001]: Latency high: 1.0821170806884766
+2022-10-27 21:08:18,141:WARNING:[MarketStream: 2001]: Latency high: 1.0793335437774658
+2022-10-27 21:08:18,194:WARNING:[MarketStream: 2001]: Latency high: 1.078986644744873
+2022-10-27 21:08:18,241:WARNING:[MarketStream: 2001]: Latency high: 1.0789940357208252
+2022-10-27 21:08:18,246:WARNING:[MarketStream: 2001]: Latency high: 1.0789985656738281
+2022-10-27 21:08:18,303:WARNING:[MarketStream: 2001]: Latency high: 1.0807230472564697
+2022-10-27 21:08:18,374:WARNING:[MarketStream: 2001]: Latency high: 1.079352855682373
+2022-10-27 21:08:18,392:WARNING:[MarketStream: 2001]: Latency high: 1.0803718566894531
+2022-10-27 21:08:18,445:WARNING:[MarketStream: 2001]: Latency high: 1.0796077251434326
+2022-10-27 21:08:18,477:WARNING:[MarketStream: 2001]: Latency high: 1.0790092945098877
+2022-10-27 21:08:18,490:WARNING:[MarketStream: 2001]: Latency high: 1.0790226459503174
+2022-10-27 21:08:18,501:WARNING:[MarketStream: 2001]: Latency high: 1.0788443088531494
+2022-10-27 21:08:18,533:WARNING:[MarketStream: 2001]: Latency high: 1.078873634338379
+2022-10-27 21:08:18,534:WARNING:[MarketStream: 2001]: Latency high: 1.0788745880126953
+2022-10-27 21:08:18,591:WARNING:[MarketStream: 2001]: Latency high: 1.0786082744598389
+2022-10-27 21:08:18,643:WARNING:[MarketStream: 2001]: Latency high: 1.0816478729248047
+2022-10-27 21:08:18,658:WARNING:[MarketStream: 2001]: Latency high: 1.080188274383545
+2022-10-27 21:08:18,742:WARNING:[MarketStream: 2001]: Latency high: 1.0790774822235107
+2022-10-27 21:08:18,747:WARNING:[MarketStream: 2001]: Latency high: 1.0790822505950928
+2022-10-27 21:08:18,856:WARNING:[MarketStream: 2001]: Latency high: 1.078857183456421
+2022-10-27 21:08:18,857:WARNING:[MarketStream: 2001]: Latency high: 1.0788590908050537
+2022-10-27 21:08:18,975:WARNING:[MarketStream: 2001]: Latency high: 1.0786552429199219
+2022-10-27 21:08:19,016:WARNING:[MarketStream: 2001]: Latency high: 1.0799612998962402
+2022-10-27 21:08:19,356:WARNING:[MarketStream: 2001]: Latency high: 1.083052158355713
+2022-10-27 21:08:19,377:WARNING:[MarketStream: 2001]: Latency high: 1.084071159362793
+2022-10-27 21:08:19,450:WARNING:[MarketStream: 2001]: Latency high: 1.0883350372314453
+2022-10-27 21:08:19,496:WARNING:[MarketStream: 2001]: Latency high: 1.0893220901489258
+2022-10-27 21:08:19,501:WARNING:[MarketStream: 2001]: Latency high: 1.0900163650512695
+2022-10-27 21:08:19,545:WARNING:[MarketStream: 2001]: Latency high: 1.090174913406372
+2022-10-27 21:08:19,597:WARNING:[MarketStream: 2001]: Latency high: 1.083172082901001
+2022-10-27 21:08:19,605:WARNING:[MarketStream: 2001]: Latency high: 1.0801775455474854
+2022-10-27 21:08:19,708:WARNING:[MarketStream: 2001]: Latency high: 1.0795538425445557
+2022-10-27 21:08:19,737:WARNING:[MarketStream: 2001]: Latency high: 1.0783371925354004
+2022-10-27 21:08:19,835:WARNING:[MarketStream: 2001]: Latency high: 1.0795817375183105
+2022-10-27 21:08:19,856:WARNING:[MarketStream: 2001]: Latency high: 1.0792291164398193
+2022-10-27 21:08:19,957:WARNING:[MarketStream: 2001]: Latency high: 1.079176902770996
+2022-10-27 21:08:20,061:WARNING:[MarketStream: 2001]: Latency high: 1.0781562328338623
+2022-10-27 21:08:20,071:WARNING:[MarketStream: 2001]: Latency high: 1.0787982940673828
+2022-10-27 21:08:20,172:WARNING:[MarketStream: 2001]: Latency high: 1.080812931060791
+2022-10-27 21:08:20,211:WARNING:[MarketStream: 2001]: Latency high: 1.0781617164611816
+2022-10-27 21:08:20,283:WARNING:[MarketStream: 2001]: Latency high: 1.0798640251159668
+2022-10-27 21:08:20,356:WARNING:[MarketStream: 2001]: Latency high: 1.0796959400177002
+2022-10-27 21:08:20,372:WARNING:[MarketStream: 2001]: Latency high: 1.0789198875427246
+2022-10-27 21:08:20,385:WARNING:[MarketStream: 2001]: Latency high: 1.0798985958099365
+2022-10-27 21:08:20,459:WARNING:[MarketStream: 2001]: Latency high: 1.078542947769165
+2022-10-27 21:08:20,485:WARNING:[MarketStream: 2001]: Latency high: 1.078089714050293
+2022-10-27 21:08:20,582:WARNING:[MarketStream: 2001]: Latency high: 1.0789403915405273
+2022-10-27 21:08:20,703:WARNING:[MarketStream: 2001]: Latency high: 1.0784127712249756
+2022-10-27 21:08:20,808:WARNING:[MarketStream: 2001]: Latency high: 1.0790698528289795
+2022-10-27 21:08:20,837:WARNING:[MarketStream: 2001]: Latency high: 1.078336238861084
+2022-10-27 21:08:20,903:WARNING:[MarketStream: 2001]: Latency high: 1.079150676727295
+2022-10-27 21:08:20,917:WARNING:[MarketStream: 2001]: Latency high: 1.0793561935424805
+2022-10-27 21:08:20,942:WARNING:[MarketStream: 2001]: Latency high: 1.0784387588500977
+2022-10-27 21:08:20,956:WARNING:[MarketStream: 2001]: Latency high: 1.0794157981872559
+2022-10-27 21:08:21,031:WARNING:[MarketStream: 2001]: Latency high: 1.0787243843078613
+2022-10-27 21:08:21,075:WARNING:[MarketStream: 2001]: Latency high: 1.0843274593353271
+2022-10-27 21:08:21,136:WARNING:[MarketStream: 2001]: Latency high: 1.078798770904541
+2022-10-27 21:08:21,150:WARNING:[MarketStream: 2001]: Latency high: 1.078962802886963
+2022-10-27 21:08:21,159:WARNING:[MarketStream: 2001]: Latency high: 1.0784921646118164
+2022-10-27 21:08:21,255:WARNING:[MarketStream: 2001]: Latency high: 1.0784037113189697
+2022-10-27 21:08:21,360:WARNING:[MarketStream: 2001]: Latency high: 1.0791244506835938
+2022-10-27 21:08:21,370:WARNING:[MarketStream: 2001]: Latency high: 1.0792076587677002
+2022-10-27 21:08:21,449:WARNING:[MarketStream: 2001]: Latency high: 1.078489065170288
+2022-10-27 21:08:21,469:WARNING:[MarketStream: 2001]: Latency high: 1.079026699066162
+2022-10-27 21:08:21,572:WARNING:[MarketStream: 2001]: Latency high: 1.078852891921997
+2022-10-27 21:08:21,662:WARNING:[MarketStream: 2001]: Latency high: 1.0832154750823975
+2022-10-27 21:08:21,723:WARNING:[MarketStream: 2001]: Latency high: 1.0842163562774658
+2022-10-27 21:08:21,807:WARNING:[MarketStream: 2001]: Latency high: 1.0954499244689941
+2022-10-27 21:08:21,918:WARNING:[MarketStream: 2001]: Latency high: 1.093123435974121
+2022-10-27 21:08:21,996:WARNING:[MarketStream: 2001]: Latency high: 1.0905287265777588
+2022-10-27 21:08:22,078:INFO:BackgroundWorker poll_market_closure shutting down
+2022-10-27 21:08:22,199:WARNING:[MarketStream: 2001]: Latency high: 1.0787088871002197
+2022-10-27 21:08:22,203:WARNING:[MarketStream: 2001]: Latency high: 1.079345941543579
+2022-10-27 21:08:22,242:WARNING:[MarketStream: 2001]: Latency high: 1.0804522037506104
+2022-10-27 21:08:22,243:WARNING:[MarketStream: 2001]: Latency high: 1.0804531574249268
+2022-10-27 21:08:22,346:WARNING:[MarketStream: 2001]: Latency high: 1.0783796310424805
+2022-10-27 21:08:22,462:WARNING:[MarketStream: 2001]: Latency high: 1.0852222442626953
+2022-10-27 21:08:22,556:WARNING:[MarketStream: 2001]: Latency high: 1.0787811279296875
+2022-10-27 21:08:22,577:WARNING:[MarketStream: 2001]: Latency high: 1.0788002014160156
+2022-10-27 21:08:22,658:WARNING:[MarketStream: 2001]: Latency high: 1.0779268741607666
+2022-10-27 21:08:22,678:WARNING:[MarketStream: 2001]: Latency high: 1.0789451599121094
+2022-10-27 21:08:22,765:WARNING:[MarketStream: 2001]: Latency high: 1.0778281688690186
+2022-10-27 21:08:22,867:WARNING:[MarketStream: 2001]: Latency high: 1.0792217254638672
+2022-10-27 21:08:22,962:WARNING:[MarketStream: 2001]: Latency high: 1.0789203643798828
+2022-10-27 21:08:22,972:WARNING:[MarketStream: 2001]: Latency high: 1.0799298286437988
+2022-10-27 21:08:22,982:WARNING:[MarketStream: 2001]: Latency high: 1.0789391994476318
+2022-10-27 21:08:23,078:WARNING:[MarketStream: 2001]: Latency high: 1.0795297622680664
+2022-10-27 21:08:23,082:WARNING:[MarketStream: 2001]: Latency high: 1.079533576965332
+2022-10-27 21:08:23,095:WARNING:[MarketStream: 2001]: Latency high: 1.078545331954956
+2022-10-27 21:08:23,102:WARNING:[MarketStream: 2001]: Latency high: 1.080552577972412
+2022-10-27 21:08:23,289:WARNING:[MarketStream: 2001]: Latency high: 1.0829782485961914
+2022-10-27 21:08:23,302:WARNING:[MarketStream: 2001]: Latency high: 1.0810461044311523
+2022-10-27 21:08:23,382:WARNING:[MarketStream: 2001]: Latency high: 1.0837740898132324
+2022-10-27 21:08:23,409:WARNING:[MarketStream: 2001]: Latency high: 1.0795137882232666
+2022-10-27 21:08:23,449:WARNING:[MarketStream: 2001]: Latency high: 1.083608865737915
+2022-10-27 21:08:23,518:WARNING:[MarketStream: 2001]: Latency high: 1.0884108543395996
+2022-10-27 21:08:23,552:WARNING:[MarketStream: 2001]: Latency high: 1.0898082256317139
+2022-10-27 21:08:23,603:WARNING:[MarketStream: 2001]: Latency high: 1.0879411697387695
+2022-10-27 21:08:23,612:WARNING:[MarketStream: 2001]: Latency high: 1.084949016571045
+2022-10-27 21:08:23,659:WARNING:[MarketStream: 2001]: Latency high: 1.0837616920471191
+2022-10-27 21:08:23,718:WARNING:[MarketStream: 2001]: Latency high: 1.082176923751831
+2022-10-27 21:08:23,784:WARNING:[MarketStream: 2001]: Latency high: 1.08213210105896
+2022-10-27 21:08:23,864:WARNING:[MarketStream: 2001]: Latency high: 1.085451364517212
+2022-10-27 21:08:23,876:WARNING:[MarketStream: 2001]: Latency high: 1.0844621658325195
+2022-10-27 21:08:24,005:WARNING:[MarketStream: 2001]: Latency high: 1.0830655097961426
+2022-10-27 21:08:24,021:WARNING:[MarketStream: 2001]: Latency high: 1.0810809135437012
+2022-10-27 21:08:24,067:WARNING:[MarketStream: 2001]: Latency high: 1.0791230201721191
+2022-10-27 21:08:24,105:WARNING:[MarketStream: 2001]: Latency high: 1.0791573524475098
+2022-10-27 21:08:24,153:WARNING:[MarketStream: 2001]: Latency high: 1.0795104503631592
+2022-10-27 21:08:24,156:WARNING:[MarketStream: 2001]: Latency high: 1.0785131454467773
+2022-10-27 21:08:24,272:WARNING:[MarketStream: 2001]: Latency high: 1.0807991027832031
+2022-10-27 21:08:24,357:WARNING:[MarketStream: 2001]: Latency high: 1.0849254131317139
+2022-10-27 21:08:24,367:WARNING:[MarketStream: 2001]: Latency high: 1.0849347114562988
+2022-10-27 21:08:24,382:WARNING:[MarketStream: 2001]: Latency high: 1.0849509239196777
+2022-10-27 21:08:24,472:WARNING:[MarketStream: 2001]: Latency high: 1.0797615051269531
+2022-10-27 21:08:24,482:WARNING:[MarketStream: 2001]: Latency high: 1.0789189338684082
+2022-10-27 21:08:24,561:WARNING:[MarketStream: 2001]: Latency high: 1.0784516334533691
+2022-10-27 21:08:24,578:WARNING:[MarketStream: 2001]: Latency high: 1.0784690380096436
+2022-10-27 21:08:24,686:WARNING:[MarketStream: 2001]: Latency high: 1.0795223712921143
+2022-10-27 21:08:24,777:WARNING:[MarketStream: 2001]: Latency high: 1.078442096710205
+2022-10-27 21:08:24,778:WARNING:[MarketStream: 2001]: Latency high: 1.0784428119659424
+2022-10-27 21:08:24,794:WARNING:[MarketStream: 2001]: Latency high: 1.0794572830200195
+2022-10-27 21:08:24,886:WARNING:[MarketStream: 2001]: Latency high: 1.0782508850097656
+2022-10-27 21:08:24,900:WARNING:[MarketStream: 2001]: Latency high: 1.079613447189331
+2022-10-27 21:08:24,992:WARNING:[MarketStream: 2001]: Latency high: 1.078618049621582
+2022-10-27 21:08:25,003:WARNING:[MarketStream: 2001]: Latency high: 1.079132080078125
+2022-10-27 21:08:25,036:WARNING:[MarketStream: 2001]: Latency high: 1.0791151523590088
+2022-10-27 21:08:25,079:WARNING:[MarketStream: 2001]: Latency high: 1.0788331031799316
+2022-10-27 21:08:25,094:WARNING:[MarketStream: 2001]: Latency high: 1.07916259765625
+2022-10-27 21:08:25,112:WARNING:[MarketStream: 2001]: Latency high: 1.078864574432373
+2022-10-27 21:08:25,148:WARNING:[MarketStream: 2001]: Latency high: 1.0787038803100586
+2022-10-27 21:08:25,183:WARNING:[MarketStream: 2001]: Latency high: 1.078446865081787
+2022-10-27 21:08:25,247:WARNING:[MarketStream: 2001]: Latency high: 1.0786199569702148
+2022-10-27 21:08:25,264:WARNING:[MarketStream: 2001]: Latency high: 1.0816352367401123
+2022-10-27 21:08:25,353:WARNING:[MarketStream: 2001]: Latency high: 1.0787158012390137
+2022-10-27 21:08:25,361:WARNING:[MarketStream: 2001]: Latency high: 1.0797233581542969
+2022-10-27 21:08:25,458:WARNING:[MarketStream: 2001]: Latency high: 1.0788123607635498
+2022-10-27 21:08:25,567:WARNING:[MarketStream: 2001]: Latency high: 1.0809135437011719
+2022-10-27 21:08:25,672:WARNING:[MarketStream: 2001]: Latency high: 1.0840115547180176
+2022-10-27 21:08:25,777:WARNING:[MarketStream: 2001]: Latency high: 1.094111442565918
+2022-10-27 21:08:25,777:WARNING:[MarketStream: 2001]: Latency high: 1.092111587524414
+2022-10-27 21:08:25,877:WARNING:[MarketStream: 2001]: Latency high: 1.0984606742858887
+2022-10-27 21:08:25,879:WARNING:[MarketStream: 2001]: Latency high: 1.0984628200531006
+2022-10-27 21:08:25,982:WARNING:[MarketStream: 2001]: Latency high: 1.098433256149292
+2022-10-27 21:08:25,995:WARNING:[MarketStream: 2001]: Latency high: 1.0981557369232178
+2022-10-27 21:08:26,039:WARNING:[MarketStream: 2001]: Latency high: 1.0987796783447266
+2022-10-27 21:08:26,081:INFO:Stopped OrderStream 1001
+2022-10-27 21:08:26,081:INFO:Shutting down Execution (SimulatedExecution)
+2022-10-27 21:08:26,081:INFO:Stopped MarketStream 2001
+2022-10-27 21:08:26,081:INFO:Shutting down Execution (BetfairExecution)
+2022-10-27 21:08:26,299:INFO:Stopped output_thread (OrderStream 1001)
+2022-10-27 21:08:26,485:INFO:Client logout
+2022-10-27 21:08:26,485:INFO:Exiting flumine
+2022-10-27 21:17:15,134:INFO:Adding strategy LayStrategy
+2022-10-27 21:17:15,134:INFO:Using <class 'flumine.streams.marketstream.MarketStream'> (2001) for strategy LayStrategy
+2022-10-27 21:17:15,134:WARNING:Strategy of same name 'LayStrategy' already added
+2022-10-27 21:17:15,134:INFO:Starting flumine
+2022-10-27 21:17:16,436:INFO:Client login
+2022-10-27 21:17:17,262:INFO:Client update account details
+2022-10-27 21:17:17,263:INFO:Adding worker keep_alive
+2022-10-27 21:17:17,263:INFO:Adding worker poll_market_catalogue
+2022-10-27 21:17:17,263:INFO:Adding worker poll_account_balance
+2022-10-27 21:17:17,263:INFO:Adding worker poll_market_closure
