@@ -28,13 +28,13 @@ Model on small NZ Dataset, benefit of being quick to cycle epochs and all dogs c
 
 (Also operates on 5% comission from betfair)
 
-Features:
+-Features:
 
   -KL Loss Function utalizing the box preference % to weight the classes (per box not by winner) and deal with imbalance
   -Sum KL losses of 10 batches and then back propergates loss
   -Runs @~0.25 accuracy with specific tracks running up to 8% profit across 80/20 split
   
-Questions to answer/Things to do:
+-Questions to answer/Things to do:
  
   -Add in a confidence/market_price estimator and find lowest delta to return profit
   -Try to vary the minibatch size, and the count of minibatches before backwards pass, could increase accuracy
