@@ -3,9 +3,9 @@ An exploratory development of a Neural Network based Machine Learning algorithm 
 
 This algorthim is an adapted impletmeation of the Pytorch Neural Network package for Python.
 
-Current Models in Rotaion:
+## Current Models in Rotaion:
 
-"GRU - WANDB - priced - Fasttrack v5.3 CEL weighted"
+### "GRU - WANDB - priced - Fasttrack v5.3 CEL weighted"
 
 Model on full ANZ dataset, using individual GRU cells tied to individual dogs across time.
 
@@ -22,7 +22,7 @@ Questions to answer/Things to do:
   -Do a full forward pass of full batch just after backwards pass to updates internal GRU cell states (valid/useless?)
   -Pull out a last validation set (1 Month) and test model profitiabilty outsite train/test split
   
-"GRU - WANDB - priced - Fasttrack v5.4 KL NZ weighted"
+### "GRU - WANDB - priced - Fasttrack v5.4 KL NZ weighted"
 
 Model on small NZ Dataset, benefit of being quick to cycle epochs and all dogs contained within 5 major tracks.
 
