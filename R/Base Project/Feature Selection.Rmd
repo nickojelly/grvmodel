@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#setup data
+library(tidyverse)
+library("ggplot2")
+library("GGally")
+library("readxl")
+dataf = read_csv('C:/Users/Nick/Documents/GitHub/grvmodel/Python/Database Updater/form data for R analasis.csv')
+df_tbl <- as_tibble(dataf)
+df_tbl
+```
+
+```{r}
+stats <- df_tbl %>% select(c(ends_with('_30'),ends_with('_5'),ends_with('_1'),ends_with('_10'),'weight','box','run_time','DogGrade'))
+```
+
+
+```{r}
+#install.packages('Boruta')
+library(Boruta)
+
+boruta_output <- Boruta(run_time ~ ., data=na.omit(stats), doTrace=0)  
+```
+```{r}
+boruta_output
+```
+
+
+```{r}
+boruta_signif <- getSelectedAttributes(boruta_output, withTentative = TRUE)
+print(boruta_signif)  
+plot(boruta_output, cex.axis=.7, las=2, xlab="", main="Variable Importance")  
+dev.new(width=10, height=8)
+plot(boruta_output, cex.axis=.7, las=3, xlab="", main="Variable Importance",mar= c(8, 4, 4, 2))  
+```
+
+```{r}
+plot <- df_tbl %>% filter(`outlay < 30` > 0) %>% ggplot(aes(x=delta,y=profit,color=profit)) + geom_point(alpha=0.5, )
+plot
+```
+
+
+
+```{r}
+softmin <- function(l) {
+  sum_e = 0
+  for (i in l){
+    
+  }
+    
+  return(exp(2))
+}
+```
+
+```{r}
+target = c('Gunnedah','Richmond','Dapto')
+
+```
+
+
+```{r}
+df_tbl %>% filter(imp_prob<1) %>% filter(onehot_win ==1) %>% filter(flat_track %in% target) %>% ggplot(aes(x=prices)) +
+  geom_density(alpha=.2, fill = "#FF6666")+
+  #geom_density(aes(x=pred_price),alpha=.2, fill = "blue")+
+  scale_x_continuous(trans='log2')+
+  facet_wrap(~ flat_track)
+
+
+```
+
+```{r}
+summary(df_tbl)
+```
+

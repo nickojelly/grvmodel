@@ -5,25 +5,35 @@ output: html_notebook
 
 ```{r}
 #setup data
-set
+
 library(tidyverse)
 library(ggplot2)
-dataf = read.csv('C:/Users/Nick/Documents/GitHub/grvmodel/DATA/Master/masterfilenew.csv', header = TRUE, skipNul = TRUE)
-dataf$race_id = as.factor(dataf$race_id)
-dataf$dog_id = as.factor(dataf$dog_id)
-dataf$box= as.factor(dataf$box)
-dataf$dist = str_replace(dataf$dist, "m", "")
+dataf = read.csv('C:/Users/Nick/Documents/GitHub/grvmodel/Python/DATA/full_race_details_ft.csv', header = TRUE, skipNul = TRUE)
+dataf$race_id = as.factor(dataf$RaceId)
+dataf$dog_id = as.factor(dataf$X.id_x)
+dataf$box= as.factor(dataf$Box)
+dataf$dist = str_replace(dataf$Distance, "m", "")
 dataf$dist = as.numeric(dataf$dist)
-dataf$speed = as.numeric(dataf$dist/dataf$run_time)
+dataf$RunTime = as.numeric(dataf$RunTime)
+dataf$speed_cal = as.numeric(dataf$dist/dataf$RunTime)
+dataf$split_times = as.numeric(dataf$SplitMargin)
 df_tbl <- as_tibble(dataf)
+df_tbl <- df_tbl%>% drop_na(RunTime, split_times)
 ```
 
 ```{r}
-tracks <- df_tbl %>% group_by(track,dist) %>% summarise(mean_time=mean(run_time), mean_split= mean(split_times))
+df_tbl
+```
+
+
+
+
+```{r}
+tracks <- df_tbl %>% group_by(Track,dist) %>% summarise(mean_time=mean(RunTime) , mean_split= mean(split_times))
 tracks
 tracks$split_dist_estim <- (tracks$dist/tracks$mean_time)*tracks$mean_split
 tracks$split_dist <- 0
-tracks$track_id <- paste(substring(tracks$track, 1,4),tracks$dist,sep = "-")
+tracks$track_id <- paste(substring(tracks$Track, 1,4),tracks$dist,sep = "-")
 tracks
 ```
 
@@ -33,13 +43,13 @@ rows_update(tracks, tibble)
 
 
 ```{r}
-splitplot <- dataf %>% ggplot( aes(x=dist, y = split_times,color = track)) +
+splitplot <- dataf %>% ggplot( aes(x=dist, y = split_times,color = Track)) +
   geom_point()
 splitplot
 ```
 
 ```{r}
-splitplot <- dataf %>% ggplot( aes(x=dist, y = speed,color = track)) +
+splitplot <- dataf %>% ggplot( aes(x=dist, y = speed_cal,color = Track)) +
   geom_point()
 splitplot
 ```
@@ -51,6 +61,6 @@ df_joined
 ```
 
 ```{r}
-
+write.csv(tracks, 'C:/Users/Nick/Documents/GitHub/grvmodel/Python/DATA/split_dist_ft.csv')
 ```
 

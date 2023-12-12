@@ -1,0 +1,155 @@
+method: grid
+metric:
+  goal: maximize
+  name: ROI < 30
+parameters:
+  batch_days:
+    values:
+      - 90
+      - 180
+      - 365
+      - 550
+  batch_size:
+    value: 10
+  dropout:
+    values:
+      - 0.3
+  epochs:
+    values:
+      - 500
+  f0_layer_size:
+    values:
+      - 128
+  f1_layer_size:
+    values:
+      - 64
+  hidden_size:
+    values:
+      - 128
+  input_type:
+    values:
+      - basic
+  label_smoothing:
+    values:
+      - 0.01
+      - 0
+  learning_rate:
+    values:
+      - 0.0003
+      - 0.0001
+  len_data:
+    value: 19151
+  loss:
+    values:
+      - CEL
+  num_layers:
+    values:
+      - 2
+  optimizer:
+    value: adamW
+  races:
+    value:
+      - NZ
+  dist_last__1:
+    values:
+    - 0
+    - 1
+  box_last__1:
+    values:
+    - 0
+    - 1
+  speed_avg_1:
+    values:
+    - 0
+    - 1
+  split_speed_v1_1:
+    values:
+    - 0
+    - 1
+  split_speed_avg_1:
+    values:
+    - 0
+    - 1
+  split_margin_avg_1:
+    values:
+    - 0
+    - 1
+  margin_avg_1:
+    values:
+    - 0
+    - 1
+  margin_time_avg_1:
+    values:
+    - 0
+    - 1
+  RunHomeTime_1:
+    values:
+    - 0
+    - 1
+  run_home_speed_1:
+    values:
+    - 0
+    - 1
+  run_home_speed_v1_1:
+    values:
+    - 0
+    - 1
+  first_out_avg_1:
+    values:
+    - 0
+    - 1
+  pos_out_avg_1:
+    values:
+    - 0
+    - 1
+  post_change_avg_1:
+    values:
+    - 0
+    - 1
+  races_1:
+    values:
+    - 0
+    - 1
+  wins_1:
+    values:
+    - 0
+    - 1
+  wins_last_1:
+    values:
+    - 0
+    - 1
+  weight_:
+    values:
+    - 0
+    - 1
+  min_time_:
+    values:
+    - 0
+    - 1
+  min_split_time_:
+    values:
+    - 0
+    - 1
+  min_split_time_v1:
+    values:
+    - 0
+    - 1
+  last_start_price:
+    values:
+    - 0
+    - 1
+  last_start_prob:
+    values:
+    - 0
+    - 1
+  training_date_end:
+    values:
+      - "2023-02-28"
+      - "2022-11-30"
+      - "2021-11-30"
+  validation_split:
+    value: 0.1
+  loss:
+    values:
+      - CEL
+    distribution: categorical

@@ -1,0 +1,217 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+#setup data
+library(tidyverse)
+library("ggplot2")
+library("GGally")
+library("readxl")
+library('feather')
+library('arrow')
+# dataf = read_csv('C:/Users/Nick/Documents/GitHub/grvmodel/Python/DATA/model_all_price/devoted-haze-15 - all_price_df.csv')
+dataf = arrow::read_feather('C:/Users/Nick/Documents/GitHub/grvmodel/Python/DATA/model_all_price/feasible-spaceship-97 - all_price_df.fth')
+df_tbl <- as_tibble(dataf)
+df_tbl
+#df_tbl$speed <- df_tbl$dist/df_tbl$runtime
+df_tbl <- df_tbl %>% drop_na()
+df_tbl$track = df_tbl$flat_track
+df_tbl
+```
+
+```{r fig.height = 30, fig.width = 45}
+df_tbl_bin <- df_tbl %>% mutate(new_bin = cut(prices, breaks = c(0,2,3,4,5,7,10,12,14,16,18,20,25,30,40,50,100,1000)))
+df_tbl_bin <- df_tbl %>% mutate(new_bin = cut(prices, breaks = c(0,5,10,15,20,25,30,40,50,100,1000)))
+
+# df_tbl_bin <- df_tbl_bin %>% group_by(new_bin,track) %>% summarise(sum_prof = sum(profit), sum_outlay = sum(`bet amount`), count = n(), win = sum(onehot_win))
+df_tbl_bin <- df_tbl_bin %>% group_by(new_bin,track) %>% summarise(sum_prof = sum(`profit_relu`), sum_outlay = sum(`bet_relu`), count = n(), win = sum(onehot_win))
+df_tbl_bin$ROI <- df_tbl_bin$sum_prof/df_tbl_bin$sum_outlay
+df_tbl_bin$csumc <- ave(df_tbl_bin$count, df_tbl_bin$track, FUN=cumsum)
+df_tbl_bin$csumc <- df_tbl_bin$csumc/df_tbl_bin$count
+df_tbl_bin$csump <- ave(df_tbl_bin$sum_prof, df_tbl_bin$track, FUN=cumsum)
+df_tbl_bin$csumo <- ave(df_tbl_bin$sum_outlay, df_tbl_bin$track, FUN=cumsum)
+df_tbl_bin$cROI <- df_tbl_bin$csump/df_tbl_bin$csumo
+df_tbl_bin %>%  ggplot(aes(x=new_bin,y=cROI)) +geom_col()
+df_tbl_bin %>% arrange(track)
+
+write.csv(df_tbl_bin, file = "roibytrack.csv",
+          row.names=FALSE)                                                                                                    
+```
+
+```{r fig.height = 30, fig.width = 45}
+df_tbl_bin <- df_tbl %>% mutate(new_bin = cut(prices, breaks = c(0,2,3,4,5,7,10,12,14,16,18,20,25,30,40,50,100,1000)))
+df_tbl_bin <- df_tbl %>% mutate(new_bin = cut(prices, breaks = c(0,5,10,15,20,25,30,40,50,100,1000)))
+
+df_tbl_bin <- df_tbl_bin %>% group_by(new_bin) %>% summarise(sum_prof = sum(`profit_relu`), sum_outlay = sum(`bet_relu`), count = n(), win = sum(onehot_win))
+df_tbl_bin$ROI <- df_tbl_bin$sum_prof/df_tbl_bin$sum_outlay
+df_tbl_bin$csumc <- ave(df_tbl_bin$count, FUN=cumsum)
+df_tbl_bin$csumc <- df_tbl_bin$csumc/df_tbl_bin$count
+df_tbl_bin$csump <- ave(df_tbl_bin$sum_prof,  FUN=cumsum)
+df_tbl_bin$csumo <- ave(df_tbl_bin$sum_outlay,  FUN=cumsum)
+df_tbl_bin$cROI <- df_tbl_bin$csump/df_tbl_bin$csumo
+df_tbl_bin %>%  ggplot(aes(x=new_bin,y=cROI)) +geom_col()
+df_tbl_bin %>%  ggplot(aes(x=flat_date,y=sum_prof )) +geom_col() #+facet_wrap(~ track)
+df_tbl_bin %>% arrange(track)
+
+write.csv(df_tbl_bin, file = "roibytrack.csv",
+          row.names=FALSE)                                                                                                    
+```
+
+
+```{r}
+df_tbl$delta = df_tbl$pred_prob-df_tbl$imp_prob
+df_tbl
+```
+
+```{r}
+plot <- df_tbl %>% filter(`outlay < 30` > 0) %>% ggplot(aes(x=delta,y=profit,color=profit)) + geom_point(alpha=0.5, )
+plot
+```
+
+
+
+```{r}
+softmin <- function(l) {
+  sum_e = 0
+  for (i in l){
+    
+  }
+    
+  return(exp(2))
+}
+```
+
+```{r}
+target = c('Gunnedah','Richmond','Dapto')
+
+```
+
+
+```{r}
+df_tbl %>% filter(imp_prob<1) %>% filter(onehot_win ==1)  %>% ggplot(aes(x=prices)) +
+  geom_density(alpha=.2, fill = "#FF6666")+
+  geom_density(aes(x=pred_price),alpha=.2, fill = "blue")+
+  xlim(c(0,20))+
+  facet_wrap(~ flat_track)
+
+```
+
+```{r}
+df_tbl %>% group_by(flat_track) %>% filter(onehot_win==1) %>% select(prices) %>% summarise(min = min(prices), median=median(prices), mean=mean(prices), sd = sd(prices)) %>% arrange(sd)
+df_tbl
+```
+
+
+```{r}
+dataf = read_csv('C:/Users/Nick/Documents/GitHub/grvmodel/Python/Database Updater/all_stats_for_r.csv')
+df_tbl <- as_tibble(dataf)
+
+#df_tbl$speed <- df_tbl$dist/df_tbl$runtime
+df_tbl <- df_tbl %>% drop_na()
+df_tbl
+```
+
+```{r fig.height = 20, fig.width = 30}
+df_tbl %>% filter(place ==1)  %>% ggplot(aes(x=bfSP)) +
+  geom_density(alpha=.2, fill = "#FF6666")+
+  geom_density(aes(x=pred_price),alpha=.2, fill = "blue")+
+  scale_x_continuous(trans='log')+
+  xlim(c(0,20))+
+  facet_wrap(~ track_name)
+
+
+```
+
+
+
+```{r fig.height = 80, fig.width = 30}
+
+# install.packages("ggridges")
+#install.packages("hrbrthemes")
+#install.packages("viridis")
+# library
+library(ggridges)
+library(ggplot2)
+library(viridis)
+library(hrbrthemes)
+
+# Plot
+df_tbl %>% filter(place==1) %>% ggplot( aes(x = `bfSP`, y = `track_name`, fill = ..x..)) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
+  scale_fill_viridis(name = "Temp. [F]", option = "C") +
+  labs(title = 'Temperatures in Lincoln NE in 2016') +
+  scale_x_continuous(trans='log2', limits=c(1,100))+
+  #xlim(c(0,20))+
+  theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    )
+```
+
+```{r fig.height = 20, fig.width = 20}
+round_any = function(x, accuracy, f=round){f(x/ accuracy) * accuracy}
+library(ggridges)
+library(ggplot2)
+library(viridis)
+library(hrbrthemes)
+df_tbl$dist_factor <- as.factor(round_any(df_tbl$dist,25))
+# Plot
+df_tbl %>% filter(place==1) %>% ggplot( aes(x = `bfSP`, y = `dist_factor`, fill = ..x..)) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
+  scale_fill_viridis(name = "Temp. [F]", option = "C") +
+  labs(title = 'Temperatures in Lincoln NE in 2016') +
+  scale_x_continuous(trans='log2', limits=c(1,100))+
+  #xlim(c(0,20))+
+  theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    )
+```
+
+
+```{r}
+dataf = read_csv('C:/Users/Nick/Documents/GitHub/grvmodel/Python/Database Updater/track_stats_for_r.csv')
+track_tbl <- as_tibble(dataf)
+
+track_tbl <- track_tbl %>% filter(prev_race_track!=-1)
+track_tbl
+tracks <- track_tbl %>% select(c(track_name,state))
+tracks <- tracks %>% distinct()
+origin_state <- data.frame(from="origin", to=c('QLD',"NSW","VIC",'SA','WA', 'NZ'))
+tracks_adj <- data.frame(from=tracks$state, to=tracks$track_name)
+hierarchy <- rbind(tracks$track_name, tracks$state)
+track_tbl
+```
+
+```{r}
+# Libraries
+#install.packages("ggraph")
+library(ggraph)
+library(igraph)
+library(tidyverse)
+library(RColorBrewer)
+ 
+# Libraries
+library(ggraph)
+library(igraph)
+ 
+# create a data frame giving the hierarchical structure of your individuals. 
+# Origin on top, then groups, then subgroups
+d1 <- data.frame(from="origin", to=paste("group", seq(1,10), sep=""))
+d2 <- data.frame(from=rep(d1$to, each=10), to=paste("subgroup", seq(1,100), sep="_"))
+hierarchy <- rbind(d1, d2)
+hierarchy
+vertices <- data.frame(name = unique(c(as.character(hierarchy$from), as.character(hierarchy$to))) ) 
+
+mygraph <- graph_from_data_frame( hierarchy, vertices=vertices )
+
+plot(mygraph, vertex.label="", edge.arrow.size=0, vertex.size=2)
+```
+

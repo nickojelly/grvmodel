@@ -1,0 +1,63 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#setup data
+library(tidyverse)
+library("ggplot2")
+library("GGally")
+dataf = read.csv('C:/Users/Nick/Documents/GitHub/grvmodel/Python/Data/dog_stats_for_r.csv', header = TRUE, skipNul = TRUE)
+df_tbl <- as_tibble(dataf)
+
+df_tbl$speed <- df_tbl$dist/df_tbl$runtime
+df_tbl <- df_tbl %>% drop_na()
+```
+
+```{r}
+df_tbl %>% group_by(race_grade) %>% summarise(m_speed = mean(speed), n = n()) %>% arrange(desc(m_speed))
+```
+
+```{r}
+p1 <- df_tbl %>% filter(place==1) %>% ggplot(aes(x=reorder(race_grade, speed, FUN= median), y=speed)) + 
+  geom_boxplot() + 
+  coord_flip() +
+  scale_y_continuous(limits= c(15,20))
+ggsave(plot=p1, width = 10, height = 10, dpi=500, filename = "unsquished.pdf")
+```
+
+
+
+```{r}
+softmin <- function(l) {
+  sum_e = 0
+  for (i in l){
+    
+  }
+    
+  return(exp(2))
+}
+```
+
+```{r}
+nnf_softmax
+```
+
+
+```{r}
+df_tbl %>% filter(implied.probabilty<1) %>% filter(place ==1) %>% ggplot(aes(x=implied.probabilty, colour = place)) +
+  geom_density(alpha=.2, fill = "#FF6666")
+
+df_tbl %>% filter(implied.probabilty<1) %>% ggplot(aes(x=implied.probabilty, colour = place)) +
+  geom_density(alpha=.2, fill = "#FF6666")
+
+df_tbl %>% filter(implied.probabilty<1) %>% ggplot(aes(x=implied.probabilty, colour = place)) +
+  geom_density(alpha=.2, fill = "#FF6666")
+```
+
+```{r}
+df_tbl %>% group_by(raceid) %>% summarise(mean = mean(implied.probabilty), sd = sd(implied.probabilty)) %>% ggplot(aes(x=mean,y=sd)) +
+  geom_point()
+```
+

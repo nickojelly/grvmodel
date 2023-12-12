@@ -1,0 +1,1519 @@
+May  7 00:00:03 localhost systemd[1]: rsyslog.service: Sent signal SIGHUP to main process 917636 (rsyslogd) on client request.
+May  7 00:00:03 localhost systemd[1]: logrotate.service: Deactivated successfully.
+May  7 00:00:03 localhost systemd[1]: Finished Rotate log files.
+May  7 00:05:01 localhost CRON[1038303]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 00:15:01 localhost CRON[1038337]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 00:17:01 localhost CRON[1038349]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 00:25:01 localhost CRON[1038522]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 00:25:01 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  7 00:25:01 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  7 00:25:01 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  7 00:35:01 localhost CRON[1038568]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 00:45:01 localhost CRON[1038590]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 00:55:01 localhost CRON[1038675]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 01:05:01 localhost CRON[1038703]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 01:15:01 localhost CRON[1038750]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 01:17:01 localhost CRON[1038760]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 01:25:01 localhost CRON[1038782]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 01:35:01 localhost CRON[1038801]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 01:45:01 localhost CRON[1038840]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 01:55:01 localhost CRON[1038931]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 02:05:01 localhost CRON[1038992]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 02:15:01 localhost CRON[1039032]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 02:17:01 localhost CRON[1039046]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 02:25:01 localhost CRON[1039118]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 02:35:01 localhost CRON[1039291]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 02:35:26 localhost systemd[1]: Starting Daily apt download activities...
+May  7 02:35:34 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May  7 02:35:34 localhost systemd[1]: Finished Daily apt download activities.
+May  7 02:35:34 localhost systemd[1]: apt-daily.service: Consumed 6.982s CPU time.
+May  7 02:40:36 localhost systemd[1]: Starting Daily man-db regeneration...
+May  7 02:40:36 localhost systemd[1]: man-db.service: Deactivated successfully.
+May  7 02:40:36 localhost systemd[1]: Finished Daily man-db regeneration.
+May  7 02:45:01 localhost CRON[1039788]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 02:47:26 localhost systemd[1]: Starting Check to see whether there is a new version of Ubuntu available...
+May  7 02:47:26 localhost release-upgrade-motd[1039825]: New release '23.04' available.
+May  7 02:47:26 localhost release-upgrade-motd[1039825]: Run 'do-release-upgrade' to upgrade to it.
+May  7 02:47:26 localhost systemd[1]: update-notifier-motd.service: Deactivated successfully.
+May  7 02:47:26 localhost systemd[1]: Finished Check to see whether there is a new version of Ubuntu available.
+May  7 02:55:01 localhost CRON[1039925]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 03:05:01 localhost CRON[1040019]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 03:10:01 localhost CRON[1040076]: (root) CMD (test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r)
+May  7 03:11:02 localhost systemd[1]: Starting Online ext4 Metadata Check for All Filesystems...
+May  7 03:11:02 localhost systemd[1]: e2scrub_all.service: Deactivated successfully.
+May  7 03:11:02 localhost systemd[1]: Finished Online ext4 Metadata Check for All Filesystems.
+May  7 03:15:01 localhost CRON[1040084]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 03:17:01 localhost CRON[1040092]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 03:25:01 localhost CRON[1040102]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 03:30:01 localhost CRON[1040108]: (root) CMD (test -e /run/systemd/system || SERVICE_MODE=1 /usr/lib/x86_64-linux-gnu/e2fsprogs/e2scrub_all_cron)
+May  7 03:35:01 localhost CRON[1040112]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 03:45:01 localhost CRON[1040119]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 03:55:01 localhost CRON[1040131]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 04:05:01 localhost CRON[1040152]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 04:15:01 localhost CRON[1040185]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 04:17:01 localhost CRON[1040192]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 04:25:01 localhost CRON[1040202]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 04:35:01 localhost CRON[1040215]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 04:45:01 localhost CRON[1040330]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 04:55:01 localhost CRON[1040536]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:05:01 localhost CRON[1040698]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:15:01 localhost CRON[1040848]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:17:01 localhost CRON[1040871]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 05:25:01 localhost CRON[1040933]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:35:01 localhost CRON[1040963]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:45:01 localhost CRON[1041028]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:55:01 localhost CRON[1041090]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 05:57:02 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  7 05:57:02 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1772' (uid=112 pid=1041104 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  7 05:57:02 localhost systemd[1]: Starting Firmware update daemon...
+May  7 05:57:02 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  7 05:57:02 localhost systemd[1]: Started Firmware update daemon.
+May  7 05:57:02 localhost fwupdmgr[1041104]: Updating lvfs
+May  7 05:57:02 localhost fwupdmgr[1041104]: Downloading…: 0%
+May  7 05:57:02 localhost fwupdmgr[1041104]: Downloading…: 100%
+May  7 05:57:02 localhost fwupdmgr[1041104]: Idle…: 100%
+May  7 05:57:02 localhost fwupdmgr[1041104]: Downloading…: 100%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 0%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 1%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 3%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 7%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 9%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 11%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 14%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 18%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 22%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 24%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 29%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 32%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 38%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 42%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 45%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 47%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 53%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 55%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 58%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 60%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 68%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 71%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 79%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Downloading…: 88%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Idle…: 100%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Idle…: 100%
+May  7 05:57:03 localhost fwupdmgr[1041104]: Successfully downloaded new metadata: 0 local devices supported
+May  7 05:57:03 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  7 05:57:03 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  7 06:05:01 localhost CRON[1041197]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 06:07:02 localhost systemd[1]: Starting Daily apt upgrade and clean activities...
+May  7 06:07:05 localhost systemd[1]: apt-daily-upgrade.service: Deactivated successfully.
+May  7 06:07:05 localhost systemd[1]: Finished Daily apt upgrade and clean activities.
+May  7 06:07:05 localhost systemd[1]: apt-daily-upgrade.service: Consumed 2.630s CPU time.
+May  7 06:15:01 localhost CRON[1041322]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 06:17:01 localhost CRON[1041329]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 06:25:01 localhost CRON[1041354]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+May  7 06:25:01 localhost CRON[1041355]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 06:35:01 localhost CRON[1041403]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 06:45:01 localhost CRON[1041419]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 06:47:01 localhost CRON[1041424]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly ))
+May  7 06:52:18 localhost systemd[1]: Created slice User Slice of UID 0.
+May  7 06:52:18 localhost systemd[1]: Starting User Runtime Directory /run/user/0...
+May  7 06:52:18 localhost systemd[1]: Finished User Runtime Directory /run/user/0.
+May  7 06:52:18 localhost systemd[1]: Starting User Manager for UID 0...
+May  7 06:52:18 localhost systemd[1041439]: Queued start job for default target Main User Target.
+May  7 06:52:18 localhost systemd[1041439]: Created slice User Application Slice.
+May  7 06:52:18 localhost systemd[1041439]: Reached target Paths.
+May  7 06:52:18 localhost systemd[1041439]: Reached target Timers.
+May  7 06:52:18 localhost systemd[1041439]: Starting D-Bus User Message Bus Socket...
+May  7 06:52:18 localhost systemd[1041439]: Listening on GnuPG network certificate management daemon.
+May  7 06:52:18 localhost systemd[1041439]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+May  7 06:52:18 localhost systemd[1041439]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+May  7 06:52:18 localhost systemd[1041439]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+May  7 06:52:18 localhost systemd[1041439]: Listening on GnuPG cryptographic agent and passphrase cache.
+May  7 06:52:18 localhost systemd[1041439]: Listening on debconf communication socket.
+May  7 06:52:18 localhost systemd[1041439]: Listening on REST API socket for snapd user session agent.
+May  7 06:52:18 localhost systemd[1041439]: Listening on D-Bus User Message Bus Socket.
+May  7 06:52:18 localhost systemd[1041439]: Reached target Sockets.
+May  7 06:52:18 localhost systemd[1041439]: Reached target Basic System.
+May  7 06:52:18 localhost systemd[1]: Started User Manager for UID 0.
+May  7 06:52:18 localhost systemd[1041439]: Reached target Main User Target.
+May  7 06:52:18 localhost systemd[1]: Started Session 13359 of User root.
+May  7 06:52:18 localhost systemd[1041439]: Startup finished in 90ms.
+May  7 06:55:01 localhost CRON[1041537]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 06:56:41 localhost systemd[1]: Started Session 13362 of User root.
+May  7 06:57:26 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  7 06:57:26 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  7 06:57:26 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  7 07:05:01 localhost CRON[1041667]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 07:15:01 localhost CRON[1041688]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 07:17:01 localhost CRON[1041783]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 07:25:01 localhost CRON[1041826]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 07:35:01 localhost CRON[1041894]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 07:45:01 localhost CRON[1041995]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 07:55:01 localhost CRON[1042243]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 07:57:03 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May  7 07:57:03 localhost systemd[1]: fwupd.service: Consumed 1.042s CPU time.
+May  7 08:04:45 localhost kernel: [6467487.732631] systemd-journald[237528]: Data hash table of /var/log/journal/f49f77c220ea4bf3a3b6ecd601b5c083/system.journal has a fill level at 75.0 (174763 of 233016 items, 75497472 file size, 431 bytes per hash table item), suggesting rotation.
+May  7 08:04:45 localhost kernel: [6467487.732638] systemd-journald[237528]: /var/log/journal/f49f77c220ea4bf3a3b6ecd601b5c083/system.journal: Journal header limits reached or header out-of-date, rotating.
+May  7 08:05:01 localhost CRON[1042600]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 08:15:01 localhost CRON[1042905]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 08:17:01 localhost CRON[1042965]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 08:25:01 localhost CRON[1043172]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 08:35:01 localhost CRON[1043291]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 08:45:01 localhost CRON[1043340]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 08:55:01 localhost CRON[1043379]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 09:05:01 localhost CRON[1043459]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 09:15:01 localhost CRON[1043488]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 09:17:01 localhost CRON[1043494]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 09:25:01 localhost CRON[1043504]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 09:35:01 localhost CRON[1043524]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 09:45:01 localhost CRON[1043549]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 09:55:01 localhost CRON[1043571]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 10:05:01 localhost CRON[1043600]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 10:08:02 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  7 10:08:02 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1779' (uid=112 pid=1043606 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  7 10:08:02 localhost systemd[1]: Starting Firmware update daemon...
+May  7 10:08:02 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  7 10:08:02 localhost systemd[1]: Started Firmware update daemon.
+May  7 10:08:03 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  7 10:08:03 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  7 10:15:01 localhost CRON[1043626]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 10:17:01 localhost CRON[1043632]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 10:25:01 localhost CRON[1043665]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 10:35:01 localhost CRON[1043757]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 10:45:01 localhost CRON[1043802]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 10:55:01 localhost CRON[1043857]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 11:05:01 localhost CRON[1043987]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 11:15:01 localhost CRON[1044139]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 11:17:01 localhost CRON[1044168]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 11:25:01 localhost CRON[1044347]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 11:35:01 localhost CRON[1045136]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 11:40:37 localhost systemd[1]: Starting Download data for packages that failed at package install time...
+May  7 11:40:37 localhost systemd[1]: update-notifier-download.service: Deactivated successfully.
+May  7 11:40:37 localhost systemd[1]: Finished Download data for packages that failed at package install time.
+May  7 11:45:01 localhost CRON[1045674]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 11:50:49 localhost systemd[1]: Starting Cleanup of Temporary Directories...
+May  7 11:50:49 localhost systemd[1]: systemd-tmpfiles-clean.service: Deactivated successfully.
+May  7 11:50:49 localhost systemd[1]: Finished Cleanup of Temporary Directories.
+May  7 11:55:01 localhost CRON[1045828]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 12:05:01 localhost CRON[1045929]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 12:08:03 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May  7 12:15:01 localhost CRON[1045993]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 12:17:01 localhost CRON[1046054]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 12:25:01 localhost CRON[1046079]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 12:35:01 localhost CRON[1046177]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 12:45:01 localhost CRON[1046260]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 12:54:36 localhost systemd[1]: Starting Daily apt download activities...
+May  7 12:54:36 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May  7 12:54:36 localhost systemd[1]: Finished Daily apt download activities.
+May  7 12:55:01 localhost CRON[1046325]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 13:05:01 localhost CRON[1046358]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 13:15:01 localhost CRON[1046402]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 13:17:01 localhost CRON[1046409]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 13:22:54 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  7 13:22:54 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  7 13:22:54 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  7 13:25:01 localhost CRON[1046487]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 13:35:02 localhost CRON[1046547]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 13:45:01 localhost CRON[1046613]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 13:55:01 localhost CRON[1046703]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 14:05:01 localhost CRON[1046914]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 14:15:01 localhost CRON[1046990]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 14:17:01 localhost CRON[1047009]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 14:25:01 localhost CRON[1047058]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 14:35:01 localhost CRON[1047078]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 14:45:01 localhost CRON[1047142]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 14:55:01 localhost CRON[1047216]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 15:05:01 localhost CRON[1047288]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 15:15:01 localhost CRON[1047532]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 15:17:01 localhost CRON[1047594]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 15:25:01 localhost CRON[1047802]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 15:35:01 localhost CRON[1048036]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 15:45:01 localhost CRON[1048220]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 15:55:01 localhost CRON[1048313]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 16:05:01 localhost CRON[1048469]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 16:15:01 localhost CRON[1048648]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 16:17:01 localhost CRON[1048682]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 16:25:01 localhost CRON[1048795]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 16:35:01 localhost CRON[1048910]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 16:45:01 localhost CRON[1048951]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 16:55:01 localhost CRON[1048960]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 17:05:01 localhost CRON[1048971]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 17:15:01 localhost CRON[1048986]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 17:17:01 localhost CRON[1048993]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 17:25:01 localhost CRON[1049014]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 17:35:01 localhost CRON[1049077]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 17:45:01 localhost CRON[1049167]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 17:55:01 localhost CRON[1049260]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 18:05:01 localhost CRON[1049368]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 18:15:01 localhost CRON[1049406]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 18:17:01 localhost CRON[1049413]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 18:25:01 localhost CRON[1049431]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 18:35:01 localhost CRON[1049488]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 18:45:01 localhost CRON[1049493]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 18:55:01 localhost CRON[1049504]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:05:01 localhost CRON[1049512]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:15:01 localhost CRON[1049519]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:17:01 localhost CRON[1049524]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 19:25:01 localhost CRON[1049531]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:35:01 localhost CRON[1049540]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:45:01 localhost CRON[1049548]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:55:01 localhost CRON[1049556]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 19:55:36 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  7 19:55:36 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  7 19:55:36 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  7 20:05:01 localhost CRON[1049567]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 20:09:50 localhost systemd[1]: session-13362.scope: Deactivated successfully.
+May  7 20:09:50 localhost systemd[1]: session-13362.scope: Consumed 2min 38.920s CPU time.
+May  7 20:15:01 localhost CRON[1049579]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 20:17:01 localhost CRON[1049583]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 20:25:01 localhost CRON[1049588]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 20:35:01 localhost CRON[1049651]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 20:45:01 localhost CRON[1049663]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 20:45:02 localhost systemd[1]: Starting Check to see whether there is a new version of Ubuntu available...
+May  7 20:45:02 localhost release-upgrade-motd[1049671]: New release '23.04' available.
+May  7 20:45:02 localhost release-upgrade-motd[1049671]: Run 'do-release-upgrade' to upgrade to it.
+May  7 20:45:02 localhost systemd[1]: update-notifier-motd.service: Deactivated successfully.
+May  7 20:45:02 localhost systemd[1]: Finished Check to see whether there is a new version of Ubuntu available.
+May  7 20:55:01 localhost CRON[1049682]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 21:05:01 localhost CRON[1049743]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 21:15:01 localhost CRON[1049760]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 21:17:01 localhost CRON[1049763]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 21:25:01 localhost CRON[1049771]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 21:35:01 localhost CRON[1049779]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 21:45:01 localhost CRON[1049787]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 21:55:01 localhost CRON[1049802]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 22:05:01 localhost CRON[1049877]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 22:06:06 localhost systemd[1]: session-13359.scope: Deactivated successfully.
+May  7 22:06:06 localhost systemd[1]: session-13359.scope: Consumed 3.639s CPU time.
+May  7 22:06:16 localhost systemd[1]: Stopping User Manager for UID 0...
+May  7 22:06:16 localhost systemd[1041439]: Activating special unit Exit the Session...
+May  7 22:06:16 localhost systemd[1041439]: Stopped target Main User Target.
+May  7 22:06:16 localhost systemd[1041439]: Stopped target Basic System.
+May  7 22:06:16 localhost systemd[1041439]: Stopped target Paths.
+May  7 22:06:16 localhost systemd[1041439]: Stopped target Sockets.
+May  7 22:06:16 localhost systemd[1041439]: Stopped target Timers.
+May  7 22:06:16 localhost systemd[1041439]: Closed D-Bus User Message Bus Socket.
+May  7 22:06:16 localhost systemd[1041439]: Closed GnuPG network certificate management daemon.
+May  7 22:06:16 localhost systemd[1041439]: Closed GnuPG cryptographic agent and passphrase cache (access for web browsers).
+May  7 22:06:16 localhost systemd[1041439]: Closed GnuPG cryptographic agent and passphrase cache (restricted).
+May  7 22:06:16 localhost systemd[1041439]: Closed GnuPG cryptographic agent (ssh-agent emulation).
+May  7 22:06:16 localhost systemd[1041439]: Closed GnuPG cryptographic agent and passphrase cache.
+May  7 22:06:16 localhost systemd[1041439]: Closed debconf communication socket.
+May  7 22:06:16 localhost systemd[1041439]: Closed REST API socket for snapd user session agent.
+May  7 22:06:16 localhost systemd[1041439]: Removed slice User Application Slice.
+May  7 22:06:16 localhost systemd[1041439]: Reached target Shutdown.
+May  7 22:06:16 localhost systemd[1041439]: Finished Exit the Session.
+May  7 22:06:16 localhost systemd[1041439]: Reached target Exit the Session.
+May  7 22:06:16 localhost systemd[1]: user@0.service: Deactivated successfully.
+May  7 22:06:16 localhost systemd[1]: Stopped User Manager for UID 0.
+May  7 22:06:16 localhost systemd[1]: Stopping User Runtime Directory /run/user/0...
+May  7 22:06:16 localhost systemd[1]: run-user-0.mount: Deactivated successfully.
+May  7 22:06:16 localhost systemd[1]: user-runtime-dir@0.service: Deactivated successfully.
+May  7 22:06:16 localhost systemd[1]: Stopped User Runtime Directory /run/user/0.
+May  7 22:06:16 localhost systemd[1]: Removed slice User Slice of UID 0.
+May  7 22:06:16 localhost systemd[1]: user-0.slice: Consumed 2min 42.668s CPU time.
+May  7 22:15:01 localhost CRON[1049894]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 22:17:01 localhost CRON[1049900]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 22:25:01 localhost CRON[1049937]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 22:35:01 localhost CRON[1049981]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 22:45:01 localhost CRON[1050100]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 22:55:01 localhost CRON[1050203]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:05:01 localhost CRON[1050303]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:15:01 localhost CRON[1050374]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:17:01 localhost CRON[1050391]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  7 23:25:01 localhost CRON[1050472]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:35:01 localhost CRON[1050613]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:45:01 localhost CRON[1050761]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:55:01 localhost CRON[1050905]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  7 23:59:01 localhost CRON[1050958]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 60 2)
+May  8 00:00:02 localhost systemd[1]: Starting Daily dpkg database backup service...
+May  8 00:00:02 localhost systemd[1]: Starting Rotate log files...
+May  8 00:00:02 localhost systemd[1]: dpkg-db-backup.service: Deactivated successfully.
+May  8 00:00:02 localhost systemd[1]: Finished Daily dpkg database backup service.
+May  8 00:00:02 localhost systemd[1]: logrotate.service: Deactivated successfully.
+May  8 00:00:02 localhost systemd[1]: Finished Rotate log files.
+May  8 00:05:01 localhost CRON[1051013]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 00:15:01 localhost CRON[1051056]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 00:17:01 localhost CRON[1051064]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 00:25:01 localhost CRON[1051083]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 00:35:01 localhost CRON[1051161]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 00:41:36 localhost systemd[1]: Starting Discard unused blocks on filesystems from /etc/fstab...
+May  8 00:41:36 localhost fstrim[1051169]: /: 4.5 GiB (4881694720 bytes) trimmed on /dev/sda
+May  8 00:41:36 localhost systemd[1]: fstrim.service: Deactivated successfully.
+May  8 00:41:36 localhost systemd[1]: Finished Discard unused blocks on filesystems from /etc/fstab.
+May  8 00:45:01 localhost CRON[1051176]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 00:55:01 localhost CRON[1051184]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 01:05:01 localhost CRON[1051197]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 01:15:01 localhost CRON[1051203]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 01:17:01 localhost CRON[1051208]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 01:25:01 localhost CRON[1051225]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 01:35:01 localhost CRON[1051265]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 01:44:08 localhost systemd[1]: Starting Daily apt download activities...
+May  8 01:44:17 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May  8 01:44:17 localhost systemd[1]: Finished Daily apt download activities.
+May  8 01:44:17 localhost systemd[1]: apt-daily.service: Consumed 7.177s CPU time.
+May  8 01:45:01 localhost CRON[1051650]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 01:55:01 localhost CRON[1051687]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 02:05:01 localhost CRON[1051732]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 02:15:01 localhost CRON[1051816]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 02:17:01 localhost CRON[1051834]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 02:25:01 localhost CRON[1051884]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 02:33:46 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  8 02:33:46 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  8 02:33:46 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  8 02:35:01 localhost CRON[1051967]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 02:45:01 localhost CRON[1052083]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 02:55:01 localhost CRON[1052179]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 03:05:01 localhost CRON[1052257]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 03:10:01 localhost CRON[1052297]: (root) CMD (test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r)
+May  8 03:15:01 localhost CRON[1052341]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 03:17:01 localhost CRON[1052360]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 03:25:01 localhost CRON[1052391]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 03:35:01 localhost CRON[1052413]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 03:45:01 localhost CRON[1052431]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 03:55:01 localhost CRON[1052447]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 04:05:01 localhost CRON[1052554]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 04:15:01 localhost CRON[1052694]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 04:17:01 localhost CRON[1052722]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 04:25:01 localhost CRON[1052823]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 04:35:01 localhost CRON[1052939]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 04:45:01 localhost CRON[1053003]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 04:55:01 localhost CRON[1053095]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 05:05:01 localhost CRON[1053290]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 05:11:18 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  8 05:11:18 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1785' (uid=112 pid=1053466 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  8 05:11:18 localhost systemd[1]: Starting Firmware update daemon...
+May  8 05:11:18 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  8 05:11:18 localhost systemd[1]: Started Firmware update daemon.
+May  8 05:11:18 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  8 05:11:18 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  8 05:15:01 localhost CRON[1053563]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 05:17:01 localhost CRON[1053597]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 05:25:01 localhost CRON[1053743]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 05:35:01 localhost CRON[1053906]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 05:45:01 localhost CRON[1054022]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 05:51:02 localhost systemd[1]: Starting Daily man-db regeneration...
+May  8 05:51:02 localhost systemd[1]: man-db.service: Deactivated successfully.
+May  8 05:51:02 localhost systemd[1]: Finished Daily man-db regeneration.
+May  8 05:55:01 localhost CRON[1054169]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 06:05:01 localhost CRON[1054278]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 06:09:36 localhost systemd[1]: Starting Daily apt upgrade and clean activities...
+May  8 06:09:38 localhost systemd[1]: apt-daily-upgrade.service: Deactivated successfully.
+May  8 06:09:38 localhost systemd[1]: Finished Daily apt upgrade and clean activities.
+May  8 06:09:38 localhost systemd[1]: apt-daily-upgrade.service: Consumed 2.706s CPU time.
+May  8 06:15:01 localhost CRON[1054510]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 06:17:01 localhost CRON[1054552]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 06:25:01 localhost CRON[1054748]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 06:25:01 localhost CRON[1054749]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+May  8 06:35:01 localhost CRON[1055073]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 06:45:01 localhost CRON[1055366]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 06:55:01 localhost CRON[1055602]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 07:05:01 localhost CRON[1055765]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 07:11:18 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May  8 07:15:01 localhost CRON[1055840]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 07:17:01 localhost CRON[1055851]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 07:25:01 localhost CRON[1055895]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 07:35:01 localhost CRON[1056054]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 07:45:01 localhost CRON[1056253]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 07:55:01 localhost CRON[1056429]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:05:01 localhost CRON[1056580]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:07:26 localhost systemd[1]: Starting Daily apt download activities...
+May  8 08:07:26 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May  8 08:07:26 localhost systemd[1]: Finished Daily apt download activities.
+May  8 08:15:01 localhost CRON[1056799]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:17:01 localhost CRON[1056837]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 08:25:01 localhost CRON[1056983]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:35:01 localhost CRON[1057093]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:45:01 localhost CRON[1057203]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:55:01 localhost CRON[1057314]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 08:55:36 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  8 08:55:36 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  8 08:55:36 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  8 09:05:01 localhost CRON[1057372]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 09:15:01 localhost CRON[1057418]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 09:17:01 localhost CRON[1057426]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 09:25:01 localhost CRON[1057471]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 09:35:01 localhost CRON[1057524]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 09:45:01 localhost CRON[1057610]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 09:55:01 localhost CRON[1057699]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 10:05:01 localhost CRON[1057760]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 10:15:01 localhost CRON[1057822]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 10:17:01 localhost CRON[1057837]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 10:25:01 localhost CRON[1057889]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 10:35:01 localhost CRON[1057931]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 10:45:01 localhost CRON[1058053]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 10:55:01 localhost CRON[1058229]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 11:05:01 localhost CRON[1058406]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 11:15:01 localhost CRON[1058570]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 11:17:01 localhost CRON[1058599]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 11:25:01 localhost CRON[1058693]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 11:35:01 localhost CRON[1058770]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 11:40:43 localhost systemd[1]: Starting Download data for packages that failed at package install time...
+May  8 11:40:43 localhost systemd[1]: update-notifier-download.service: Deactivated successfully.
+May  8 11:40:43 localhost systemd[1]: Finished Download data for packages that failed at package install time.
+May  8 11:45:01 localhost CRON[1058828]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 11:51:06 localhost systemd[1]: Starting Cleanup of Temporary Directories...
+May  8 11:51:06 localhost systemd[1]: systemd-tmpfiles-clean.service: Deactivated successfully.
+May  8 11:51:06 localhost systemd[1]: Finished Cleanup of Temporary Directories.
+May  8 11:55:01 localhost CRON[1058872]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 12:05:01 localhost CRON[1058910]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 12:15:01 localhost CRON[1058935]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 12:17:01 localhost CRON[1058940]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 12:25:01 localhost CRON[1059033]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 12:35:01 localhost CRON[1059110]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 12:45:01 localhost CRON[1059304]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 12:55:01 localhost CRON[1059365]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 13:05:01 localhost CRON[1059394]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 13:15:01 localhost CRON[1059408]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 13:17:01 localhost CRON[1059411]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 13:21:58 localhost systemd[1]: Created slice User Slice of UID 0.
+May  8 13:21:58 localhost systemd[1]: Starting User Runtime Directory /run/user/0...
+May  8 13:21:58 localhost systemd[1]: Finished User Runtime Directory /run/user/0.
+May  8 13:21:58 localhost systemd[1]: Starting User Manager for UID 0...
+May  8 13:21:58 localhost systemd[1059424]: Queued start job for default target Main User Target.
+May  8 13:21:58 localhost systemd[1059424]: Created slice User Application Slice.
+May  8 13:21:58 localhost systemd[1059424]: Reached target Paths.
+May  8 13:21:58 localhost systemd[1059424]: Reached target Timers.
+May  8 13:21:58 localhost systemd[1059424]: Starting D-Bus User Message Bus Socket...
+May  8 13:21:58 localhost systemd[1059424]: Listening on GnuPG network certificate management daemon.
+May  8 13:21:58 localhost systemd[1059424]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+May  8 13:21:58 localhost systemd[1059424]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+May  8 13:21:58 localhost systemd[1059424]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+May  8 13:21:58 localhost systemd[1059424]: Listening on GnuPG cryptographic agent and passphrase cache.
+May  8 13:21:58 localhost systemd[1059424]: Listening on debconf communication socket.
+May  8 13:21:58 localhost systemd[1059424]: Listening on REST API socket for snapd user session agent.
+May  8 13:21:58 localhost systemd[1059424]: Listening on D-Bus User Message Bus Socket.
+May  8 13:21:58 localhost systemd[1059424]: Reached target Sockets.
+May  8 13:21:58 localhost systemd[1059424]: Reached target Basic System.
+May  8 13:21:58 localhost systemd[1059424]: Reached target Main User Target.
+May  8 13:21:58 localhost systemd[1059424]: Startup finished in 84ms.
+May  8 13:21:58 localhost systemd[1]: Started User Manager for UID 0.
+May  8 13:21:58 localhost systemd[1]: Started Session 13579 of User root.
+May  8 13:24:54 localhost systemd[1]: Started Session 13581 of User root.
+May  8 13:25:01 localhost CRON[1059651]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 13:35:01 localhost CRON[1059802]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 13:41:46 localhost systemd[1]: Started Session 13584 of User root.
+May  8 13:45:01 localhost CRON[1059879]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 13:55:01 localhost CRON[1059896]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 14:05:01 localhost CRON[1059911]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 14:15:01 localhost CRON[1059937]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 14:17:01 localhost CRON[1059944]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 14:25:01 localhost CRON[1060047]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 14:35:01 localhost CRON[1060169]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 14:41:58 localhost systemd[1]: Started Session 13592 of User root.
+May  8 14:45:01 localhost CRON[1060368]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 14:55:01 localhost CRON[1060469]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 15:05:01 localhost CRON[1060497]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 15:15:01 localhost CRON[1060514]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 15:17:01 localhost CRON[1060519]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 15:25:01 localhost CRON[1060546]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 15:32:16 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  8 15:32:16 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  8 15:32:16 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  8 15:35:01 localhost CRON[1060559]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 15:43:08 localhost systemd[1]: session-13581.scope: Deactivated successfully.
+May  8 15:45:01 localhost CRON[1060566]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 15:54:20 localhost systemd[1]: session-13584.scope: Deactivated successfully.
+May  8 15:54:20 localhost systemd[1]: session-13579.scope: Deactivated successfully.
+May  8 15:54:20 localhost systemd[1]: session-13579.scope: Consumed 34.232s CPU time.
+May  8 15:55:01 localhost CRON[1060581]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 16:05:01 localhost CRON[1060588]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 16:15:01 localhost CRON[1060599]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 16:17:01 localhost CRON[1060604]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 16:25:01 localhost CRON[1060617]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 16:25:14 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  8 16:25:14 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1797' (uid=112 pid=1060619 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  8 16:25:14 localhost systemd[1]: Starting Firmware update daemon...
+May  8 16:25:14 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  8 16:25:14 localhost systemd[1]: Started Firmware update daemon.
+May  8 16:25:14 localhost fwupdmgr[1060619]: Updating lvfs
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 0%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 100%
+May  8 16:25:14 localhost fwupdmgr[1060619]: message repeated 2 times: [ Downloading…: 100%]
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 0%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 1%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 3%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 5%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 7%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 11%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 14%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 16%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 18%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 22%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 24%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 29%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 32%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 34%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 38%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 40%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 45%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 49%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Downloading…: 71%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Idle…: 100%
+May  8 16:25:14 localhost fwupdmgr[1060619]: Idle…: 100%
+May  8 16:25:15 localhost fwupdmgr[1060619]: Successfully downloaded new metadata: 0 local devices supported
+May  8 16:25:15 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  8 16:25:15 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  8 16:35:01 localhost CRON[1060687]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 16:45:01 localhost CRON[1060850]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 16:55:01 localhost CRON[1061053]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 17:05:01 localhost CRON[1061244]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 17:15:01 localhost CRON[1061439]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 17:17:01 localhost CRON[1061469]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 17:25:01 localhost CRON[1061630]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 17:35:01 localhost CRON[1061727]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 17:45:01 localhost CRON[1061788]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 17:55:01 localhost CRON[1061838]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 18:05:01 localhost CRON[1061846]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 18:15:01 localhost CRON[1061854]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 18:17:01 localhost CRON[1061857]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 18:25:01 localhost CRON[1061862]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 18:25:15 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May  8 18:25:15 localhost systemd[1]: fwupd.service: Consumed 1.076s CPU time.
+May  8 18:35:01 localhost CRON[1061877]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 18:42:27 localhost systemd[1]: Started Session 13621 of User root.
+May  8 18:45:01 localhost CRON[1062000]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 18:55:01 localhost CRON[1062010]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 19:05:01 localhost CRON[1062155]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 19:15:01 localhost CRON[1062165]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 19:17:01 localhost CRON[1062168]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 19:25:01 localhost CRON[1062176]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 19:35:01 localhost CRON[1062184]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 19:45:01 localhost CRON[1062190]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 19:54:38 localhost systemd[1]: session-13592.scope: Deactivated successfully.
+May  8 19:55:01 localhost CRON[1062200]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:05:01 localhost CRON[1062209]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:15:01 localhost CRON[1062219]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:17:01 localhost CRON[1062222]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 20:25:01 localhost CRON[1062233]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:35:01 localhost CRON[1062242]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:45:01 localhost CRON[1062251]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:55:01 localhost CRON[1062290]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 20:57:39 localhost systemd[1]: Started Session 13638 of User root.
+May  8 21:05:01 localhost CRON[1062487]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 21:15:01 localhost CRON[1062598]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 21:17:01 localhost CRON[1062621]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 21:25:01 localhost CRON[1062716]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 21:35:01 localhost CRON[1062851]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 21:45:01 localhost CRON[1062899]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 21:48:20 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  8 21:48:20 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  8 21:48:20 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  8 21:55:01 localhost CRON[1062941]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:05:01 localhost CRON[1062960]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:15:01 localhost CRON[1062987]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:17:01 localhost CRON[1063027]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 22:25:01 localhost CRON[1063077]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:35:01 localhost CRON[1063084]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:45:01 localhost CRON[1063092]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:55:01 localhost CRON[1063104]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 22:55:57 localhost systemd[1]: session-13621.scope: Deactivated successfully.
+May  8 23:05:01 localhost CRON[1063118]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 23:15:01 localhost CRON[1063128]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 23:17:01 localhost CRON[1063131]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  8 23:25:01 localhost CRON[1063178]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 23:35:01 localhost CRON[1063320]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 23:45:01 localhost CRON[1063474]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 23:55:01 localhost CRON[1063631]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  8 23:59:01 localhost CRON[1063696]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 60 2)
+May  9 00:00:02 localhost systemd[1]: Starting Daily dpkg database backup service...
+May  9 00:00:02 localhost systemd[1]: Starting Rotate log files...
+May  9 00:00:02 localhost systemd[1]: dpkg-db-backup.service: Deactivated successfully.
+May  9 00:00:02 localhost systemd[1]: Finished Daily dpkg database backup service.
+May  9 00:00:02 localhost systemd[1]: logrotate.service: Deactivated successfully.
+May  9 00:00:02 localhost systemd[1]: Finished Rotate log files.
+May  9 00:05:01 localhost CRON[1063795]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 00:15:01 localhost CRON[1063964]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 00:17:01 localhost CRON[1063995]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 00:25:01 localhost CRON[1064076]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 00:35:01 localhost CRON[1064149]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 00:45:01 localhost CRON[1064214]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 00:55:01 localhost CRON[1064250]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 01:05:01 localhost CRON[1064270]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 01:15:01 localhost CRON[1064306]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 01:17:01 localhost CRON[1064328]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 01:25:01 localhost CRON[1064445]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 01:35:01 localhost CRON[1064531]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 01:45:01 localhost CRON[1064616]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 01:55:01 localhost CRON[1064674]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 02:05:01 localhost CRON[1064684]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 02:15:01 localhost CRON[1064725]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 02:17:01 localhost CRON[1064737]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 02:25:01 localhost CRON[1064767]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 02:35:01 localhost CRON[1064805]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 02:45:01 localhost CRON[1064823]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 02:55:01 localhost CRON[1064848]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 03:05:01 localhost CRON[1064885]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 03:10:01 localhost CRON[1064911]: (root) CMD (test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r)
+May  9 03:15:01 localhost CRON[1064938]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 03:17:01 localhost CRON[1064970]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 03:19:36 localhost systemd[1]: Starting Daily apt download activities...
+May  9 03:19:48 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May  9 03:19:48 localhost systemd[1]: Finished Daily apt download activities.
+May  9 03:19:48 localhost systemd[1]: apt-daily.service: Consumed 9.458s CPU time.
+May  9 03:25:01 localhost CRON[1065386]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 03:35:01 localhost CRON[1065443]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 03:45:01 localhost CRON[1065493]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 03:55:01 localhost CRON[1065512]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 04:05:01 localhost CRON[1065541]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 04:15:01 localhost CRON[1065568]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 04:17:01 localhost CRON[1065572]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 04:25:01 localhost CRON[1065660]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 04:35:01 localhost CRON[1065691]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 04:38:18 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  9 04:38:18 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  9 04:38:18 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  9 04:45:01 localhost CRON[1065780]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 04:55:01 localhost CRON[1065929]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 05:05:01 localhost CRON[1066073]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 05:14:29 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  9 05:14:29 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1805' (uid=112 pid=1066180 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  9 05:14:29 localhost systemd[1]: Starting Firmware update daemon...
+May  9 05:14:29 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  9 05:14:29 localhost systemd[1]: Started Firmware update daemon.
+May  9 05:14:29 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  9 05:14:29 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  9 05:15:01 localhost CRON[1066195]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 05:17:01 localhost CRON[1066218]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 05:25:01 localhost CRON[1066261]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 05:35:01 localhost CRON[1066318]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 05:45:01 localhost CRON[1066384]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 05:55:01 localhost CRON[1066453]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 06:05:01 localhost CRON[1066599]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 06:15:01 localhost CRON[1066764]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 06:17:01 localhost CRON[1066808]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 06:24:48 localhost systemd[1]: Starting Daily man-db regeneration...
+May  9 06:24:48 localhost systemd[1]: man-db.service: Deactivated successfully.
+May  9 06:24:48 localhost systemd[1]: Finished Daily man-db regeneration.
+May  9 06:25:01 localhost CRON[1066951]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 06:25:01 localhost CRON[1066952]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+May  9 06:32:14 localhost systemd[1]: Started Session 13709 of User root.
+May  9 06:35:01 localhost CRON[1067226]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 06:43:50 localhost systemd[1]: Starting Daily apt upgrade and clean activities...
+May  9 06:43:53 localhost systemd[1]: apt-daily-upgrade.service: Deactivated successfully.
+May  9 06:43:53 localhost systemd[1]: Finished Daily apt upgrade and clean activities.
+May  9 06:43:53 localhost systemd[1]: apt-daily-upgrade.service: Consumed 2.603s CPU time.
+May  9 06:45:01 localhost CRON[1067461]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 06:53:42 localhost systemd[1]: Started Session 13712 of User root.
+May  9 06:54:34 localhost systemd[1]: Started Session 13713 of User root.
+May  9 06:55:01 localhost CRON[1067714]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 07:05:01 localhost CRON[1067926]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 07:14:29 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May  9 07:15:01 localhost CRON[1068046]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 07:17:01 localhost CRON[1068085]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 07:25:01 localhost CRON[1068163]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 07:35:01 localhost CRON[1068283]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 07:45:01 localhost CRON[1068398]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 07:55:01 localhost CRON[1068494]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 08:05:01 localhost CRON[1068624]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 08:15:01 localhost CRON[1068732]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 08:17:01 localhost CRON[1068789]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 08:25:02 localhost CRON[1068801]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 08:35:01 localhost CRON[1068849]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 08:43:35 localhost systemd[1]: session-13638.scope: Deactivated successfully.
+May  9 08:45:01 localhost CRON[1068953]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 08:55:01 localhost CRON[1068992]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 09:03:15 localhost systemd[1]: session-13709.scope: Deactivated successfully.
+May  9 09:03:15 localhost systemd[1]: session-13709.scope: Consumed 2min 3.307s CPU time.
+May  9 09:05:01 localhost CRON[1069032]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 09:15:01 localhost CRON[1069092]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 09:17:01 localhost CRON[1069097]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 09:25:01 localhost CRON[1069126]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 09:35:01 localhost CRON[1069224]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 09:45:01 localhost CRON[1069325]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 09:55:01 localhost CRON[1069424]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 10:05:01 localhost CRON[1069477]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 10:15:01 localhost CRON[1069490]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 10:17:01 localhost CRON[1069493]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 10:25:01 localhost CRON[1069509]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 10:35:01 localhost CRON[1069525]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 10:45:01 localhost CRON[1069534]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 10:55:01 localhost CRON[1069599]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 11:01:16 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  9 11:01:16 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  9 11:01:16 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  9 11:05:01 localhost CRON[1069612]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 11:05:02 localhost systemd[1]: Starting Daily apt download activities...
+May  9 11:05:03 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May  9 11:05:03 localhost systemd[1]: Finished Daily apt download activities.
+May  9 11:15:01 localhost CRON[1069665]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 11:17:01 localhost CRON[1069672]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 11:25:01 localhost CRON[1069679]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 11:35:01 localhost CRON[1069747]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 11:40:55 localhost systemd[1]: Starting Download data for packages that failed at package install time...
+May  9 11:40:55 localhost systemd[1]: update-notifier-download.service: Deactivated successfully.
+May  9 11:40:55 localhost systemd[1]: Finished Download data for packages that failed at package install time.
+May  9 11:45:01 localhost CRON[1069757]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 11:51:36 localhost systemd[1]: Starting Cleanup of Temporary Directories...
+May  9 11:51:36 localhost systemd[1]: systemd-tmpfiles-clean.service: Deactivated successfully.
+May  9 11:51:36 localhost systemd[1]: Finished Cleanup of Temporary Directories.
+May  9 11:55:01 localhost CRON[1069766]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 12:05:01 localhost CRON[1069801]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 12:15:01 localhost CRON[1069838]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 12:17:01 localhost CRON[1069916]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 12:25:01 localhost CRON[1070078]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 12:35:01 localhost CRON[1070087]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 12:45:01 localhost CRON[1070235]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 12:55:01 localhost CRON[1070278]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 13:05:01 localhost CRON[1070410]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 13:15:01 localhost CRON[1070555]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 13:17:01 localhost CRON[1070637]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 13:25:01 localhost CRON[1070742]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 13:35:01 localhost CRON[1070811]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 13:45:01 localhost CRON[1070919]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 13:55:01 localhost CRON[1070942]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 14:05:01 localhost CRON[1070948]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 14:15:01 localhost CRON[1070985]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 14:17:01 localhost CRON[1070988]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 14:25:01 localhost CRON[1071000]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 14:35:01 localhost CRON[1071010]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 14:45:01 localhost CRON[1071018]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 14:55:01 localhost CRON[1071024]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 15:05:01 localhost CRON[1071031]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 15:15:01 localhost CRON[1071040]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 15:17:01 localhost CRON[1071050]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 15:25:01 localhost CRON[1071127]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 15:35:01 localhost CRON[1071260]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 15:45:01 localhost CRON[1071404]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 15:55:01 localhost CRON[1071551]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 16:05:01 localhost CRON[1071653]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 16:15:01 localhost CRON[1071730]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 16:17:01 localhost CRON[1071747]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 16:25:01 localhost CRON[1071796]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 16:35:01 localhost CRON[1071858]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 16:43:56 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  9 16:43:56 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1813' (uid=112 pid=1071941 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  9 16:43:56 localhost systemd[1]: Starting Firmware update daemon...
+May  9 16:43:56 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  9 16:43:56 localhost systemd[1]: Started Firmware update daemon.
+May  9 16:43:56 localhost fwupdmgr[1071941]: Updating lvfs
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 0%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 100%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Idle…: 100%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 100%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 0%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 1%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 3%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 7%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 11%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 15%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 18%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 20%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 24%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 31%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 38%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 40%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 42%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 46%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 49%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 53%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 57%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 76%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 91%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Downloading…: 100%
+May  9 16:43:56 localhost fwupdmgr[1071941]: Idle…: 100%
+May  9 16:43:57 localhost fwupdmgr[1071941]: Successfully downloaded new metadata: 0 local devices supported
+May  9 16:43:57 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  9 16:43:57 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  9 16:45:01 localhost CRON[1071981]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 16:55:01 localhost CRON[1071993]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 17:03:32 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  9 17:03:32 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  9 17:03:32 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  9 17:05:01 localhost CRON[1072007]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 17:15:01 localhost CRON[1072016]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 17:17:01 localhost CRON[1072019]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 17:25:01 localhost CRON[1072024]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 17:35:01 localhost CRON[1072035]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 17:45:01 localhost CRON[1072041]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 17:55:01 localhost CRON[1072200]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 18:05:01 localhost CRON[1072494]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 18:15:01 localhost CRON[1072746]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 18:17:01 localhost CRON[1072788]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 18:25:01 localhost CRON[1072962]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 18:29:55 localhost kernel: [6677795.642398] systemd-journald[237528]: Data hash table of /var/log/journal/f49f77c220ea4bf3a3b6ecd601b5c083/system.journal has a fill level at 75.0 (174763 of 233016 items, 75497472 file size, 431 bytes per hash table item), suggesting rotation.
+May  9 18:29:55 localhost kernel: [6677795.642406] systemd-journald[237528]: /var/log/journal/f49f77c220ea4bf3a3b6ecd601b5c083/system.journal: Journal header limits reached or header out-of-date, rotating.
+May  9 18:35:01 localhost CRON[1073109]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 18:43:57 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May  9 18:43:57 localhost systemd[1]: fwupd.service: Consumed 1.010s CPU time.
+May  9 18:45:01 localhost CRON[1073165]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 18:55:01 localhost CRON[1073177]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 19:05:01 localhost CRON[1073185]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 19:15:01 localhost CRON[1073259]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 19:17:01 localhost CRON[1073264]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 19:25:01 localhost CRON[1073271]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 19:35:01 localhost CRON[1073277]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 19:45:01 localhost CRON[1073284]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 19:55:01 localhost CRON[1073297]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 20:05:01 localhost CRON[1073347]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 20:15:01 localhost CRON[1073435]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 20:16:07 localhost systemd[1]: Started Session 13808 of User root.
+May  9 20:17:01 localhost CRON[1073541]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 20:25:01 localhost CRON[1073560]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 20:35:01 localhost CRON[1073603]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 20:45:01 localhost CRON[1073627]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 20:55:01 localhost CRON[1073711]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 21:05:01 localhost CRON[1073807]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 21:15:01 localhost CRON[1073847]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 21:17:01 localhost CRON[1073887]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 21:25:01 localhost CRON[1073926]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 21:35:01 localhost CRON[1073944]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 21:45:01 localhost CRON[1073983]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 21:55:01 localhost CRON[1074023]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 22:05:01 localhost CRON[1074039]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 22:07:30 localhost systemd[1]: session-13712.scope: Deactivated successfully.
+May  9 22:07:30 localhost systemd[1]: session-13712.scope: Consumed 3.545s CPU time.
+May  9 22:15:01 localhost CRON[1074169]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 22:17:01 localhost CRON[1074200]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 22:25:01 localhost CRON[1074334]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 22:35:01 localhost CRON[1074516]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 22:45:01 localhost CRON[1074643]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 22:55:01 localhost CRON[1074739]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:05:01 localhost CRON[1074795]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:15:01 localhost CRON[1074899]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:15:36 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May  9 23:15:36 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1818' (uid=112 pid=1074907 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May  9 23:15:36 localhost systemd[1]: Starting Firmware update daemon...
+May  9 23:15:36 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May  9 23:15:36 localhost systemd[1]: Started Firmware update daemon.
+May  9 23:15:36 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May  9 23:15:36 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May  9 23:15:38 localhost systemd[1]: Started Session 13830 of User root.
+May  9 23:15:41 localhost systemd[1]: session-13830.scope: Deactivated successfully.
+May  9 23:15:41 localhost systemd[1]: session-13830.scope: Consumed 1.412s CPU time.
+May  9 23:15:51 localhost systemd[1]: Started Session 13831 of User root.
+May  9 23:16:29 localhost systemd[1]: session-13713.scope: Deactivated successfully.
+May  9 23:16:29 localhost systemd[1]: session-13713.scope: Consumed 11min 38.323s CPU time.
+May  9 23:17:01 localhost CRON[1075099]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May  9 23:20:06 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May  9 23:20:06 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May  9 23:20:06 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May  9 23:21:21 localhost systemd[1]: session-13831.scope: Deactivated successfully.
+May  9 23:21:21 localhost systemd[1]: session-13831.scope: Consumed 1.024s CPU time.
+May  9 23:25:01 localhost CRON[1075129]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:35:01 localhost CRON[1075158]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:45:01 localhost CRON[1075178]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:55:01 localhost CRON[1075205]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May  9 23:59:01 localhost CRON[1075211]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 60 2)
+May 10 00:00:02 localhost systemd[1]: Starting Daily dpkg database backup service...
+May 10 00:00:02 localhost systemd[1]: Starting Rotate log files...
+May 10 00:00:02 localhost systemd[1]: dpkg-db-backup.service: Deactivated successfully.
+May 10 00:00:02 localhost systemd[1]: Finished Daily dpkg database backup service.
+May 10 00:00:02 localhost systemd[1]: logrotate.service: Deactivated successfully.
+May 10 00:00:02 localhost systemd[1]: Finished Rotate log files.
+May 10 00:05:01 localhost CRON[1075250]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 00:15:01 localhost CRON[1075280]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 00:17:01 localhost CRON[1075286]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 00:25:01 localhost CRON[1075330]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 00:35:01 localhost CRON[1075364]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 00:45:01 localhost CRON[1075405]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 00:55:01 localhost CRON[1075430]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 01:05:01 localhost CRON[1075455]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 01:15:01 localhost CRON[1075486]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 01:15:36 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May 10 01:17:01 localhost CRON[1075495]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 01:25:01 localhost CRON[1075521]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 01:35:01 localhost CRON[1075562]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 01:45:01 localhost CRON[1075645]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 01:55:01 localhost CRON[1075732]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 02:05:01 localhost CRON[1075803]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 02:15:01 localhost CRON[1075842]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 02:17:01 localhost CRON[1075855]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 02:25:01 localhost CRON[1075943]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 02:35:01 localhost CRON[1076051]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 02:41:26 localhost systemd[1]: Starting Daily apt download activities...
+May 10 02:41:40 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May 10 02:41:40 localhost systemd[1]: Finished Daily apt download activities.
+May 10 02:41:40 localhost systemd[1]: apt-daily.service: Consumed 9.694s CPU time.
+May 10 02:45:01 localhost CRON[1076515]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 02:55:01 localhost CRON[1076607]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 03:05:01 localhost CRON[1076666]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 03:10:01 localhost CRON[1076675]: (root) CMD (test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r)
+May 10 03:15:01 localhost CRON[1076680]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 03:17:01 localhost CRON[1076686]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 03:25:01 localhost CRON[1076696]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 03:35:01 localhost CRON[1076704]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 03:45:01 localhost CRON[1076712]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 03:47:31 localhost systemd[1]: Started Session 13866 of User root.
+May 10 03:55:01 localhost CRON[1076830]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 04:05:01 localhost CRON[1076838]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 04:15:01 localhost CRON[1076862]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 04:17:01 localhost CRON[1076870]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 04:25:01 localhost CRON[1076900]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 04:35:01 localhost CRON[1076914]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 04:45:01 localhost CRON[1076923]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 04:55:01 localhost CRON[1076977]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 05:05:01 localhost CRON[1076985]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 05:15:01 localhost CRON[1077005]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 05:17:01 localhost CRON[1077019]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 05:25:01 localhost CRON[1077051]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 05:32:36 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 10 05:32:36 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 10 05:32:36 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 10 05:35:01 localhost CRON[1077089]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 05:45:01 localhost CRON[1077130]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 05:55:01 localhost CRON[1077218]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:05:01 localhost CRON[1077228]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:15:01 localhost CRON[1077236]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:17:01 localhost CRON[1077241]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 06:25:02 localhost CRON[1077287]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+May 10 06:25:02 localhost CRON[1077286]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:35:01 localhost CRON[1077400]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:45:01 localhost CRON[1077499]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:50:02 localhost systemd[1]: Starting Daily apt upgrade and clean activities...
+May 10 06:50:10 localhost systemd[1]: apt-daily-upgrade.service: Deactivated successfully.
+May 10 06:50:10 localhost systemd[1]: Finished Daily apt upgrade and clean activities.
+May 10 06:50:10 localhost systemd[1]: apt-daily-upgrade.service: Consumed 7.568s CPU time.
+May 10 06:55:01 localhost CRON[1077878]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 06:59:16 localhost systemd[1]: Starting Daily apt download activities...
+May 10 06:59:16 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May 10 06:59:16 localhost systemd[1]: Finished Daily apt download activities.
+May 10 07:05:01 localhost CRON[1078112]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 07:10:21 localhost systemd[1]: Started Session 13891 of User root.
+May 10 07:15:01 localhost CRON[1078280]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 07:17:01 localhost CRON[1078355]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 07:17:17 localhost systemd[1]: Started Session 13894 of User root.
+May 10 07:25:01 localhost CRON[1078451]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 07:35:01 localhost CRON[1078530]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 07:41:21 localhost systemd[1]: Starting Daily man-db regeneration...
+May 10 07:41:21 localhost systemd[1]: man-db.service: Deactivated successfully.
+May 10 07:41:21 localhost systemd[1]: Finished Daily man-db regeneration.
+May 10 07:45:01 localhost CRON[1078631]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 07:55:01 localhost CRON[1078727]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 08:05:01 localhost CRON[1078782]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 08:15:01 localhost CRON[1078844]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 08:17:01 localhost CRON[1078850]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 08:25:01 localhost CRON[1078874]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 08:35:01 localhost CRON[1078945]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 08:45:01 localhost CRON[1079014]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 08:55:01 localhost CRON[1079073]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 09:05:01 localhost CRON[1079106]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 09:11:36 localhost systemd[1]: session-13808.scope: Deactivated successfully.
+May 10 09:11:36 localhost systemd[1]: session-13808.scope: Consumed 1.121s CPU time.
+May 10 09:13:47 localhost systemd[1]: session-13866.scope: Deactivated successfully.
+May 10 09:13:47 localhost systemd[1]: session-13866.scope: Consumed 2min 10.249s CPU time.
+May 10 09:15:01 localhost CRON[1079138]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 09:17:01 localhost CRON[1079144]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 09:25:01 localhost CRON[1079179]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 09:35:01 localhost CRON[1079238]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 09:45:01 localhost CRON[1079344]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 09:55:01 localhost CRON[1079457]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 10:05:01 localhost CRON[1079628]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 10:15:01 localhost CRON[1079695]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 10:17:01 localhost CRON[1079710]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 10:25:01 localhost CRON[1079829]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 10:35:01 localhost CRON[1079992]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 10:45:01 localhost CRON[1080139]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 10:55:01 localhost CRON[1080266]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:05:01 localhost CRON[1080333]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:15:01 localhost CRON[1080496]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:17:01 localhost CRON[1080515]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 11:25:01 localhost CRON[1080579]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:35:01 localhost CRON[1080648]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:41:26 localhost systemd[1]: Starting Download data for packages that failed at package install time...
+May 10 11:41:26 localhost systemd[1]: update-notifier-download.service: Deactivated successfully.
+May 10 11:41:26 localhost systemd[1]: Finished Download data for packages that failed at package install time.
+May 10 11:45:01 localhost CRON[1080702]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:51:54 localhost systemd[1]: Starting Cleanup of Temporary Directories...
+May 10 11:51:54 localhost systemd[1]: systemd-tmpfiles-clean.service: Deactivated successfully.
+May 10 11:51:54 localhost systemd[1]: Finished Cleanup of Temporary Directories.
+May 10 11:55:01 localhost CRON[1080729]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 11:58:36 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 10 11:58:36 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 10 11:58:36 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 10 12:05:01 localhost CRON[1080756]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 12:15:01 localhost CRON[1080825]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 12:17:01 localhost CRON[1080838]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 12:25:01 localhost CRON[1080900]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 12:35:01 localhost CRON[1080963]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 12:45:01 localhost CRON[1081008]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 12:55:01 localhost CRON[1081042]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 13:05:01 localhost CRON[1081092]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 13:15:01 localhost CRON[1081189]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 13:17:01 localhost CRON[1081205]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 13:25:01 localhost CRON[1081281]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 13:35:01 localhost CRON[1081458]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 13:45:01 localhost CRON[1081595]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 13:55:01 localhost CRON[1081738]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 14:05:01 localhost CRON[1081892]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 14:15:01 localhost CRON[1081969]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 14:17:01 localhost CRON[1081981]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 14:19:36 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May 10 14:19:36 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1836' (uid=112 pid=1081991 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May 10 14:19:36 localhost systemd[1]: Starting Firmware update daemon...
+May 10 14:19:36 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May 10 14:19:36 localhost systemd[1]: Started Firmware update daemon.
+May 10 14:19:36 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May 10 14:19:36 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May 10 14:25:01 localhost CRON[1082026]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 14:35:01 localhost CRON[1082039]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 14:45:01 localhost CRON[1082046]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 14:55:01 localhost CRON[1082053]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 15:05:01 localhost CRON[1082063]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 15:15:01 localhost CRON[1082073]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 15:17:01 localhost CRON[1082076]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 15:25:01 localhost CRON[1082090]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 15:35:01 localhost CRON[1082114]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 15:45:01 localhost CRON[1082155]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 15:55:01 localhost CRON[1082216]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 16:05:01 localhost CRON[1082327]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 16:15:01 localhost CRON[1082379]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 16:17:01 localhost CRON[1082392]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 16:19:36 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May 10 16:25:01 localhost CRON[1082432]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 16:35:01 localhost CRON[1082460]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 16:45:01 localhost CRON[1082510]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 16:55:01 localhost CRON[1082717]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 17:05:01 localhost CRON[1082924]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 17:15:01 localhost CRON[1083122]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 17:17:01 localhost CRON[1083152]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 17:25:01 localhost CRON[1083251]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 17:35:01 localhost CRON[1083317]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 17:45:01 localhost CRON[1083331]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 17:55:01 localhost CRON[1083337]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 18:05:01 localhost CRON[1083347]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 18:15:01 localhost CRON[1083355]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 18:17:01 localhost CRON[1083419]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 18:25:01 localhost CRON[1083431]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 18:35:01 localhost CRON[1083443]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 18:36:38 localhost systemd[1]: Started Session 13974 of User root.
+May 10 18:37:27 localhost systemd[1]: Started Session 13975 of User root.
+May 10 18:45:01 localhost CRON[1083586]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 18:51:06 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 10 18:51:06 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 10 18:51:06 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 10 18:55:01 localhost CRON[1083666]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 19:05:01 localhost CRON[1083740]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 19:15:01 localhost CRON[1083809]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 19:17:01 localhost CRON[1083813]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 19:25:01 localhost CRON[1083828]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 19:35:01 localhost CRON[1083912]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 19:45:01 localhost CRON[1084009]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 19:46:36 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May 10 19:46:36 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1840' (uid=112 pid=1084031 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May 10 19:46:36 localhost systemd[1]: Starting Firmware update daemon...
+May 10 19:46:36 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May 10 19:46:36 localhost systemd[1]: Started Firmware update daemon.
+May 10 19:46:36 localhost fwupdmgr[1084031]: Updating lvfs
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 0%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 100%
+May 10 19:46:36 localhost fwupdmgr[1084031]: message repeated 2 times: [ Downloading…: 100%]
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 0%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 2%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 4%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 5%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 7%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 11%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 14%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 14%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 18%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 22%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 24%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 27%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 35%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 41%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 42%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 46%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 48%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 52%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 56%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 59%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 67%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 80%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 85%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Downloading…: 93%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Idle…: 100%
+May 10 19:46:36 localhost fwupdmgr[1084031]: Idle…: 100%
+May 10 19:46:37 localhost fwupdmgr[1084031]: Successfully downloaded new metadata: 0 local devices supported
+May 10 19:46:37 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May 10 19:46:37 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May 10 19:55:01 localhost CRON[1084242]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 20:05:01 localhost CRON[1084630]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 20:15:01 localhost CRON[1084876]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 20:17:01 localhost CRON[1084921]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 20:25:01 localhost CRON[1085076]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 20:30:59 localhost systemd[1]: session-13894.scope: Deactivated successfully.
+May 10 20:35:01 localhost CRON[1085227]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 20:45:01 localhost CRON[1085387]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 20:48:28 localhost systemd[1]: session-13974.scope: Deactivated successfully.
+May 10 20:55:01 localhost CRON[1085586]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 21:05:01 localhost CRON[1085782]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 21:14:55 localhost systemd[1]: Started Session 13993 of User root.
+May 10 21:15:01 localhost CRON[1086096]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 21:17:01 localhost CRON[1086191]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 21:25:01 localhost CRON[1086296]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 21:35:01 localhost CRON[1086351]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 21:45:01 localhost CRON[1086391]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 21:46:37 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May 10 21:46:37 localhost systemd[1]: fwupd.service: Consumed 1.025s CPU time.
+May 10 21:55:01 localhost CRON[1086434]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 22:00:23 localhost systemd[1]: session-13975.scope: Deactivated successfully.
+May 10 22:05:01 localhost CRON[1086487]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 22:15:01 localhost CRON[1086534]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 22:17:01 localhost CRON[1086548]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 22:25:01 localhost CRON[1086589]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 22:35:01 localhost CRON[1086665]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 22:37:32 localhost systemd[1]: Started Session 14005 of User root.
+May 10 22:45:01 localhost CRON[1086948]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 22:55:01 localhost CRON[1087294]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:05:01 localhost CRON[1087580]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:15:01 localhost CRON[1087890]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:17:01 localhost CRON[1087983]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 10 23:25:01 localhost CRON[1088143]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:35:01 localhost CRON[1088228]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:45:01 localhost CRON[1088435]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:51:58 localhost systemd[1]: session-13993.scope: Deactivated successfully.
+May 10 23:51:58 localhost systemd[1]: session-13993.scope: Consumed 1min 50.692s CPU time.
+May 10 23:55:01 localhost CRON[1088513]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 10 23:59:01 localhost CRON[1088547]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 60 2)
+May 11 00:00:02 localhost systemd[1]: Starting Daily dpkg database backup service...
+May 11 00:00:02 localhost systemd[1]: Starting Rotate log files...
+May 11 00:00:02 localhost systemd[1]: logrotate.service: Deactivated successfully.
+May 11 00:00:02 localhost systemd[1]: Finished Rotate log files.
+May 11 00:00:02 localhost systemd[1]: dpkg-db-backup.service: Deactivated successfully.
+May 11 00:00:02 localhost systemd[1]: Finished Daily dpkg database backup service.
+May 11 00:05:01 localhost CRON[1088702]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 00:15:01 localhost CRON[1088863]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 00:17:01 localhost CRON[1088906]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 00:25:01 localhost CRON[1089023]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 00:26:06 localhost systemd[1]: Starting Daily man-db regeneration...
+May 11 00:26:06 localhost systemd[1]: man-db.service: Deactivated successfully.
+May 11 00:26:06 localhost systemd[1]: Finished Daily man-db regeneration.
+May 11 00:35:01 localhost CRON[1089242]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 00:45:01 localhost CRON[1089519]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 00:55:01 localhost CRON[1089803]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 01:05:01 localhost CRON[1090038]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 01:15:01 localhost CRON[1090233]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 01:17:01 localhost CRON[1090270]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 01:25:01 localhost CRON[1090343]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 01:35:01 localhost CRON[1090413]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 01:45:01 localhost CRON[1090563]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 01:46:54 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 11 01:46:55 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 11 01:46:55 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 11 01:55:01 localhost CRON[1090732]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 02:05:01 localhost CRON[1090879]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 02:15:01 localhost CRON[1091069]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 02:17:01 localhost CRON[1091133]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 02:25:01 localhost CRON[1091397]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 02:35:01 localhost CRON[1091771]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 02:45:01 localhost CRON[1092113]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 02:55:01 localhost CRON[1092396]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 03:05:01 localhost CRON[1093092]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 03:10:01 localhost CRON[1093523]: (root) CMD (test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r)
+May 11 03:15:01 localhost CRON[1093555]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 03:17:01 localhost CRON[1093569]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 03:25:01 localhost CRON[1093671]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 03:35:01 localhost CRON[1093806]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 03:45:01 localhost CRON[1093938]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 03:55:01 localhost CRON[1094093]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 04:05:01 localhost CRON[1094166]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 04:15:01 localhost CRON[1094223]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 04:17:01 localhost CRON[1094235]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 04:25:02 localhost CRON[1094275]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 04:28:11 localhost systemd[1]: Started Session 14049 of User root.
+May 11 04:35:01 localhost CRON[1094452]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 04:45:01 localhost CRON[1094586]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 04:55:01 localhost CRON[1094848]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 05:05:01 localhost CRON[1094927]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 05:15:01 localhost CRON[1094980]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 05:17:01 localhost CRON[1094992]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 05:24:36 localhost systemd[1]: Starting Daily apt download activities...
+May 11 05:24:48 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May 11 05:24:48 localhost systemd[1]: Finished Daily apt download activities.
+May 11 05:24:48 localhost systemd[1]: apt-daily.service: Consumed 9.456s CPU time.
+May 11 05:25:01 localhost CRON[1095512]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 05:35:01 localhost CRON[1095593]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 05:45:01 localhost CRON[1095618]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 05:55:01 localhost CRON[1095665]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 06:05:01 localhost CRON[1095811]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 06:15:01 localhost CRON[1095971]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 06:17:01 localhost CRON[1096005]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 06:21:36 localhost systemd[1]: Starting Daily apt upgrade and clean activities...
+May 11 06:21:38 localhost systemd[1]: apt-daily-upgrade.service: Deactivated successfully.
+May 11 06:21:38 localhost systemd[1]: Finished Daily apt upgrade and clean activities.
+May 11 06:21:38 localhost systemd[1]: apt-daily-upgrade.service: Consumed 2.658s CPU time.
+May 11 06:22:54 localhost crontab[1096145]: (root) BEGIN EDIT (root)
+May 11 06:23:50 localhost crontab[1096145]: (root) REPLACE (root)
+May 11 06:23:50 localhost crontab[1096145]: (root) END EDIT (root)
+May 11 06:23:54 localhost crontab[1096164]: (root) LIST (root)
+May 11 06:24:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 11 06:24:01 localhost crontab[1096165]: (root) BEGIN EDIT (root)
+May 11 06:24:12 localhost crontab[1096165]: (root) REPLACE (root)
+May 11 06:24:12 localhost crontab[1096165]: (root) END EDIT (root)
+May 11 06:25:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 11 06:25:01 localhost CRON[1096182]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+May 11 06:25:01 localhost CRON[1096183]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 06:25:20 localhost crontab[1096198]: (root) LIST (root)
+May 11 06:29:18 localhost crontab[1096241]: (root) BEGIN EDIT (root)
+May 11 06:29:27 localhost crontab[1096241]: (root) REPLACE (root)
+May 11 06:29:27 localhost crontab[1096241]: (root) END EDIT (root)
+May 11 06:30:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 11 06:30:01 localhost CRON[1096251]: (root) CMD (/root/anaconda3/envs/pytorch/bin/python3 /root/grv_model/db_update/database_update.py)
+May 11 06:31:46 localhost CRON[1096250]: (CRON) info (No MTA installed, discarding output)
+May 11 06:35:01 localhost CRON[1096309]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 06:35:01 localhost CRON[1096310]: (root) CMD (/root/anaconda3/envs/pytorch/bin/python3 /root/grv_model/db_update/ftnew_form_gen.py)
+May 11 06:35:28 localhost CRON[1096308]: (CRON) info (No MTA installed, discarding output)
+May 11 06:45:01 localhost CRON[1096371]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 06:55:01 localhost CRON[1096398]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:05:01 localhost CRON[1096416]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:15:01 localhost CRON[1096456]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:17:01 localhost CRON[1096468]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 07:25:01 localhost CRON[1096572]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:34:54 localhost crontab[1096713]: (root) BEGIN EDIT (root)
+May 11 07:35:01 localhost CRON[1096720]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:35:55 localhost crontab[1096713]: (root) REPLACE (root)
+May 11 07:35:55 localhost crontab[1096713]: (root) END EDIT (root)
+May 11 07:36:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 11 07:36:04 localhost crontab[1096728]: (root) LIST (root)
+May 11 07:37:01 localhost CRON[1096744]: (root) CMD (/root/anaconda3/envs/pytorch/bin/python3 /root/grv_model/db_update/ftnew_form_gen.py)
+May 11 07:37:28 localhost CRON[1096743]: (CRON) info (No MTA installed, discarding output)
+May 11 07:40:15 localhost crontab[1096800]: (root) BEGIN EDIT (root)
+May 11 07:42:47 localhost crontab[1096800]: (root) END EDIT (root)
+May 11 07:45:01 localhost CRON[1096871]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:45:20 localhost crontab[1096879]: (root) BEGIN EDIT (root)
+May 11 07:45:46 localhost crontab[1096879]: (root) END EDIT (root)
+May 11 07:46:32 localhost systemd[1]: Reloading.
+May 11 07:46:32 localhost systemd[1]: Reloading.
+May 11 07:46:32 localhost systemd[1]: Reloading.
+May 11 07:46:33 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May 11 07:46:33 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1853' (uid=112 pid=1096984 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May 11 07:46:33 localhost systemd[1]: Starting Firmware update daemon...
+May 11 07:46:33 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May 11 07:46:33 localhost systemd[1]: Started Firmware update daemon.
+May 11 07:46:33 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May 11 07:46:33 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May 11 07:47:32 localhost crontab[1097012]: (root) LIST (root)
+May 11 07:47:47 localhost crontab[1097018]: (root) BEGIN EDIT (root)
+May 11 07:48:37 localhost crontab[1097018]: (root) REPLACE (root)
+May 11 07:48:37 localhost crontab[1097018]: (root) END EDIT (root)
+May 11 07:48:42 localhost crontab[1097038]: (root) LIST (root)
+May 11 07:49:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 11 07:50:17 localhost crontab[1097062]: (root) BEGIN EDIT (root)
+May 11 07:50:25 localhost crontab[1097062]: (root) REPLACE (root)
+May 11 07:50:25 localhost crontab[1097062]: (root) END EDIT (root)
+May 11 07:51:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 11 07:55:01 localhost CRON[1097193]: (root) CMD (/root/anaconda3/envs/pytorch/bin/python3 /root/grv_model/db_update/ftnew_form_gen.py MAILTO=nickbarlow@live.com.au)
+May 11 07:55:01 localhost CRON[1097194]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 07:55:29 localhost CRON[1097192]: (CRON) info (No MTA installed, discarding output)
+May 11 08:05:01 localhost CRON[1097437]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 08:15:01 localhost CRON[1097688]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 08:17:01 localhost CRON[1097723]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 08:23:38 localhost systemd[1]: session-13891.scope: Deactivated successfully.
+May 11 08:23:38 localhost systemd[1]: session-13891.scope: Consumed 9min 35.967s CPU time.
+May 11 08:25:01 localhost CRON[1097828]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 08:35:01 localhost CRON[1097838]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 08:39:36 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 11 08:39:36 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 11 08:39:36 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 11 08:45:01 localhost CRON[1097849]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 08:55:01 localhost CRON[1097868]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 09:05:01 localhost CRON[1097906]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 09:15:01 localhost CRON[1098117]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 09:17:01 localhost CRON[1098160]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 09:25:01 localhost CRON[1098320]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 09:35:01 localhost CRON[1098505]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 09:45:01 localhost CRON[1098675]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 09:46:33 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May 11 09:55:01 localhost CRON[1098789]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 10:05:01 localhost CRON[1098842]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 10:15:01 localhost CRON[1098909]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 10:17:01 localhost CRON[1098935]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 10:25:01 localhost CRON[1099062]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 10:35:01 localhost CRON[1099157]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 10:45:01 localhost CRON[1099244]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 10:55:01 localhost CRON[1099320]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 11:05:01 localhost CRON[1099373]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 11:15:01 localhost CRON[1099432]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 11:17:01 localhost CRON[1099478]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 11:25:01 localhost CRON[1099571]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 11:35:01 localhost CRON[1099669]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 11:41:36 localhost systemd[1]: Starting Download data for packages that failed at package install time...
+May 11 11:41:36 localhost systemd[1]: update-notifier-download.service: Deactivated successfully.
+May 11 11:41:36 localhost systemd[1]: Finished Download data for packages that failed at package install time.
+May 11 11:45:01 localhost CRON[1099720]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 11:52:06 localhost systemd[1]: Starting Cleanup of Temporary Directories...
+May 11 11:52:06 localhost systemd[1]: systemd-tmpfiles-clean.service: Deactivated successfully.
+May 11 11:52:06 localhost systemd[1]: Finished Cleanup of Temporary Directories.
+May 11 11:55:01 localhost CRON[1099731]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 12:05:01 localhost CRON[1099813]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 12:15:01 localhost CRON[1099822]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 12:17:01 localhost CRON[1099825]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 12:25:01 localhost CRON[1099833]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 12:35:01 localhost CRON[1099841]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 12:45:01 localhost CRON[1099851]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 12:55:01 localhost CRON[1099857]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 13:05:01 localhost CRON[1099866]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 13:15:01 localhost CRON[1099901]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 13:17:01 localhost CRON[1099905]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 13:25:01 localhost CRON[1099967]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 13:35:01 localhost CRON[1100048]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 13:45:01 localhost CRON[1100126]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 13:55:01 localhost CRON[1100205]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 14:05:01 localhost CRON[1100356]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 14:15:01 localhost CRON[1100422]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 14:17:01 localhost CRON[1100431]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 14:25:01 localhost CRON[1100456]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 14:35:01 localhost CRON[1100511]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 14:45:01 localhost CRON[1100703]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 14:55:01 localhost CRON[1100878]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:00:58 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 11 15:00:58 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 11 15:00:58 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 11 15:05:01 localhost CRON[1101193]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:15:01 localhost CRON[1101420]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:17:01 localhost CRON[1101460]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 15:25:02 localhost CRON[1101576]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:35:01 localhost CRON[1101659]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:45:01 localhost CRON[1101730]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:55:01 localhost CRON[1101791]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 15:58:35 localhost systemd[1]: Starting Daily apt download activities...
+May 11 15:58:36 localhost systemd[1]: apt-daily.service: Deactivated successfully.
+May 11 15:58:36 localhost systemd[1]: Finished Daily apt download activities.
+May 11 16:05:01 localhost CRON[1101895]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 16:15:01 localhost CRON[1101927]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 16:17:01 localhost CRON[1101932]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 16:25:01 localhost CRON[1101960]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 16:35:01 localhost CRON[1102016]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 16:45:01 localhost CRON[1102098]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 16:55:01 localhost CRON[1102212]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 17:05:01 localhost CRON[1102313]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 17:15:01 localhost CRON[1102370]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 17:17:01 localhost CRON[1102391]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 17:25:01 localhost CRON[1102485]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 17:35:01 localhost CRON[1102493]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 17:45:01 localhost CRON[1102507]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 17:55:01 localhost CRON[1102538]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 18:05:01 localhost CRON[1102602]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 18:15:01 localhost CRON[1102611]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 18:17:01 localhost CRON[1102614]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 18:25:01 localhost CRON[1102631]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 18:35:01 localhost CRON[1102654]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 18:45:01 localhost CRON[1102678]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 18:55:01 localhost CRON[1102699]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 19:05:01 localhost CRON[1102726]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 19:15:01 localhost CRON[1102746]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 19:17:01 localhost CRON[1102751]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 19:25:01 localhost CRON[1102842]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 19:35:01 localhost CRON[1102854]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 19:45:01 localhost CRON[1102867]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 19:55:01 localhost CRON[1102932]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 20:05:01 localhost CRON[1103078]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 20:15:01 localhost CRON[1103149]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 20:17:01 localhost CRON[1103172]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 20:25:01 localhost CRON[1103232]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 20:35:01 localhost CRON[1103282]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 20:45:01 localhost CRON[1103357]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 20:55:01 localhost CRON[1103485]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 21:05:01 localhost CRON[1103612]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 21:15:01 localhost CRON[1103687]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 21:17:01 localhost CRON[1103701]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 21:25:01 localhost CRON[1103757]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 21:35:01 localhost CRON[1103809]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 21:45:01 localhost CRON[1103830]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 21:48:35 localhost systemd[1]: Starting Refresh fwupd metadata and update motd...
+May 11 21:48:35 localhost dbus-daemon[570]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.1855' (uid=112 pid=1103841 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+May 11 21:48:35 localhost systemd[1]: Starting Firmware update daemon...
+May 11 21:48:35 localhost dbus-daemon[570]: [system] Successfully activated service 'org.freedesktop.fwupd'
+May 11 21:48:35 localhost systemd[1]: Started Firmware update daemon.
+May 11 21:48:35 localhost fwupdmgr[1103841]: Updating lvfs
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 0%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 100%
+May 11 21:48:35 localhost fwupdmgr[1103841]: message repeated 2 times: [ Downloading…: 100%]
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 1%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 1%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 3%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 5%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 7%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 11%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 14%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 14%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 18%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 20%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 22%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 24%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 28%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 31%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 32%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 38%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 40%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 42%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 46%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 49%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 51%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 55%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 59%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Downloading…: 59%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Idle…: 100%
+May 11 21:48:35 localhost fwupdmgr[1103841]: Idle…: 100%
+May 11 21:48:36 localhost fwupdmgr[1103841]: Successfully downloaded new metadata: 0 local devices supported
+May 11 21:48:36 localhost systemd[1]: fwupd-refresh.service: Deactivated successfully.
+May 11 21:48:36 localhost systemd[1]: Finished Refresh fwupd metadata and update motd.
+May 11 21:55:01 localhost CRON[1103900]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 22:00:26 localhost systemd[1]: Starting Ubuntu Advantage Timer for running repeated jobs...
+May 11 22:00:26 localhost systemd[1]: ua-timer.service: Deactivated successfully.
+May 11 22:00:26 localhost systemd[1]: Finished Ubuntu Advantage Timer for running repeated jobs.
+May 11 22:05:01 localhost CRON[1103924]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 22:15:01 localhost CRON[1103945]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 22:17:01 localhost CRON[1103950]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 22:25:01 localhost CRON[1103972]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 22:35:01 localhost CRON[1104032]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 22:45:01 localhost CRON[1104055]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 22:55:01 localhost CRON[1104068]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:05:01 localhost CRON[1104081]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:15:01 localhost CRON[1104116]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:17:01 localhost CRON[1104119]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 11 23:25:01 localhost CRON[1104134]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:35:01 localhost CRON[1104161]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:45:01 localhost CRON[1104177]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:48:36 localhost systemd[1]: fwupd.service: Deactivated successfully.
+May 11 23:48:36 localhost systemd[1]: fwupd.service: Consumed 1.020s CPU time.
+May 11 23:55:01 localhost CRON[1104186]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 11 23:59:01 localhost CRON[1104198]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 60 2)
+May 12 00:00:02 localhost systemd[1]: Starting Daily dpkg database backup service...
+May 12 00:00:02 localhost systemd[1]: Starting Rotate log files...
+May 12 00:00:02 localhost systemd[1]: dpkg-db-backup.service: Deactivated successfully.
+May 12 00:00:02 localhost systemd[1]: Finished Daily dpkg database backup service.
+May 12 00:00:02 localhost systemd[1]: logrotate.service: Deactivated successfully.
+May 12 00:00:02 localhost systemd[1]: Finished Rotate log files.
+May 12 00:05:01 localhost CRON[1104225]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 00:15:01 localhost CRON[1104239]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 00:17:01 localhost CRON[1104250]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 12 00:25:01 localhost CRON[1104297]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 00:35:01 localhost CRON[1104460]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 00:44:07 localhost kernel: [6873046.703838] systemd-journald[237528]: Data hash table of /var/log/journal/f49f77c220ea4bf3a3b6ecd601b5c083/system.journal has a fill level at 75.0 (174763 of 233016 items, 75497472 file size, 431 bytes per hash table item), suggesting rotation.
+May 12 00:44:07 localhost kernel: [6873046.703846] systemd-journald[237528]: /var/log/journal/f49f77c220ea4bf3a3b6ecd601b5c083/system.journal: Journal header limits reached or header out-of-date, rotating.
+May 12 00:45:01 localhost CRON[1104698]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 00:55:01 localhost CRON[1104908]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 01:05:01 localhost CRON[1105077]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 01:15:01 localhost CRON[1105240]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 01:17:01 localhost CRON[1105275]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 12 01:25:01 localhost CRON[1105405]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 01:35:01 localhost CRON[1105501]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 01:45:01 localhost CRON[1105599]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 01:54:10 localhost systemd[1]: Started Session 14205 of User root.
+May 12 01:55:01 localhost CRON[1105770]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 02:05:01 localhost CRON[1105872]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 02:09:28 localhost systemd[1]: Started Session 14208 of User root.
+May 12 02:10:46 localhost crontab[1106031]: (root) LIST (root)
+May 12 02:14:58 localhost crontab[1106046]: (root) BEGIN EDIT (root)
+May 12 02:15:01 localhost CRON[1106052]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 02:16:04 localhost crontab[1106046]: (root) REPLACE (root)
+May 12 02:16:04 localhost crontab[1106046]: (root) END EDIT (root)
+May 12 02:16:10 localhost crontab[1106054]: (root) LIST (root)
+May 12 02:17:01 localhost cron[568]: (root) RELOAD (crontabs/root)
+May 12 02:17:01 localhost CRON[1106112]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 12 02:20:01 localhost CRON[1106119]: (root) CMD (/root/anaconda3/envs/pytorch/bin/python3 /root/grv_model/db_update/database_update.py > /root/grv_model/db_update/cronlog.log 2>&1)
+May 12 02:25:01 localhost CRON[1106129]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 02:35:01 localhost CRON[1106154]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 02:45:01 localhost CRON[1106194]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 12 02:45:02 localhost systemd[1]: Stopping Regular background program processing daemon...
+May 12 02:45:02 localhost systemd[1]: cron.service: Deactivated successfully.
+May 12 02:45:02 localhost systemd[1]: Stopped Regular background program processing daemon.
+May 12 02:45:02 localhost systemd[1]: cron.service: Consumed 1min 42.450s CPU time.
+May 12 02:45:02 localhost systemd[1]: Started Regular background program processing daemon.
+May 12 02:45:02 localhost cron[1106200]: (CRON) INFO (pidfile fd = 3)
+May 12 02:45:02 localhost cron[1106200]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+May 12 02:45:42 localhost crontab[1106204]: (root) BEGIN EDIT (root)
+May 12 02:45:54 localhost crontab[1106204]: (root) REPLACE (root)
+May 12 02:45:54 localhost crontab[1106204]: (root) END EDIT (root)
+May 12 02:46:01 localhost cron[1106200]: (root) RELOAD (crontabs/root)
