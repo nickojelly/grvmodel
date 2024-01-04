@@ -1,0 +1,580 @@
+
+//base settings
+siteUrl = 'https://sites.betfair.com.au/dap/'; //used for sso login redirect-back
+
+loginUrl = 'https://identitysso.betfair.com.au/view/login?product=xhfghNkNnwMriecV&redirectMethod=GET&url='+encodeURI(siteUrl);
+apiUrl = 'https://apigateway.betfair.com.au/dap_portal/';
+GTM_Code = 'GTM-WJ9VHH';
+
+
+function startup() {
+
+    //toggle the navbar active links on click
+    $( '#topheader .navbar-nav a' ).on( 'click', function () {
+        $( '#topheader .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+        $( this ).parent( 'li' ).addClass( 'active' );
+    });
+
+    //setup user sso tracking, also show/hide content based on login status
+    checkUserSession();
+
+
+    //cheap way to cleanup the sso login junk in the url, should test for it but im lazy..
+    history.replaceState( {} , 'DAP', '/dap/' );
+
+    //attach events to the menu buttons
+    $('#loginBtn').click(function(){window.location = loginUrl});
+    //$('#leaderBrdBtn').click(loadLeaderBoard);
+    //$('#tandcBtn').click(loadTandC);
+    //$('#prizesBtn').click(loadPrizes);
+    //$('#homeBtn').click(displayCompDetails);
+
+
+}
+
+
+//page content loader functions
+function loadHomePage(){
+    $.ajax({
+        url : "./content/home.html",
+        dataType: "text",
+        success : function (data) {
+            $("#pageContent").html(data);
+
+            //this hides the dropdown menu in mobile mode, else it just sits there, open..
+            $('.collapse').collapse("hide");
+
+            //trigger GTM event
+            triggerGTM('view_homepage');
+
+
+            $( document ).ready(function() { //make sure dom is finished..
+                getMenus();
+            });
+        },
+        error: function (xhr) {
+            showUserMessage('Unable to load page', 'true');
+        }
+
+    });
+}
+
+
+//page content loader functions
+function loadPreLogin(){
+    $.ajax({
+        url : "./content/prelogin.html",
+        dataType: "text",
+        success : function (data) {
+            $("#pageContent").html(data);
+
+            //this hides the dropdown menu in mobile mode, else it just sits there, open..
+            $('.collapse').collapse("hide");
+
+        },
+        error: function (xhr) {
+            showUserMessage('Unable to load page', 'true');
+        }
+
+    });
+}
+function loadNoInvite(){
+    $.ajax({
+        url : "./content/noinvite.html",
+        dataType: "text",
+        success : function (data) {
+            $("#pageContent").html(data);
+
+            //this hides the dropdown menu in mobile mode, else it just sits there, open..
+            $('.collapse').collapse("hide");
+
+        },
+        error: function (xhr) {
+            showUserMessage('Unable to load page', 'true');
+        }
+
+    });
+}
+
+function loadNoKYC(){
+    $.ajax({
+        url : "./content/nokyc.html",
+        dataType: "text",
+        success : function (data) {
+            $("#pageContent").html(data);
+
+            //this hides the dropdown menu in mobile mode, else it just sits there, open..
+            $('.collapse').collapse("hide");
+
+        },
+        error: function (xhr) {
+            showUserMessage('Unable to load page', 'true');
+        }
+
+    });
+}
+
+function loadtndc(){
+    $.ajax({
+        url : "./content/tandc.html",
+        dataType: "text",
+        success : function (data) {
+            $("#pageContent").html(data);
+
+            //this hides the dropdown menu in mobile mode, else it just sits there, open..
+            $('.collapse').collapse("hide");
+
+        },
+        error: function (xhr) {
+            showUserMessage('Unable to load page', 'true');
+        }
+
+    });
+}
+
+//functions to pull/push tipping details
+
+function getMenus(){
+    //this returns all the details for the competition , rounds, selections etc
+    //used to populate menus and other content.
+    toggleSpinner();
+    var thisUrl = apiUrl + 'getMenus/';
+    $.ajax({
+        url: thisUrl,
+        type: 'GET',
+        dataType: 'json',
+        success : function (data) {
+            toggleSpinner();
+            //console.log(data);
+            //store data in localStorage for later use and populate what we need
+            localStorage.setItem('menu',JSON.stringify(data));
+
+            //todo something nicer.. :p
+            if (data.hasOwnProperty('error')){
+                showUserMessage(data['error'],"true");
+                throw new Error("Something went badly wrong!");
+            }
+
+            //build menu
+            var menuhtml = '<li class="nav-item active"><a class="nav-link" href="#" onclick="loadHomePage()">Home</a></li>';
+
+
+
+            if(data.hasOwnProperty('dirs')){
+                for (var i in data['dirs']){
+                    var row = data['dirs'][i];
+                    //find top level dirs, ie does not contain a /
+                    if (row.indexOf('/') < 0 ){
+                        //menuhtml += '<li class="nav-item active"><a class="nav-link" href="#" onclick="showFiles(\''+row+'\');">'+row+'</a></li>';
+                        //top level object is id the drop down.
+                        menuhtml +='<li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + row + ' </a><div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">';
+
+                        //todo: get submenues/products
+                        var sportName = row;
+                        var products = [];
+                        //loop through files
+                        for ( var x in data['files']){
+                            var fileName = data['files'][x]['name'];
+                            var tmpArray = fileName.split("/");
+                            //console.log(tmpArray);
+                            if (tmpArray[0] == sportName){
+                                if (products.indexOf(tmpArray[1]) == -1){
+                                    products.push(tmpArray[1]);
+                                }
+
+                            }
+                        }
+
+                        //console.log(products);
+
+                        for (var h in products){
+                            var productName = products[h];
+                            menuhtml += ' <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+productName+'</a>';
+                            menuhtml += '<div class="dropdown-menu bg-dark text-light" aria-labelledby="navbarDropdown">';
+
+                            //get next level down
+                            var subProducts = [];
+                            for ( var x in data['files']){
+                                var fileName = data['files'][x]['name'];
+                                var tmpArray = fileName.split("/");
+                                //console.log(tmpArray);
+                                if (tmpArray[0] == sportName & tmpArray[1] == productName){
+                                    if (subProducts.indexOf(tmpArray[2]) == -1){
+                                        subProducts.push(tmpArray[2]);
+                                    }
+
+                                }
+                            }
+
+                            console.log(subProducts);
+                            for (var t in subProducts){
+                                var subProductName = subProducts[t];
+                                var targetFilter = sportName+'/'+productName+'/'+subProductName;
+                                menuhtml +=  '<a class="dropdown-item m-0" href="#" onclick="showFiles(\''+targetFilter+'\')">'+subProductName+'</a>';
+                            }
+
+
+
+
+                            menuhtml += '</div>';
+                        }
+
+
+
+
+                        //menuhtml += '<a class="dropdown-item text-light" href="#" onclick="showFiles(\''+row+'\')">Action</a>';
+
+
+                        //close the drop down
+                        menuhtml +='</div></li>';
+                    }
+
+                }
+            }
+
+
+
+
+            $("#menuBar").html(menuhtml);
+
+
+        },
+        error: function(xhr){
+            toggleSpinner(); //remember to turn off spinner..
+            //todo: some nice user message or something..
+            //this means the amazon side failed completely or we sent an empty ssotoken and it threw a 403
+            showUserMessage("Unable to load data", true);
+        }
+    });
+
+
+}
+
+
+function showFiles(path) {
+
+    //console.log("search = " + path);
+    var ourHtml = '<p><div class="alert alert-warning" style="width: fit-content" >\n' +
+        path.replace(/\//g,' - ') +
+        '</div><p>';
+
+    var menu = JSON.parse(localStorage.getItem('menu'));
+    ourHtml += '<table class="table-bordered table-striped">';
+
+    if (menu.hasOwnProperty('files')) {
+        for (var i in menu['files']) {
+            var row = menu['files'][i];
+            var fileName = row['name'];
+            var fileSize = row['size'];
+            fileSize = humanFileSize(fileSize,true);
+            //see if path is in file-path
+            if (fileName.indexOf(path) > -1 & fileName.indexOf(".") > -1 ) {
+                var fullPath = fileName;
+                fileName = fileName.replace(path + "/", "");
+                ourHtml +='<tr><td class="p-1">' + fileName + '</td><td class="p-1">'+fileSize+'</td><td class="p-1"> <button class="btn btn-sm" onclick="getFile(\''+fullPath+'\');">Download</button> </td></<tr>';
+
+            }
+        }
+
+    }
+    ourHtml += '</table>';
+
+    $("#pageContent").html(ourHtml);
+}
+
+
+function getFile(fileName){
+
+    //console.log('dowbloading: '+ fileName);
+    triggerGTM(fileName);
+    toggleSpinner();
+    var thisUrl = apiUrl + 'getFile/'+fileName;
+    $.ajax({
+        url: thisUrl,
+        type: 'GET',
+        dataType: 'json',
+        success : function (url) {
+            //console.log(url);
+            toggleSpinner();
+            window.location=url;
+        },
+        error: function(xhr){
+            toggleSpinner(); //remember to turn off spinner..
+            //todo: some nice user message or something..
+            //this means the amazon side failed completely or we sent an empty ssotoken and it threw a 403
+            showUserMessage("Unable to load data", true);
+        }
+    });
+
+}
+
+function humanFileSize(bytes, si) {
+    var thresh = si ? 1000 : 1024;
+    if(Math.abs(bytes) < thresh) {
+        return bytes + ' B';
+    }
+    var units = si
+        ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+        : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+    var u = -1;
+    do {
+        bytes /= thresh;
+        ++u;
+    } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1)+' '+units[u];
+}
+
+function showUserMessage(message,error){
+
+
+    $("#userMessage").html(message);
+    $('#myModal').modal('show');
+
+    if (error == 'true'){
+        $('#modalHeader').addClass('bg-bf-yellow')
+    }else{
+        setTimeout(function () {
+            $('#myModal').modal('hide');
+        }, 1500);
+    }
+
+}
+
+function showApiResponse(responseText, statusText, xhr, $form)  {
+    console.log(responseText);
+
+
+    toggleSpinner();
+    if ('error' in responseText){
+        var msg = 'ERROR: ' + responseText['error'];
+        showUserMessage(msg, 'true');
+    }else {
+        //console.log("refresh compdetails");
+        //need to refresh the comp details so we have their new tips
+        var thisUrl = apiUrl + 'getCompDetails/'+compId;
+        $.ajax({
+            url: thisUrl,
+            type: 'GET',
+            dataType: 'json',
+            success : function (data) {
+                //store data in localStorage for later use and populate what we need
+                console.log('done refresh');
+                localStorage.setItem('compDetails',JSON.stringify(data));
+            },
+            error: function(xhr){
+                toggleSpinner(); //remember to turn off spinner..
+                //todo: some nice user message or something..
+                //this means the amazon side failed completely or we sent an empty ssotoken and it threw a 403
+                showUserMessage("Unable to load api data :(", true);
+            }
+        });
+    }
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function toggleSpinner(){
+    $("#loading").toggle();
+}
+
+function checkUserSession(){
+
+    //see if we have cookie
+    var ssoCookie = getCookie('ssoid');
+    //console.log(ssoCookie);
+    if (ssoCookie == null) {
+        //console.log('cookie is null ? ');
+        // do cookie doesn't exist stuff;
+
+        //clear any old storage for this user
+        localStorage.clear();
+        $( document ).ready(function() {
+            //show login button
+            $('#loginBtn').show();
+
+
+            //load the page with the 'you need to login bit'..
+            loadPreLogin();
+
+        });
+
+    }
+    else {
+        // do cookie exists stuff
+        //console.log('cookie is not null ? ');
+        $( document ).ready(function() {
+
+            //add the sso token to base ajax header so we dont have to do it for every api call later
+            $.ajaxSetup({
+                headers: {'X-Authentication': ssoCookie}
+            });
+
+            //fetch user details from Amazon CRO Authorizer.
+            //principalID = betfair account ID, if it says 'Anonymous' and/or ssoLoginStatus = False than the sso token is expired
+            //make user login again
+
+            toggleSpinner(); //should put a spinner on before api call so user knows were 'doing things'..
+
+            //this is how we make calls to the api, append function name to base apiUrl , thats it..
+            var thisUrl = apiUrl + 'userDetails/';
+            $.ajax({
+                url: thisUrl,
+                type: 'GET',
+                dataType: 'json',
+                success : function (userDetails) {
+
+                    //console.log(userDetails);
+                    //put user data in localStorage for  use by other functions.
+                    //DO NOT !! put it in a freekin cookie, first + last name + email = PII.
+                    localStorage.setItem('userDetails',JSON.stringify(userDetails));
+
+
+                    if (userDetails['ssoLoginStatus'] == true){
+                        //enable user interface bits
+                        $('#firstName').html(userDetails['firstName']);
+                        $('#logoutBtn').show();
+
+                        //need to also make sure they are invited to this comp and are kyc'd
+                        if (!userDetails.hasOwnProperty('DAP_TsCs')) {
+                            //not invited
+                            loadNoInvite();
+                        }else if (userDetails['kycStatus'] == "KYC"){
+                            //check T&Cs
+                            if (userDetails['DAP_TsCs']=='1'){
+                                $('#menuBar').show();
+                                //load the home page
+                                loadHomePage();
+                            }else{
+                                loadtndc();
+                            }
+
+                        }else{
+                            loadNoKYC();
+                        }
+
+
+                    }else{
+                        //sso cookie is a dud, make user login
+
+                        //show login button
+                        $('#loginBtn').show();
+                        //todo: some nice content about needing to be logged in..
+                        loadPreLogin();
+
+                    }
+
+                    toggleSpinner(); //remember to turn off spinner..
+                },
+                error: function(xhr){
+                    toggleSpinner(); //remember to turn off spinner..
+                    //todo: some nice user message or something..
+                    //this means the amazon side failed completely or we sent an empty ssotoken and it threw a 403
+                    showUserMessage("Unable to load api data :(", true);
+                }
+            });
+
+        });
+
+    }
+
+
+
+
+}
+
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else
+    {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+            end = dc.length;
+        }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
+}
+
+function formatDate(timestamp){
+    //this is really shit, surely there is a nicer way..
+    //all values are integer so pad them with 0
+    date = new Date(timestamp);
+
+    var year    = date.getFullYear();
+    var month   = date.getMonth()+1; //month starts at 0 ! wtf ?
+    month = (month < 10 ? "0" : "") + month;
+    var day     = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+    var hour    = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+    var minute  = date.getMinutes();
+    minute = (minute < 10 ? "0" : "") + minute;
+
+    var newDate = year +'-'+month+'-'+day+ ' '+hour+':'+minute;
+    return newDate
+
+}
+
+function triggerGTM(eventText){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'Pageview',
+        'url': eventText
+    });
+    console.log(window.dataLayer);
+}
+
+
+function acceptTandC(){
+    console.log('accept tandc')
+    toggleSpinner();
+    var thisUrl = apiUrl + 'tandc/';
+    $.ajax({
+        url: thisUrl,
+        type: 'POST',
+        dataType: 'json',
+        success : function (response) {
+            toggleSpinner();
+            location.reload();
+        },
+        error: function(xhr){
+            toggleSpinner(); //remember to turn off spinner..
+            //this means the amazon side failed completely or we sent an empty ssotoken and it threw a 403
+            showUserMessage("Unable to load api data", true);
+        }
+    });
+
+
+}
+
+<!-- Google Tag Manager -->
+(function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', GTM_Code);
+
