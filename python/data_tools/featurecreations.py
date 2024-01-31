@@ -43,6 +43,7 @@ REQ_COLUMNS = ['DogId',
                'State',
                'track_code',
                'dist_x',
+               'dist_round',
                'BSP',
                'Place',
                'place',
@@ -312,8 +313,6 @@ def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_
 
     form['first_out'] = form['start_pos'].apply(lambda x: 1 if x==1 else 0)
 
-
-
     all_results['RaceId'] = all_results['RaceId'].astype('category')
     all_results['DogId'] = all_results['DogId'].astype('category')
     all_results['RaceId'] = all_results['RaceId'].astype('category')
@@ -342,6 +341,7 @@ def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_
             form_stats = generate_dog_stats_simple(form, dog_form,rolling_window=1)
             print("fin 1")
     else:
+        print(form.columns)
         dist_form = form.groupby(['DogId','dist_round'], sort=False, as_index=False)
         box_form = form.groupby(['DogId','box'], sort=False, as_index=False)
         track_box_form = form.groupby(['DogId','box','Track'], sort=False, as_index=False)
@@ -404,19 +404,15 @@ def generate_dog_stats_simple(df_in, df_g, rolling_window=10, factor=''):
     df[f'dist_last_{factor}_{rolling_window}'] = df_g['dist_x'].rolling(rolling_window, min_periods=1, closed='left').mean()['dist_x']
     df[f'box_last_{factor}_{rolling_window}'] = df_g['box'].rolling(rolling_window, min_periods=1, closed='left').mean()['box']
     df[f'speed_avg{factor}_{rolling_window}'] = df_g['speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['speed']
-    
     df[f'split_speed_v1{factor}_{rolling_window}'] = df_g['split_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed_v1']
-
     df[f'split_speed_avg{factor}_{rolling_window}'] = df_g['split_speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed']
     df[f'split_margin_avg{factor}_{rolling_window}'] = df_g['split_margins'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_margins']
     df[f'margin_avg{factor}_{rolling_window}'] = df_g['margin'].rolling(rolling_window, min_periods=1, closed='left').mean()['margin']
     df[f'margin_time_avg{factor}_{rolling_window}'] = df_g['MarginTime'].rolling(rolling_window, min_periods=1, closed='left').mean()['MarginTime']
-
     df[f'RunHomeTime{factor}_{rolling_window}'] = df_g['RunHomeTime'].rolling(rolling_window, min_periods=1, closed='left').mean()['RunHomeTime']
     df[f'run_home_speed{factor}_{rolling_window}'] = df_g['run_home_speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['run_home_speed']
     df[f'run_home_speed_v1{factor}_{rolling_window}'] = df_g['run_home_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['run_home_speed_v1']
     df[f'split_speed_v1{factor}_{rolling_window}'] = df_g['split_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed_v1']
-
     df[f'first_out_avg{factor}_{rolling_window}'] = df_g['first_out'].rolling(rolling_window, min_periods=1, closed='left').mean()['first_out']
     df[f'pos_out_avg{factor}_{rolling_window}'] = df_g['start_pos'].rolling(rolling_window, min_periods=1, closed='left').mean()['start_pos']
     df[f'post_change_avg{factor}_{rolling_window}'] = df_g['pos_change'].rolling(rolling_window, min_periods=1, closed='left').mean()['pos_change']

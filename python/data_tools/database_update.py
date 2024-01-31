@@ -101,7 +101,7 @@ if __name__ == "__main__":
     print(len(ohe.fit_transform(all_results[['Track']])[0]))
     with open('encoder_new', 'wb') as f:
         pickle.dump(ohe, f)
-    simple = True
+    simple = False
     normalize = False
 
     simp = ''
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     logging.info(f"Stats cols = {stats_cols}")
     logging.info(f"DB size = {x.shape}")
 
-    x.reset_index().to_feather(f"./DATA/gru_inputs{simp}{norm}_kitchen_sink_new.fth")
+    x.reset_index().to_feather(f"./DATA/gru_inputs{simp}{norm}_kitchen_sink_new_not_simple.fth")
     
 
     # if simple:

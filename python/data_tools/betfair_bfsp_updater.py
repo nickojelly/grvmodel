@@ -64,7 +64,7 @@ def update_bf_df():
 
 if __name__ == "__main__":
 
-    start_date = date(2023, 5, 8) 
+    start_date = date(2023, 12, 8) 
     # download_betfair_files(start_date)
 
     update_bf_df()

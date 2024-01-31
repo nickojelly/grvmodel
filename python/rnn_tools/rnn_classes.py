@@ -13,9 +13,6 @@ import os
 import datetime
 from goto_conversion import goto_conversion
 
-print(os.getcwd())
-
-
 
 class DogInput:
     def __init__(self, dogid, raceid,stats, dog,dog_box, hidden_state, bfsp, sp, margin=None, hidden_size=64) -> None:
@@ -29,14 +26,14 @@ class DogInput:
         self.gru_cell_out = None
         self.lstmCellh = None
         self.lstmCellc = None
-        self.hidden = (-torch.ones(hidden_size)).to('cuda:0')
-        self.cell = (-torch.ones(hidden_size)).to('cuda:0')
-        self.hidden_out = (-torch.ones(hidden_size)).to('cuda:0')
+        # self.hidden = (-torch.ones(hidden_size)).to('cuda:0')
+        # self.cell = (-torch.ones(hidden_size)).to('cuda:0')
+        # self.hidden_out = (-torch.ones(hidden_size)).to('cuda:0')
         self.cell_out = None
         self.box = dog_box
         self.gru_filled = 0
         self.margin = margin
-        self.output = torch.tensor([100.1]).to('cuda:0')
+        # self.output = torch.tensor([100.1]).to('cuda:0')
 
     def gru_i(self, hidden_state):
         self.gru_cell = hidden_state
@@ -158,6 +155,9 @@ class Race:
         dogs_l = [x.dog.dog_name for x in self.dogs]
         return dogs_l
 
+    def list_dog_boxes(self):
+        dogs_l = [x.box for x in self.dogs]
+        return dogs_l
 
     def pass_lstm_output(self, lstm_h, lstm_c):
         for i,dog in enumerate(self.dogs):
@@ -194,7 +194,7 @@ class Races:
 
     def add_race(self,raceid:str, trackOHE, dist, classes=None):
         self.racesDict[raceid] = Race(raceid, trackOHE, dist, classes)
-        self.raceIDs.append(raceid)
+        # self.raceIDs.append(raceid)
 
     def add_dog(self,dogid, dog_name):
         # if dogid not in self.dogsDict.keys():
@@ -1122,16 +1122,17 @@ class LSTMNetv3_BN_double(nn.Module):
         self.gru = nn.LSTM(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
         self.relu = nn.ReLU()
         self.drop = nn.Dropout(dropout)
-        self.fc0 = nn.Linear(hidden_size,1)
+        # self.fc0 = nn.Linear(hidden_size,1)
         self.layer_norm = nn.BatchNorm1d(input_size)
         self.batch_norm0 = nn.BatchNorm1d(input_size)
+        self.softmax = nn.Softmax(dim=-1)
 
         self.fc_lstm0 = nn.Linear(hidden_size+input_size,hidden_size*2)
         self.fc_lstm1 = nn.Linear(hidden_size*2,hidden_size*4)
         self.fc_lstm2 = nn.Linear(hidden_size*4,hidden_size)
         # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
         self.batch_norm = nn.BatchNorm1d((hidden_size * 8)+70)
-        self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
+        self.fc0 = nn.Linear((hidden_size * 8)+70, ((hidden_size * 8)+70))
         
         self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
 
@@ -1143,6 +1144,11 @@ class LSTMNetv3_BN_double(nn.Module):
         #price
         self.price_fc2 = nn.Linear(fc0_size, fc1_size)
         self.price_fc3 = nn.Linear(fc1_size, 8)
+
+        #final
+        self.final_bn = nn.Bilinear(8,8,32)
+        self.final_fc = nn.Linear(32,8) 
+
 
 
         if output =='raw':
@@ -1177,14 +1183,14 @@ class LSTMNetv3_BN_double(nn.Module):
                 dog = self.drop(dog)
                 dog = self.fc_lstm2(dog)
                 # dog = self.relu(dog)
-
+                # dog = torch.cat((dog,x_og[i]),dim=1)   
 
                 outs.append(dog)
 
             return outs,hidden_state,cell_state
         else:
             x = x.float()
-            x  = self.batch_norm(x)
+            # x  = self.batch_norm(x)
             x = self.relu(x)
             # x = self.drop0(x)
             x = self.fc0(x)
@@ -1199,12 +1205,16 @@ class LSTMNetv3_BN_double(nn.Module):
             x = self.drop(x_rl3)
             x = self.fc3(x)
             #price
-            x_p = self.fc2(x_e)
+            x_p = self.price_fc2(x_e)
             x_p_rl3 = self.relu(x_p)
             x_p = self.drop(x_p_rl3)
-            x_p = self.fc3(x_p)
+            x_p = self.price_fc3(x_p)
 
-            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+            x_final = self.final_bn(self.softmax(x).detach(),self.softmax(x_p).detach())
+            x_final = self.relu(x_final)
+            x_final = self.final_fc(x_final)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p), self.output_fn(x_final)
             return output
         
 class GRUNetv3_double_profit(nn.Module):

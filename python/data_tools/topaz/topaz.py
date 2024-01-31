@@ -614,7 +614,7 @@ class TopazAPI:
         else:
             response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
 
-    async def get_race_runs(self, race_id: int) -> pd.DataFrame:
+    def get_race_runs(self, race_id: int) -> pd.DataFrame:
         """
         Returns a list of dogs and the details of their run within the specified race.
 
@@ -624,7 +624,7 @@ class TopazAPI:
         Returns:
             pd.DataFrame: A DataFrame containing the list of dogs and the details of their runs in the specified race.
         """
-        response = await requests.get(f"{self.base_url}/race/{race_id}/runs", headers=self.headers, timeout=30)
+        response = requests.get(f"{self.base_url}/race/{race_id}/runs", headers=self.headers, timeout=30)
         if response.status_code == 200:
             return pd.DataFrame(response.json())
         else:
