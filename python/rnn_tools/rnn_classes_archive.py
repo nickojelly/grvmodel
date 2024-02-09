@@ -12,8 +12,6 @@ from torch.nn.utils.rnn import pack_padded_sequence, pack_sequence, pad_packed_s
 import os
 import datetime
 from goto_conversion import goto_conversion
-import wandb
-import matplotlib.pyplot as plt
 
 
 class DogInput:
@@ -60,7 +58,7 @@ class DogInput:
         if self.nextrace_id==-1:
             pass
         else:
-            self.dog.races[self.nextrace_id].gru_i(hidden_state)
+            self.dog.races[self.nextrace_id].gru_i(hidden_state) 
 
     def lstm_o(self, hidden):
         # print(lstm_o[0]._version)
@@ -77,7 +75,7 @@ class DogInput:
 
     def detach_state(self):
         self.gru_cell = self.gru_cell.detach()
-
+            
 class Dog:
     def __init__(self, dogid,dog_name, hidden_size, layers) -> None:
         self.dogid = dogid
@@ -107,7 +105,7 @@ class Race:
         self.raw_margins = None
         self.raw_places = None
         self.raw_prices = None
-
+        
         if classes!=None:
             self.classes =  classes.to('cuda:0')
 
@@ -143,7 +141,7 @@ class Race:
         if pred:
             print('pred')
         else:
-            l_input = [(x.lstmCellh,x.lstmCellc) for x in self.dogs]
+           l_input = [(x.lstmCellh,x.lstmCellc) for x in self.dogs]
         return l_input
 
     def lstm_detach(self):
@@ -152,7 +150,7 @@ class Race:
     def list_dog_ids(self):
         dogs_l = [x.dog.dogid for x in self.dogs]
         return dogs_l
-
+    
     def list_dog_names(self):
         dogs_l = [x.dog.dog_name for x in self.dogs]
         return dogs_l
@@ -174,14 +172,14 @@ class Race:
             hs = hidden_states[i]
             #hs = hs.detach()
             dog.gru_o(hs) #.clone())
-
+            
     def add_weights(self, weights):
         self.weights = weights
 
     def add_win_weight(self):
         pass
 
-
+    
 
 class Races:
     def __init__(self, hidden_size:int, layers:int, batch_size = 100, device='cuda:0') -> None:
@@ -233,7 +231,7 @@ class Races:
         self.test_race_ids_set = set(self.test_race_ids)
         self.val_race_ids_set = set(self.val_race_ids)
 
-
+    
         print(f"Train examples {train}, Test examples {test}, Val examples {val}")
 
     def create_dogs_test_split_date(self):
@@ -270,7 +268,7 @@ class Races:
             raceidx = operator.itemgetter(*idx)
             race_batch_id = raceidx(self.raceIDs)
             races = [self.racesDict[x] for x in race_batch_id] #Returns list of class Race
-
+        
         return races #self.racesDict[raceidx]
 
     def get_train_input(self, idx, Train=True) -> Race:
@@ -280,11 +278,15 @@ class Races:
         return races #self.racesDict[raceidx]
 
     def get_test_input(self, idx, Train=True) -> Race:
-        races = [self.racesDict[x] for x in self.test_race_ids] #Returns list of class Race
+        raceidx = operator.itemgetter(*idx)
+        race_batch_id = raceidx(self.test_race_ids)
+        races = [self.racesDict[x] for x in race_batch_id] #Returns list of class Race
         return races #self.racesDict[raceidx]
 
     def get_val_input(self, idx, Train=True) -> Race:
-        races = [self.racesDict[x] for x in self.val_race_ids] #Returns list of class Race
+        raceidx = operator.itemgetter(*idx)
+        race_batch_id = raceidx(self.val_race_ids)
+        races = [self.racesDict[x] for x in race_batch_id] #Returns list of class Race
         return races #self.racesDict[raceidx]
 
     def get_race_classes(self, idx):
@@ -380,7 +382,7 @@ class Races:
 
     def race_prices_to_prob(self):
         for r in self.racesDict.values():
-            #
+            # 
             # r.implied_prob = torch.tensor([(1/(torch.tensor(x)+0.0001))/(torch.tensor(x).sum()+0.0001) for x in r.start_prices],device=self.device)
             # if sum()
             r.prices_tensor = torch.tensor(r.start_prices,device='cuda:0')
@@ -456,20 +458,20 @@ class Races:
     def get_dog_train(self, idx):
         dog_idx = operator.itemgetter(*idx)
         dog_batch_id = dog_idx(self.train_dog_ids)
-        races = [self.train_dogs[x].train for x in dog_batch_id]
-        return races
-
+        races = [self.train_dogs[x].train for x in dog_batch_id] 
+        return races 
+        
     def get_dog_test(self, idx):
         dog_idx = operator.itemgetter(*idx)
         dog_batch_id = dog_idx(self.test_dog_ids)
-        races = [self.test_dogs[x].test for x in dog_batch_id]
-        return races
+        races = [self.test_dogs[x].test for x in dog_batch_id] 
+        return races 
 
     def get_dog_val(self, idx):
         dog_idx = operator.itemgetter(*idx)
         dog_batch_id = dog_idx(self.val_dog_ids)
-        races = [self.val_dogs[x].val for x in dog_batch_id]
-        return races
+        races = [self.val_dogs[x].val for x in dog_batch_id] 
+        return races 
 
     def attach_races_to_dog_input(self):
         for k,v in tqdm(self.dogsDict.items()):
@@ -482,7 +484,7 @@ class Races:
             for race_id,dog_input in v.races.items():
                 dog_input.race = self.racesDict[race_id]
                 dog_input.full_input = torch.cat([dog_input.race.race_dist,dog_input.race.race_track,dog_input.stats], dim = 0)
-
+        
     def create_batches(self,end_date="2023-06-01", batch_days = 365, stat_mask=None,data_mask=None):
         start_date = datetime.datetime.strptime("2019-12-01", "%Y-%m-%d").date()
         end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()-datetime.timedelta(1)
@@ -499,7 +501,7 @@ class Races:
         batch_races_ids = [] # list of race_ids
         j = 0
         current_batch = []
-        for i,r in enumerate(self.raceIDs):
+        for i,r in enumerate(self.raceIDs):   
             _,end_date = batches[j]
             race_date = self.racesDict[r].race_date
             if race_date>end_date:
@@ -529,7 +531,7 @@ class Races:
                 train_dogs.append(batch_dogs)
                 train_dog_input.append(batch_dog_input)
 
-
+        
         batch_races = [[self.racesDict[r] for r in inner] for inner in batch_races_ids]
 
         print(f"Train examples {[len(x) for x in train_dogs]}")
@@ -551,7 +553,7 @@ class Races:
         else:
             packed_x_basic = [pack_sequence([torch.stack(n,0)for n in [[z.stats for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
             packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
-            packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+            packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)           
 
         self.batches = {'num_batches':len(train_dogs),
                   'dogs':train_dogs,
@@ -602,7 +604,7 @@ class Races:
                 race = self.racesDict[r]
                 outputs = [d.hidden_out for d in race.dogs]
                 race.hidden_in = torch.cat((race.race_dist,race.race_track,torch.cat(outputs)))
-
+                
         elif mode=='train':
             for r in self.train_race_ids:
                 race = self.racesDict[r]
@@ -627,18 +629,6 @@ class Races:
                     outputs.append(d.hidden_out)
                 race.hidden_in = torch.cat((race.race_dist,race.race_track,torch.cat(outputs)))
                 race.relu = torch.cat(outputs).detach()
-
-    def reset_hidden_w_param(self, hidden_state_param,num_layers=2,hidden_size=None,device='cuda:0'):
-        if hidden_size==None:
-            hidden_size = self.hidden_size
-
-        self.dogsDict['nullDog'].input.hidden_out = (-torch.ones(hidden_size+hidden_size)).to(device)
-        # self.dogsDict['nullDog'].race_input = (-torch.ones(hidden_size)).to('cuda:0')
-        for dog in self.dogsDict.values():
-            dog.hidden = hidden_state_param
-            dog.cell = hidden_state_param
-            dog.hidden_test = hidden_state_param
-            dog.cell_test = hidden_state_param
 
     def reset_hidden(self, num_layers=2,hidden_size=None,device='cuda:0'):
         if hidden_size==None:
@@ -665,7 +655,7 @@ class GRUNetv3(nn.Module):
         self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear(hidden_size,1)
-
+        
         self.rl1 = nn.ReLU()
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
@@ -691,7 +681,7 @@ class GRUNetv3(nn.Module):
 
         if warmup:
             x = x.float()
-
+            
             x,hidden = self.gru(x)
             x = self.relu0(x.data)
             x = self.fc0(x)
@@ -701,7 +691,7 @@ class GRUNetv3(nn.Module):
 
         if p1:
             x = x.float()
-
+            
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
             outs = []
@@ -737,7 +727,7 @@ class GRUNetv3_LN(nn.Module):
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
         # self.drop0 = nn.Dropout(dropout)
-
+        
         self.rl1 = nn.ReLU()
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
@@ -763,7 +753,7 @@ class GRUNetv3_LN(nn.Module):
 
         if warmup:
             x = x.float()
-
+            
             x,hidden = self.gru(x)
             x = self.relu0(x.data)
             x = self.fc0(x)
@@ -774,7 +764,7 @@ class GRUNetv3_LN(nn.Module):
         if p1:
             x = x.float()
             x = x._replace(data=self.layer_norm(x.data))
-
+            
 
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
@@ -815,7 +805,7 @@ class GRUNetv3_BN_LN(nn.Module):
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
         # self.drop0 = nn.Dropout(dropout)
-
+        
         self.rl1 = nn.ReLU()
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
@@ -841,7 +831,7 @@ class GRUNetv3_BN_LN(nn.Module):
 
         if warmup:
             x = x.float()
-
+            
             x,hidden = self.gru(x)
             x = self.relu0(x.data)
             x = self.fc0(x)
@@ -852,7 +842,7 @@ class GRUNetv3_BN_LN(nn.Module):
         if p1:
             x = x.float()
             x = x._replace(data=self.layer_norm(x.data))
-
+            
 
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
@@ -893,7 +883,7 @@ class GRUNetv3_BN(nn.Module):
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
         # self.drop0 = nn.Dropout(dropout)
-
+        
         self.rl1 = nn.ReLU()
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
@@ -919,7 +909,7 @@ class GRUNetv3_BN(nn.Module):
 
         if warmup:
             x = x.float()
-
+            
             x,hidden = self.gru(x)
             x = self.relu0(x.data)
             x = self.fc0(x)
@@ -930,7 +920,7 @@ class GRUNetv3_BN(nn.Module):
         if p1:
             x = x.float()
             x = x._replace(data=self.layer_norm(x.data))
-
+            
 
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
@@ -971,7 +961,7 @@ class GRUNetv3_BN(nn.Module):
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
         # self.drop0 = nn.Dropout(dropout)
-
+        
         self.rl1 = nn.ReLU()
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
@@ -997,7 +987,7 @@ class GRUNetv3_BN(nn.Module):
 
         if warmup:
             x = x.float()
-
+            
             x,hidden = self.gru(x)
             x = self.relu0(x.data)
             x = self.fc0(x)
@@ -1008,7 +998,7 @@ class GRUNetv3_BN(nn.Module):
         if p1:
             x = x.float()
             x = x._replace(data=self.layer_norm(x.data))
-
+            
 
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
@@ -1035,580 +1025,6 @@ class GRUNetv3_BN(nn.Module):
 
             output = self.output_fn(x), x_rl3
             return output
-        
-class Attention_w_viz(nn.Module):
-    def __init__(self, hidden_size):
-        super(Attention_w_viz, self).__init__()
-        self.fc = nn.Linear(hidden_size, 1)
-
-    def forward(self, hidden_states, viz=False):
-        # Compute attention scores
-        print(hidden_states.shape)
-        attention_scores = self.fc(hidden_states)
-
-        # Create mask to exclude future states
-        seq_length = hidden_states.size(0)
-        future_mask = torch.triu(torch.ones(seq_length, seq_length), diagonal=1).bool().cuda()
-        attention_scores = attention_scores.repeat(1, 1, seq_length)
-        future_mask = future_mask.unsqueeze(1).repeat(1,attention_scores.shape[1], 1)
-        attention_scores.masked_fill_(future_mask, float('-inf'))
-        attention_weights = F.softmax(attention_scores, dim=0)
-        indices = torch.arange(seq_length).to(attention_weights.device)
-        selected_attention_weights = attention_weights[indices, :, indices].unsqueeze(-1)
-        print(selected_attention_weights.squeeze()[:, 0:20])
-
-        if viz:
-            attention_weights_np = selected_attention_weights.detach().squeeze().cpu().numpy()
-
-            attention_weights_np = attention_weights_np[:, 0:20]
-
-            print(attention_weights_np.shape)
-
-            # Transpose array if necessary
-            attention_weights_np = attention_weights_np
-
-            fig, ax = plt.subplots(figsize=(10, 10))
-            im = ax.imshow(attention_weights_np, cmap='hot', interpolation='nearest')
-            fig.colorbar(im, ax=ax, label='Attention weight')
-            ax.set_title('Attention Weights')
-            plt.show()
-            wandb.log({"attention_weights": wandb.Image(fig)})
-
-        return selected_attention_weights
-
-class Attention(nn.Module):
-    def __init__(self, hidden_size):
-        super(Attention, self).__init__()
-        self.fc = nn.Linear(hidden_size, hidden_size)
-
-    def forward(self, hidden_states, viz=False):
-        # Compute attention scores
-        print(hidden_states.shape)
-        attention_scores = self.fc(hidden_states)
-        attention_scores = torch.sum(attention_scores, dim=2)
-
-        # Create mask to exclude future states
-        seq_length = hidden_states.size(0)
-        future_mask = torch.triu(torch.ones(seq_length, seq_length), diagonal=1).bool().cuda()
-        attention_scores = attention_scores.repeat(1, 1, seq_length)
-        future_mask = future_mask.unsqueeze(1).repeat(1,attention_scores.shape[1], 1)
-        attention_scores.masked_fill_(future_mask, float('-inf'))
-        attention_weights = F.softmax(attention_scores, dim=0)
-        indices = torch.arange(seq_length).to(attention_weights.device)
-        selected_attention_weights = attention_weights[indices, :, indices].unsqueeze(-1)
-
-
-        return selected_attention_weights
-
-
-class Attention_simple(nn.Module):
-    def __init__(self, hidden_size):
-        super(Attention_simple, self).__init__()
-        self.fc = nn.Linear(hidden_size, 1)
-
-    def forward(self, hidden_states, viz=False):
-        # Compute attention scores
-        # print(hidden_states.shape)
-        attention_scores = self.fc(hidden_states)
-
-        # Apply softmax to get attention weights
-        attention_weights = F.softmax(attention_scores, dim=0)
-        indices = torch.arange(hidden_states.size(0)).to(attention_weights.device)
-        # print(attention_weights.shape)
-        # selected_attention_weights = attention_weights[indices, :, indices].unsqueeze(-1)
-
-        return attention_weights
-
-class Dynamic_Attention(nn.Module):
-    def __init__(self, hidden_size):
-        super(Dynamic_Attention, self).__init__()
-        self.fc = nn.Linear(hidden_size, hidden_size)
-
-    def forward(self, hidden_states, viz=False):
-        # print(f"{hidden_states.shape=}")
-        seq_length = hidden_states.size(0)
-        selected_attention_weights = []
-
-        for i in range(seq_length):
-            # Compute attention scores based on current and previous states
-            attention_scores = self.fc(hidden_states[:i+1])
-            # print(attention_scores.shape)
-            attention_scores = torch.sum(attention_scores, dim=2,keepdim=True)
-
-            # Create mask to exclude future states
-            future_mask = torch.triu(torch.ones(i+1, i+1), diagonal=1).bool().to(hidden_states.device)
-            attention_scores = attention_scores.repeat(1, 1, i+1)
-            future_mask = future_mask.unsqueeze(1).repeat(1,attention_scores.shape[1], 1)
-            # future_mask = future_mask.squeeze(-1)
-            attention_scores.masked_fill_(future_mask, float('-inf'))
-
-            # Apply softmax to get attention weights
-            attention_weights = F.softmax(attention_scores, dim=0)
-
-            indices = torch.arange(i+1).to(attention_weights.device)
-            attention_weights = attention_weights[indices, :, indices].unsqueeze(-1)
-
-            # print(attention_weights.shape)
-
-            # Select the attention weight for the current state
-            selected_attention_weights.append(attention_weights[-1])
-            # print(attention_weights[-1].shape)
-
-        # Stack the selected attention weights into a tensor
-        selected_attention_weights = torch.stack(selected_attention_weights)
-
-        return selected_attention_weights
-    
-class GRUNetv3_extra_attn(nn.Module):
-    def __init__(self,input_size,hidden_size,hidden=None,output='raw',dropout=0.3,fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
-        super(GRUNetv3_extra_attn, self).__init__()
-        self.gru = nn.GRU(input_size,
-                          hidden_size,
-                          num_layers=num_layers,
-                          dropout=0.3)
-        self.relu = nn.ReLU()
-        self.fc0 = nn.Linear(hidden_size, 1)
-
-        self.batch_norm = nn.BatchNorm1d(input_size)
-        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
-        self.attention = Dynamic_Attention(hidden_size)
-
-        #p1
-        self.fc0_p1 = nn.Linear(hidden_size+data_mask_size, hidden_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(hidden_size, hidden_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(hidden_size, hidden_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
-
-        #p2
-        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
-        self.relu0 = nn.ReLU()
-        self.fc0 = nn.Linear(((hidden_size) * 8) + 70, hidden_size * 8)
-        # self.drop0 = nn.Dropout(dropout)
-        self.drop1 = nn.Dropout(dropout)
-        self.fc1 = nn.Linear(hidden_size * 8, hidden_size * 4)
-        self.drop2 = nn.Dropout(dropout)
-
-        #regular
-        self.fc2 = nn.Linear(hidden_size * 4, fc1_size)
-        self.drop3 = nn.Dropout(dropout)
-        self.fc3 = nn.Linear(fc1_size, 8)
-        self.hidden_size = hidden_size
-
-        #price
-        self.price_fc2 = nn.Linear(hidden_size * 4, fc1_size)
-        self.price_drop3 = nn.Dropout(dropout)
-        self.price_fc3 = nn.Linear(fc1_size, 8)
-
-        if output == 'raw':
-            self.output_fn = nn.Identity()
-        elif output == 'softmax':
-            self.output_fn = nn.Softmax(dim=1)
-        elif output == 'log_softmax':
-            self.output_fn = nn.LogSoftmax(dim=1)
-        else:
-            raise
-
-    # x represents our data
-    def forward(self, x, h=None, p1=True, warmup=False,viz=False):
-
-        if p1:
-            x, x_d = x   
-            # x = self.batch_norm(x)
-            x_d = x_d.float()
-            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
-            x = x.float()
-            x_d = x_d.float()
-            x = x._replace(data=self.batch_norm(x.data))
-
-            x, hidden = self.gru(x, h)
-            x, lengths = torch.nn.utils.rnn.pad_packed_sequence(x)  # unpack sequence
-            attention_weights = self.attention(x,viz)  # apply attention
-            x = attention_weights * x  # multiply attention weights with hidden states
-            x = torch.nn.utils.rnn.unpad_sequence(x, lengths)  # pack sequence again
-            x_d = unpack_sequence(x_d)
-            # print(x.shape)
-            outs = []
-            
-            for i, dog in enumerate(x):
-                dog = torch.cat((dog, x_d[i]), dim=1)
-                # dog = self.relu(dog)
-                dog = self.fc0_p1(dog)
-                dog = self.relu(dog)
-                dog = self.fc0_p1_drop(dog)
-                dog = self.fc0_p2(dog)
-                dog = self.relu(dog)
-                dog = self.fc0_p2_drop(dog)
-                dog = self.fc0_p3(dog)
-                dog = self.relu(dog)
-                dog = self.fc0_p3_drop(dog)
-                outs.append(dog)
-            print(f"{hidden.shape=} ")
-            return outs, hidden
-        else:
-            x = x.float()
-            # x  = self.layer_norm2(x)
-            x = self.relu0(x)
-            # x = self.drop0(x)
-            x = self.fc0(x)
-            x = self.relu(x)
-            x = self.drop1(x)
-            x = self.fc1(x)
-            x = self.relu(x)
-            x_e = self.drop2(x)
-            #regular
-            x = self.fc2(x_e)
-            x_rl3 = self.relu(x)
-            x = self.drop3(x_rl3)
-            x = self.fc3(x)
-            #price
-            x_p = self.fc2(x_e)
-            x_p_rl3 = self.relu(x_p)
-            x_p = self.drop3(x_p_rl3)
-            x_p = self.fc3(x_p)
-
-            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
-            return output
-
-class GRUNetv4_extra_attn(nn.Module):
-    def __init__(self,input_size,hidden_size,hidden=None,output='raw',dropout=0.3,fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
-        super(GRUNetv4_extra_attn, self).__init__()
-        self.gru = nn.GRU(input_size,
-                          hidden_size,
-                          num_layers=num_layers,
-                          dropout=0.3)
-        self.relu = nn.ReLU()
-        self.fc0 = nn.Linear(hidden_size, 1)
-
-        self.batch_norm = nn.BatchNorm1d(input_size)
-        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
-        self.attention = Dynamic_Attention(hidden_size)
-        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
-
-        #p1
-        self.fc0_p1 = nn.Linear(hidden_size, hidden_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(hidden_size, hidden_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(hidden_size, hidden_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
-
-        #p2
-        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
-        self.relu0 = nn.ReLU()
-        self.fc0 = nn.Linear(((hidden_size) * 8) + 70, hidden_size * 8)
-        # self.drop0 = nn.Dropout(dropout)
-        self.drop1 = nn.Dropout(dropout)
-        self.fc1 = nn.Linear(hidden_size * 8, hidden_size * 4)
-        self.drop2 = nn.Dropout(dropout)
-
-        #regular
-        self.fc2 = nn.Linear(hidden_size * 4, fc1_size)
-        self.drop3 = nn.Dropout(dropout)
-        self.fc3 = nn.Linear(fc1_size, 8)
-        self.hidden_size = hidden_size
-
-        #price
-        self.price_fc2 = nn.Linear(hidden_size * 4, fc1_size)
-        self.price_drop3 = nn.Dropout(dropout)
-        self.price_fc3 = nn.Linear(fc1_size, 8)
-
-        if output == 'raw':
-            self.output_fn = nn.Identity()
-        elif output == 'softmax':
-            self.output_fn = nn.Softmax(dim=1)
-        elif output == 'log_softmax':
-            self.output_fn = nn.LogSoftmax(dim=1)
-        else:
-            raise
-
-    # x represents our data
-    def forward(self, x, h=None, p1=True, warmup=False,viz=False):
-
-        if p1:
-            x, x_d = x   
-            # x = self.batch_norm(x)
-            x_d = x_d.float()
-            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
-            x = x.float()
-            x_d = x_d.float()
-            x = x._replace(data=self.batch_norm(x.data))
-            x, lengths = torch.nn.utils.rnn.pad_packed_sequence(x)  # unpack sequence 
-            # print(f"{x.shape=} {h.shape=} {lengths=}")  
-            outputs = []
-            hidden_states = []
-
-            hidden = h.contiguous()
-            for t in range(x.size(0)):
-                # Process one time step with GRU
-                output, hidden = self.gru(x[t:t+1], hidden)
-                # Compute attention scores based on all previous hidden states
-                if outputs:
-                    attention_weights = self.attention(torch.cat(outputs,dim=0))
-                else:
-                    attention_weights = self.attention(output)
-                # Apply attention weights to output
-                output = attention_weights[-1] * output
-                outputs.append(output)
-                # hidden_states.append(hidden.detach())
-            outputs = torch.cat(outputs,dim=0)
-            # hidden_states = torch.stack(hidden_states,dim=0)
-
-            x = outputs
-             
-            x = torch.nn.utils.rnn.unpad_sequence(x, lengths)  # pack sequence again
-            # hidden_states = torch.nn.utils.rnn.unpad_sequence(hidden_states, lengths)  # pack sequence again
-            # hidden_states = torch.stack([x[-1] for x in hidden_states])
-            # hidden = hidden_states
-
-            x_d = unpack_sequence(x_d)
-            outs = []
-            for i, dog in enumerate(x):
-                # dog = torch.cat((dog, x_d[i]), dim=1)
-                dog = self.fc0_p1(dog)
-                dog = self.relu(dog)
-                dog = self.fc0_p1_drop(dog)
-                dog = self.fc0_p2(dog)
-                dog = self.relu(dog)
-                dog = self.fc0_p2_drop(dog)
-                dog = self.fc0_p3(dog)
-                dog = self.relu(dog)
-                dog = self.fc0_p3_drop(dog)
-                outs.append(dog)
-
-            return outs, hidden
-        
-        else:
-            x = x.float()
-            # x  = self.layer_norm2(x)
-            x = self.relu0(x)
-            # x = self.drop0(x)
-            x = self.fc0(x)
-            x = self.relu(x)
-            x = self.drop1(x)
-            x = self.fc1(x)
-            x = self.relu(x)
-            x_e = self.drop2(x)
-            #regular
-            x = self.fc2(x_e)
-            x_rl3 = self.relu(x)
-            x = self.drop3(x_rl3)
-            x = self.fc3(x)
-            #price
-            x_p = self.fc2(x_e)
-            x_p_rl3 = self.relu(x_p)
-            x_p = self.drop3(x_p_rl3)
-            x_p = self.fc3(x_p)
-
-            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
-            return output
-
-class AdvNet_stacking(nn.Module):
-    def __init__(self, input_size,num_models=10,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
-        super(AdvNet_stacking, self).__init__()
-        self.num_models = num_models
-        for i in range(num_models):
-            setattr(self, f'model_{i}', AdvNet(input_size,dropout,fc0_size,fc1_size,data_mask_size))
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(dropout)
-        self.fc_0 = nn.Linear(8*num_models,8*num_models)
-        self.fc_1 = nn.Linear(8*num_models,8)
-        self.model_list = [getattr(self, f'model_{i}') for i in range(num_models)]
-
-    def forward(self, x,p1=True):
-        if p1:
-            outputs = []
-            for i in range(self.num_models):
-                model = getattr(self, f'model_{i}')
-                outputs.append(model(x[i]))
-
-            outputs = torch.stack(outputs)
-            return outputs
-        else:
-            outputs = []
-            for i in range(self.num_models):
-                model = getattr(self, f'model_{i}')
-                # print(f"P2 {x.shape=}")
-                outputs.append(model(x))
-
-            outputs = torch.cat(outputs,dim=-1)
-            outputs = self.fc_0(outputs)
-            outputs = self.relu(outputs)
-            outputs = self.dropout(outputs)
-            outputs = self.fc_1(outputs)
-
-            return outputs
-
-class AdvNet(nn.Module):
-    def __init__(self, input_size,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
-        super(AdvNet, self).__init__()
-
-        self.batch_norm = nn.LazyBatchNorm1d()
-        self.dog_batch_norm = nn.LazyBatchNorm1d()  
-        self.relu = nn.ReLU()
-
-        #p1
-        self.fc1_p1 = nn.LazyLinear(fc1_size)
-        self.fc1_p1_drop = nn.Dropout(dropout)
-        self.fc1_p2 = nn.Linear(fc0_size,fc1_size)
-        self.fc1_p2_drop = nn.Dropout(dropout)
-        self.fc1_p3 = nn.Linear(fc1_size,fc1_size)
-        self.fc1_p3_drop = nn.Dropout(dropout)
-
-
-
-        #p2
-        self.fc0_p1 = nn.LazyLinear(fc0_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(fc0_size,fc1_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(fc1_size,fc1_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
-        self.fc0_p4 = nn.Linear(fc1_size,8)
-
-
-
-    def forward(self, x):
-        # x = torch.stack(x,dim=0)
-        # print(x.shape)
-        x = x.float()
-        dogs = []
-        x = x.transpose(0,1)
-        
-        for dog in x:
-            # print(dog.shape)
-            x = dog.float()
-            x = self.dog_batch_norm(x)
-            x = self.fc1_p1(x)
-            x = self.relu(x)
-            x = self.fc1_p1_drop(x)
-            dogs.append(x)
-        # print(f"{dogs[0].shape=}")
-        x = torch.cat(dogs,dim=-1)
-        # print(f"{x.shape=}")
-
-
-        x = x.float()
-        # x = self.batch_norm(x)
-        x = self.fc0_p1(x)
-        x = self.relu(x)
-        x = self.fc0_p1_drop(x)
-        x = self.fc0_p2(x)
-        x = self.relu(x)
-        x = self.fc0_p2_drop(x)
-        x = self.fc0_p3(x)
-        x = self.relu(x)
-        x = self.fc0_p3_drop(x)
-        x = self.fc0_p4(x)
-        # print(f"p1 {x.shape=}")
-
-        return x
-
-        # x represents our data
-
-
-
-class SimpleNet_stacking(nn.Module):
-    def __init__(self, input_size,num_models=10,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
-        super(SimpleNet_stacking, self).__init__()
-        self.num_models = num_models
-        for i in range(num_models):
-            setattr(self, f'model_{i}', SimpleNet(input_size,dropout,fc0_size,fc1_size,data_mask_size))
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(dropout)
-        self.fc_0 = nn.Linear(8*num_models,8*num_models)
-        self.fc_1 = nn.Linear(8*num_models,8)
-
-    def forward(self, x,p1=True):
-        if p1:
-            outputs = []
-            for i in range(self.num_models):
-                model = getattr(self, f'model_{i}')
-                outputs.append(model(x[i]))
-
-            outputs = torch.stack(outputs)
-            return outputs
-        else:
-            outputs = []
-            for i in range(self.num_models):
-                model = getattr(self, f'model_{i}')
-                outputs.append(model(x))
-
-            outputs = torch.cat(outputs,dim=-1)
-            outputs = self.fc_0(outputs)
-            outputs = self.relu(outputs)
-            outputs = self.dropout(outputs)
-            outputs = self.fc_1(outputs)
-
-            return outputs
-
-class SimpleNet(nn.Module):
-    def __init__(self, input_size,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
-        super(SimpleNet, self).__init__()
-
-        self.batch_norm = nn.LazyBatchNorm1d()
-        self.relu = nn.ReLU()
-
-        #p1
-        self.fc0_p1 = nn.LazyLinear(fc0_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(fc0_size,fc1_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(fc1_size,fc1_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
-        self.fc0_p4 = nn.Linear(fc1_size,8)
-
-    def forward(self, x):
-        # x = torch.stack(x,dim=0)
-
-        x = x.float()
-        x = self.batch_norm(x)
-        x = self.fc0_p1(x)
-        x = self.relu(x)
-        x = self.fc0_p1_drop(x)
-        x = self.fc0_p2(x)
-        x = self.relu(x)
-        x = self.fc0_p2_drop(x)
-        x = self.fc0_p3(x)
-        x = self.relu(x)
-        x = self.fc0_p3_drop(x)
-        x = self.fc0_p4(x)
-
-        return x
-
-        # x represents our data
-
-
-class GRUNetv3_simple_extra_data(nn.Module):
-    def __init__(self, input_size,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
-        super(GRUNetv3_simple_extra_data, self).__init__()
-
-        self.batch_norm = nn.LazyBatchNorm1d()
-        self.relu = nn.ReLU()
-
-        #p1
-        self.fc0_p1 = nn.LazyLinear(fc0_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(fc0_size,fc1_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(fc1_size,fc1_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
-
-            # x represents our data
-    def forward(self, x):
-        x = x.float()
-        # x = self.batch_norm(x)
-        x = self.fc0_p1(x)
-        x = self.relu(x)
-        x = self.fc0_p1_drop(x)
-        x = self.fc0_p2(x)
-        x = self.relu(x)
-        x = self.fc0_p2_drop(x)
-        x = self.fc0_p3(x)
-
-        return x
-
 
 class GRUNetv3_extra(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
@@ -1616,30 +1032,24 @@ class GRUNetv3_extra(nn.Module):
         self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
         self.relu = nn.ReLU()
         self.fc0 = nn.Linear(hidden_size,1)
-        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
 
         self.batch_norm = nn.BatchNorm1d(input_size)
         self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
 
-        #extra data
-        self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_2 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_3 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_4 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        
-
         #p1
-        self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
+        self.fc0_p1 = nn.Linear(data_mask_size+hidden_size,hidden_size)
         self.fc0_p1_drop = nn.Dropout(dropout)
         self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
         self.fc0_p2_drop = nn.Dropout(dropout)
         self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
         self.fc0_p3_drop = nn.Dropout(dropout)
+        
+        
 
         #p2
         # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
         self.relu0 = nn.ReLU()
-        self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        self.fc0 = nn.Linear(((hidden_size) * 8)+70, hidden_size * 8)
         # self.drop0 = nn.Dropout(dropout)
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
@@ -1652,9 +1062,9 @@ class GRUNetv3_extra(nn.Module):
         self.hidden_size = hidden_size
 
         #price
-        # self.price_fc2 = nn.Linear(hidden_size*4, fc1_size)
-        # self.price_drop3 = nn.Dropout(dropout)
-        # self.price_fc3 = nn.Linear(fc1_size, 8)
+        self.price_fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.price_drop3 = nn.Dropout(dropout)
+        self.price_fc3 = nn.Linear(fc1_size, 8)
 
 
         if output =='raw':
@@ -1677,36 +1087,25 @@ class GRUNetv3_extra(nn.Module):
             x = x.float()
             x_d = x_d.float()
             x = x._replace(data=self.batch_norm(x.data))
-            x_og = x
 
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
             x_d = unpack_sequence(x_d)
-            x_og = unpack_sequence(x_og)
             outs = []
             for i,dog in enumerate(x):
-                # dist = self.extra_1(x_d[i][:,0:20])
-                # box = self.extra_2(x_d[i][:,20:40])
-                # track_box = self.extra_3(x_d[i][:,40:60])
-                # t_dist = self.extra_4(x_d[i][:,60:80])
-                # dog = torch.cat((dog,dist,box,track_box,t_dist),dim=1)
-                dog_simple = self.extra_1(x_d[i])
-                dog = torch.cat((dog,dog_simple),dim=1)
-                # print(dog.shape)
-                
-                # dog = torch.cat((dog,x_d[i]),dim=1)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p1(dog)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p1_drop(dog)
-                # dog = self.fc0_p2(dog)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p2_drop(dog)
-                # dog = self.fc0_p3(dog)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p3_drop(dog)
+                dog = torch.cat((dog,x_d[i]),dim=1)
+                dog = self.relu(dog)
+                dog = self.fc0_p1(dog)
+                dog = self.relu(dog)
+                dog = self.fc0_p1_drop(dog)
+                dog = self.fc0_p2(dog)
+                dog = self.relu(dog)
+                dog = self.fc0_p2_drop(dog)
+                dog = self.fc0_p3(dog)
+                dog = self.relu(dog)
+                dog = self.fc0_p3_drop(dog)
                 outs.append(dog)
-            # print(f"{outs[0].shape=} ")
+
             return outs,hidden
         else:
             x = x.float()
@@ -1732,101 +1131,42 @@ class GRUNetv3_extra(nn.Module):
 
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
+        
 
-
-
-class GRUNetv4_stacking(nn.Module):
-    def __init__(self,raceDB:Races, input_size, hidden_size,num_models,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
-        super(GRUNetv4_stacking, self).__init__()
-        self.hidden_size = hidden_size
-
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(dropout)
-        self.fc_0 = nn.Linear(8*num_models,8*num_models)
-        self.fc_1 = nn.Linear(8*num_models,8)
-
-        for i in range(num_models):
-            setattr(self, f'model_{i}', GRUNetv4_extra(raceDB,input_size,hidden_size,hidden,output,dropout,fc0_size,fc1_size,num_layers,data_mask_size,model_number=i))
-        self.model_list:[GRUNetv4_extra] = [getattr(self, f'model_{i}') for i in range(num_models)]
-        if output =='raw':
-            self.output_fn = nn.Identity()
-        elif output =='softmax':
-            self.output_fn = nn.Softmax(dim=1)
-        elif output =='log_softmax':
-            self.output_fn = nn.LogSoftmax(dim=1)
-        else:
-            raise
-
-
-
-    # x represents our data
-    def forward(self, x, x_d, dog_input, batch_races, stacking=True):
-        outputs = []
-        relus = []
-        output_ps = []
-        if stacking:
-            for i,model in enumerate(self.model_list):
-                # print(f"running model {i}")
-                output,relu,output_p = model.forward(x, x_d, dog_input, batch_races)
-                outputs.append(output)
-                relus.append(relu)
-                output_ps.append(output_p)
-            outputs = torch.cat(outputs,dim=-1)
-            # print(f"{outputs.shape=}")
-            outputs = self.fc_0(outputs)
-            outputs_relu = self.relu(outputs)
-            outputs = self.dropout(outputs_relu)
-            outputs = self.fc_1(outputs)
-            return outputs, outputs_relu, outputs           
-        else:
-            for i,model in enumerate(self.model_list):
-                # print(f"running model {i}")
-                output,relu,output_p = model.forward(x[i], x_d[i], dog_input[i], batch_races[i])
-                outputs.append(output)
-                relus.append(relu)
-                output_ps.append(output_p)
-            return outputs,relus,output_ps
-
-
-
-
-
-class GRUNetv4_extra(nn.Module):
-    def __init__(self,raceDB, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None,model_number=0):
-        super(GRUNetv4_extra, self).__init__()
-        self.raceDB = raceDB
+class GRUNetv3_BN_double(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
+        super(GRUNetv3_BN_double, self).__init__()
         self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
-        self.relu = nn.ReLU()
-        self.fc0 = nn.Linear(hidden_size,1)
-        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
-
-        self.batch_norm = nn.BatchNorm1d(input_size)
-        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
-
-        #extra data
-        self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-
-        #p1
-        self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
-
-        #p2
         self.relu0 = nn.ReLU()
-        self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        self.fc0 = nn.Linear(hidden_size,1)
+
+        self.layer_norm = nn.BatchNorm1d(input_size)
+
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
+        # self.drop0 = nn.Dropout(dropout)
+        
+        self.rl1 = nn.ReLU()
         self.drop1 = nn.Dropout(dropout)
-        self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
+        self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
+        self.rl2 = nn.ReLU()
         self.drop2 = nn.Dropout(dropout)
 
         #regular
-        self.fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.fc2 = nn.Linear(fc0_size, fc1_size)
+        self.rl3 = nn.ReLU()
         self.drop3 = nn.Dropout(dropout)
         self.fc3 = nn.Linear(fc1_size, 8)
         self.hidden_size = hidden_size
-        self.model_number = model_number
+
+        #price
+        self.price_fc2 = nn.Linear(fc0_size, fc1_size)
+        self.price_rl3 = nn.ReLU()
+        self.price_drop3 = nn.Dropout(dropout)
+        self.price_fc3 = nn.Linear(fc1_size, 8)
+
+
         if output =='raw':
             self.output_fn = nn.Identity()
         elif output =='softmax':
@@ -1837,50 +1177,415 @@ class GRUNetv4_extra(nn.Module):
             raise
 
     # x represents our data
-    def forward(self, x, x_d, dog_input, batch_races):
-        x_d = x_d.float()
-        x = x.float()
-        x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
-        x = x._replace(data=self.batch_norm(x.data))
-        h = self.h0.unsqueeze(1).repeat(1,x.batch_sizes[0],1)
-        x,hidden = self.gru(x,h)
+    def forward(self, x,h=None, p1=True, warmup=False):
 
-        x = unpack_sequence(x)
-        x_d = unpack_sequence(x_d)
-        outs = []
-        for i,dog in enumerate(x):
-            dog_simple = self.extra_1(x_d[i])
-            dog = torch.cat((dog,dog_simple),dim=1)
-            outs.append(dog)
+        if warmup:
+            x = x.float()
+            
+            x,hidden = self.gru(x)
+            x = self.relu0(x.data)
+            x = self.fc0(x)
+            output = x
 
-        for j,dog in enumerate(dog_input):
-            [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,outs[j])]
+            return output
 
-        [setattr(race, 'hidden_in', torch.cat([race.race_dist]+[race.race_track]+[d.hidden_out for d in race.dogs])) for race in batch_races]
+        if p1:
+            x = x.float()
+            # x = x._replace(data=self.layer_norm(x.data))
+            
 
-        x = torch.stack([r.hidden_in for r in batch_races])
-        # print(f"p2 running model {self.model_number}")
-        x = x.float()
-        # x  = self.layer_norm2(x)
-        x = self.relu0(x)
-        # x = self.drop0(x)
-        x = self.fc0(x)
-        x = self.relu(x)
-        x = self.drop1(x)
-        x = self.fc1(x)
-        x = self.relu(x)
-        x_e = self.drop2(x)
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            outs = []
+            for dog in x:
+                outs.append(dog)
+
+            return outs,hidden
+        else:
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.rl1(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.rl2(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.rl3(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.rl3(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+            return output
+        
+class LSTMNetv3_BN_double(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
+        super(LSTMNetv3_BN_double, self).__init__()
+        self.gru = nn.LSTM(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu = nn.ReLU()
+        self.drop = nn.Dropout(dropout)
+        # self.fc0 = nn.Linear(hidden_size,1)
+        self.layer_norm = nn.BatchNorm1d(input_size)
+        self.batch_norm0 = nn.BatchNorm1d(input_size)
+        self.softmax = nn.Softmax(dim=-1)
+
+        self.fc_lstm0 = nn.Linear(hidden_size+input_size,hidden_size*2)
+        self.fc_lstm1 = nn.Linear(hidden_size*2,hidden_size*4)
+        self.fc_lstm2 = nn.Linear(hidden_size*4,hidden_size)
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.batch_norm = nn.BatchNorm1d((hidden_size * 8)+70)
+        self.fc0 = nn.Linear((hidden_size * 8)+70, ((hidden_size * 8)+70))
+        
+        self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
+
         #regular
-        x = self.fc2(x_e)
-        x_rl3 = self.relu(x)
-        x = self.drop3(x_rl3)
-        x = self.fc3(x)
-        #price
-        x_p = self.fc2(x_e)
-        x_p_rl3 = self.relu(x_p)
-        x_p = self.drop3(x_p_rl3)
-        x_p = self.fc3(x_p)
-        self.output = self.output_fn(x)
+        self.fc2 = nn.Linear(fc0_size, fc1_size)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
 
-        output = self.output_fn(x), x_rl3, self.output_fn(x_p),
-        return output
+        #price
+        self.price_fc2 = nn.Linear(fc0_size, fc1_size)
+        self.price_fc3 = nn.Linear(fc1_size, 8)
+
+        #final
+        self.final_bn = nn.Bilinear(8,8,32)
+        self.final_fc = nn.Linear(32,8) 
+
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None,c=None, p1=True, warmup=False):
+
+        if p1:
+            x = x.float()
+            x= x._replace(data=self.batch_norm0(x.data))
+            x_og = x.float()
+            x,(hidden_state,cell_state) = self.gru(x_og, (h,c))
+
+            x = unpack_sequence(x)
+            x_og = unpack_sequence(x_og)
+            outs = []
+            for i,dog in enumerate(x):
+                # dog = torch.stack(dog)
+                dog = torch.cat((dog,x_og[i]),dim=1)   
+                dog = self.fc_lstm0(dog)
+                dog = self.relu(dog)
+                dog = self.drop(dog)
+                dog = self.fc_lstm1(dog)
+                dog = self.relu(dog)
+                dog = self.drop(dog)
+                dog = self.fc_lstm2(dog)
+                # dog = self.relu(dog)
+                # dog = torch.cat((dog,x_og[i]),dim=1)   
+
+                outs.append(dog)
+
+            return outs,hidden_state,cell_state
+        else:
+            x = x.float()
+            # x  = self.batch_norm(x)
+            x = self.relu(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.relu(x)
+            x = self.drop(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x_e = self.drop(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.relu(x)
+            x = self.drop(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.price_fc2(x_e)
+            x_p_rl3 = self.relu(x_p)
+            x_p = self.drop(x_p_rl3)
+            x_p = self.price_fc3(x_p)
+
+            x_final = self.final_bn(self.softmax(x).detach(),self.softmax(x_p).detach())
+            x_final = self.relu(x_final)
+            x_final = self.final_fc(x_final)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p), self.output_fn(x_final)
+            return output
+        
+class GRUNetv3_double_profit(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
+        super(GRUNetv3_double_profit, self).__init__()
+        self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+
+        self.layer_norm = nn.BatchNorm1d(input_size)
+
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
+        # self.drop0 = nn.Dropout(dropout)
+        
+        self.rl1 = nn.ReLU()
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
+        self.rl2 = nn.ReLU()
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(fc0_size, fc1_size)
+        self.rl3 = nn.ReLU()
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        #price
+        self.price_fc2 = nn.Linear(fc0_size, fc1_size)
+        self.price_rl3 = nn.ReLU()
+        self.price_drop3 = nn.Dropout(dropout)
+        self.price_fc3 = nn.Linear(fc1_size, 8)
+
+        #profit
+        self.profit_fc0 = nn.Linear(24,124)
+        self.profit_relu0 = nn.ReLU()
+        self.profit_fc1 = nn.Linear(124,8)
+        
+
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True,p2=False, warmup=False):
+
+        if warmup:
+            x = x.float()
+            
+            x,hidden = self.gru(x)
+            x = self.relu0(x.data)
+            x = self.fc0(x)
+            output = x
+
+            return output
+
+        if p1:
+            x = x.float()
+            # x = x._replace(data=self.layer_norm(x.data))
+            
+
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            outs = []
+            for dog in x:
+                outs.append(dog)
+
+            return outs,hidden
+        elif p2:
+            x = x.float()
+            x = self.profit_fc0(x)
+            x = self.profit_relu0(x)
+            x = self.profit_fc1(x)
+            x = self.profit_relu0(x)
+            return x
+        else:
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.rl1(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.rl2(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.rl3(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.rl3(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+            return output
+        
+class GRUNetv3_BN_triple(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
+        super(GRUNetv3_BN_double, self).__init__()
+        self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+
+        self.layer_norm = nn.BatchNorm1d(input_size)
+
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear((hidden_size * 8)+70, (hidden_size * 8)+70)
+        # self.drop0 = nn.Dropout(dropout)
+        
+        self.rl1 = nn.ReLU()
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear((hidden_size * 8)+70, fc0_size)
+        self.rl2 = nn.ReLU()
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(fc0_size, fc1_size)
+        self.rl3 = nn.ReLU()
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        #price
+        self.price_fc2 = nn.Linear(fc0_size, fc1_size)
+        self.price_rl3 = nn.ReLU()
+        self.price_drop3 = nn.Dropout(dropout)
+        self.price_fc3 = nn.Linear(fc1_size, 8)
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False):
+
+        if warmup:
+            x = x.float()
+            
+            x,hidden = self.gru(x)
+            x = self.relu0(x.data)
+            x = self.fc0(x)
+            output = x
+
+            return output
+
+        if p1:
+            x = x.float()
+            x = x._replace(data=self.layer_norm(x.data))
+            
+
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            # outs = []
+            # for dog in x:
+                # outs.append(dog)
+
+            return x,hidden
+        else:
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.rl1(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.rl2(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.rl3(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.rl3(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p), # changed
+            return output
+
+class AttnNetv1(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
+        super(AttnNetv1, self).__init__()
+        self.encoder = nn.TransformerEncoderLayer(input_size,input_size/2, dropout=0.1)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+        
+        self.rl1 = nn.ReLU()
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear((input_size * 8)+70, fc0_size)
+        self.rl2 = nn.ReLU()
+        self.drop2 = nn.Dropout(dropout)
+        self.fc2 = nn.Linear(fc0_size, fc1_size)
+        self.rl3 = nn.ReLU()
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False):
+
+
+        if p1:
+            lens = x[1]
+            x = x[0].float()
+            print(x[0].shape)
+            x = self.encoder(x)
+            x = unpad_sequence(x, lens)
+            outs = []
+            for dog in x:
+                outs.append(dog)
+
+            return outs
+        else:
+            x = x.float()
+            x = self.rl1(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.rl2(x)
+            x = self.drop2(x)
+            #regular
+            x = self.fc2(x)
+            x_rl3 = self.rl3(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x)
+            x_p_rl3 = self.rl3(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+            return output

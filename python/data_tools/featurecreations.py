@@ -331,8 +331,11 @@ def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_
     print(f"{form.shape=}")
     # form = form[form['State']=="VIC"].reset_index()
     print(f"{form.shape=}")
+    form['box_g'] = form['box']
+    form['dist_g'] = form['dist_x']
     dog_form = form.groupby(['DogId'], sort=False, as_index=False)
 
+    print(f"{form.columns=}")
 
     if simple:
         if v6:
@@ -343,38 +346,38 @@ def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_
     else:
         print(form.columns)
         dist_form = form.groupby(['DogId','dist_round'], sort=False, as_index=False)
-        box_form = form.groupby(['DogId','box'], sort=False, as_index=False)
-        track_box_form = form.groupby(['DogId','box','Track'], sort=False, as_index=False)
-        track_dist_form = form.groupby(['DogId','dist_x','Track'], sort=False, as_index=False)
+        box_form = form.groupby(['DogId','box_g'], sort=False, as_index=False)
+        track_box_form = form.groupby(['DogId','box_g','Track'], sort=False, as_index=False)
+        track_dist_form = form.groupby(['DogId','dist_g','Track'], sort=False, as_index=False)
         form = generate_prev_weight(form, dog_form)
-        form_stats = generate_dog_stats(form, dog_form,rolling_window=30)
-        print("fin 30")
-        form_stats = generate_dog_stats(form_stats, dog_form,rolling_window=5)
-        print("fin 5")
-        form_stats = generate_dog_stats(form_stats, dog_form,rolling_window=1)
+        # form_stats = generate_dog_stats(form, dog_form,rolling_window=30)
+        # print("fin 30")
+        # form_stats = generate_dog_stats(form_stats, dog_form,rolling_window=5)
+        # print("fin 5")
+        form_stats = generate_dog_stats_simple(form, dog_form,rolling_window=1)
         print("fin 1")
-        form_stats = generate_dog_stats(form_stats, dist_form,rolling_window=10,factor='dist')
+        form_stats = generate_dog_stats_simple(form_stats, dist_form,rolling_window=10,factor='dist')
         print("fin 10_dist")
-        form_stats = generate_dog_stats(form_stats, box_form,rolling_window=10,factor='box')
+        form_stats = generate_dog_stats_simple(form_stats, box_form,rolling_window=10,factor='box')
         print("fin 10 box")
-        form_stats = generate_dog_stats(form_stats, track_box_form,rolling_window=10,factor='track_box')
+        form_stats = generate_dog_stats_simple(form_stats, track_box_form,rolling_window=10,factor='track_box')
         print("fin 10 track_box")
-        form_stats = generate_dog_stats(form_stats, track_dist_form,rolling_window=10,factor='track_dist')
+        form_stats = generate_dog_stats_simple(form_stats, track_dist_form,rolling_window=10,factor='track_dist')
         print("fin 10 track_dist")  
 
     #Status columns hold all col names of generated stats
-    stats_cols = [x for x in form_stats.columns if x not in form.columns]
+    stats_cols = ['inside','midfield','wide','weight','DogGrade']+[x for x in form_stats.columns if x not in form.columns]
     print(f"STATS COLS {stats_cols}")
 
     #Keep mutual best 20
     # stats_cols = stats_cols[[MUTUAL_BEST_20]]
 
-    form_only_stats_w_track = form_stats[['Track','dateF','dist_x','box','inside','midfield','wide','weight','DogGrade']+stats_cols].fillna(-1.0)
+    form_only_stats_w_track = form_stats[['Track','dateF','dist_x']+stats_cols].fillna(-1.0)
 
     form_only_stats_w_track.groupby(['Track', 'dist_x'], as_index=False).mean(numeric_only=True).reset_index().to_feather('expected stat values.fth')
     form_only_stats_w_track.reset_index().to_feather('all_stat_values.fth')
-    form_only_stats = form_stats[['box','inside','midfield','wide','weight','DogGrade']+stats_cols].fillna(-1.0)
-    form_only_stats = form_stats[['box','weight','DogGrade']+stats_cols].fillna(-1.0)
+    # form_only_stats = form_stats[stats_cols].fillna(-1.0)
+    form_only_stats = form_stats[['box']+stats_cols].fillna(-1.0)
     # form_only_stats = form_stats[['box','weight','DogGrade']+stats_cols].fillna(-1.0)
     stats = pd.Series(form_only_stats.values.tolist())
     
@@ -401,30 +404,36 @@ def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_
 
 def generate_dog_stats_simple(df_in, df_g, rolling_window=10, factor=''):
     df = df_in.copy()
-    df[f'dist_last_{factor}_{rolling_window}'] = df_g['dist_x'].rolling(rolling_window, min_periods=1, closed='left').mean()['dist_x']
-    df[f'box_last_{factor}_{rolling_window}'] = df_g['box'].rolling(rolling_window, min_periods=1, closed='left').mean()['box']
-    df[f'speed_avg{factor}_{rolling_window}'] = df_g['speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['speed']
-    df[f'split_speed_v1{factor}_{rolling_window}'] = df_g['split_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed_v1']
-    df[f'split_speed_avg{factor}_{rolling_window}'] = df_g['split_speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed']
-    df[f'split_margin_avg{factor}_{rolling_window}'] = df_g['split_margins'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_margins']
-    df[f'margin_avg{factor}_{rolling_window}'] = df_g['margin'].rolling(rolling_window, min_periods=1, closed='left').mean()['margin']
-    df[f'margin_time_avg{factor}_{rolling_window}'] = df_g['MarginTime'].rolling(rolling_window, min_periods=1, closed='left').mean()['MarginTime']
-    df[f'RunHomeTime{factor}_{rolling_window}'] = df_g['RunHomeTime'].rolling(rolling_window, min_periods=1, closed='left').mean()['RunHomeTime']
-    df[f'run_home_speed{factor}_{rolling_window}'] = df_g['run_home_speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['run_home_speed']
-    df[f'run_home_speed_v1{factor}_{rolling_window}'] = df_g['run_home_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['run_home_speed_v1']
-    df[f'split_speed_v1{factor}_{rolling_window}'] = df_g['split_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed_v1']
-    df[f'first_out_avg{factor}_{rolling_window}'] = df_g['first_out'].rolling(rolling_window, min_periods=1, closed='left').mean()['first_out']
-    df[f'pos_out_avg{factor}_{rolling_window}'] = df_g['start_pos'].rolling(rolling_window, min_periods=1, closed='left').mean()['start_pos']
-    df[f'post_change_avg{factor}_{rolling_window}'] = df_g['pos_change'].rolling(rolling_window, min_periods=1, closed='left').mean()['pos_change']
-    df[f'races{factor}_{rolling_window}'] = df_g.cumcount().reset_index(drop=True)
-    df[f'wins{factor}_{rolling_window}'] = df_g['win'].rolling(1000, min_periods=1, closed='left').mean()['win']
-    df[f'wins_last{factor}_{rolling_window}'] = df_g['win'].rolling(rolling_window, min_periods=1, closed='left').sum()['win']
-    df[f'weight_{factor}'] = df_g['weight'].rolling(rolling_window, min_periods=1, closed='left').mean()['weight']
-    df[f'min_time_{factor}'] = df_g["RunTime"].rolling(rolling_window, min_periods=1, closed='left').min()["RunTime"]
-    df[f'min_split_time_{factor}'] = df_g["SplitTimes"].rolling(rolling_window, min_periods=1, closed='left').min()["SplitTimes"]
-    df[f'min_split_time_v1{factor}'] = df_g['split_margins'].rolling(rolling_window, min_periods=1, closed='left').min()['split_margins']
-    df[f'last_start_price'] = df_g["StartPrice"].rolling(rolling_window, min_periods=1, closed='left').min()["StartPrice"]
-    df[f'last_start_prob'] = df_g["StartProb"].rolling(rolling_window, min_periods=1, closed='left').min()["StartProb"]
+    try:
+        df[f'{factor}_dist_last__{rolling_window}'] = df_g['dist_x'].rolling(rolling_window, min_periods=1, closed='left').mean()['dist_x']
+    except:
+        df[f'{factor}_dist_last__{rolling_window}'] = 0
+    try:
+        df[f'{factor}_box_last__{rolling_window}'] = df_g['box'].rolling(rolling_window, min_periods=1, closed='left').mean()['box']
+    except:
+        df[f'{factor}_box_last__{rolling_window}'] = 0
+    df[f'{factor}_speed_avg_{rolling_window}'] = df_g['speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['speed']
+    # df[f'{factor}_split_speed_v1_{rolling_window}'] = df_g['split_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed_v1']
+    df[f'{factor}_split_speed_avg_{rolling_window}'] = df_g['split_speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed']
+    df[f'{factor}_split_margin_avg_{rolling_window}'] = df_g['split_margins'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_margins']
+    df[f'{factor}_margin_avg_{rolling_window}'] = df_g['margin'].rolling(rolling_window, min_periods=1, closed='left').mean()['margin']
+    df[f'{factor}_margin_time_avg_{rolling_window}'] = df_g['MarginTime'].rolling(rolling_window, min_periods=1, closed='left').mean()['MarginTime']
+    df[f'{factor}_RunHomeTime_{rolling_window}'] = df_g['RunHomeTime'].rolling(rolling_window, min_periods=1, closed='left').mean()['RunHomeTime']
+    df[f'{factor}_run_home_speed_{rolling_window}'] = df_g['run_home_speed'].rolling(rolling_window, min_periods=1, closed='left').mean()['run_home_speed']
+    # df[f'{factor}_run_home_speed_v1_{rolling_window}'] = df_g['run_home_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['run_home_speed_v1']
+    # df[f'{factor}_split_speed_v1_{rolling_window}'] = df_g['split_speed_v1'].rolling(rolling_window, min_periods=1, closed='left').mean()['split_speed_v1']
+    df[f'{factor}_first_out_avg_{rolling_window}'] = df_g['first_out'].rolling(rolling_window, min_periods=1, closed='left').mean()['first_out']
+    df[f'{factor}_pos_out_avg_{rolling_window}'] = df_g['start_pos'].rolling(rolling_window, min_periods=1, closed='left').mean()['start_pos']
+    df[f'{factor}_post_change_avg_{rolling_window}'] = df_g['pos_change'].rolling(rolling_window, min_periods=1, closed='left').mean()['pos_change']
+    df[f'{factor}_races_{rolling_window}'] = df_g.cumcount().reset_index(drop=True)
+    df[f'{factor}_wins_{rolling_window}'] = df_g['win'].rolling(1000, min_periods=1, closed='left').mean()['win']
+    df[f'{factor}_wins_last_{rolling_window}'] = df_g['win'].rolling(rolling_window, min_periods=1, closed='left').sum()['win']
+    df[f'{factor}_weight_'] = df_g['weight'].rolling(rolling_window, min_periods=1, closed='left').mean()['weight']
+    df[f'{factor}_min_time_'] = df_g["RunTime"].rolling(rolling_window, min_periods=1, closed='left').min()["RunTime"]
+    df[f'{factor}_min_split_time_'] = df_g["SplitTimes"].rolling(rolling_window, min_periods=1, closed='left').min()["SplitTimes"]
+    # df[f'{factor}_min_split_time_v1'] = df_g['split_margins'].rolling(rolling_window, min_periods=1, closed='left').min()['split_margins']
+    df[f'{factor}_last_start_price'] = df_g["StartPrice"].rolling(rolling_window, min_periods=1, closed='left').min()["StartPrice"]
+    df[f'{factor}_last_start_prob'] = df_g["StartProb"].rolling(rolling_window, min_periods=1, closed='left').min()["StartProb"]
     return(df)
 
 def generate_dog_stats_simple_v6(df_in, df_g, rolling_window=10, factor=''):
