@@ -152,6 +152,7 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
     example_ct = 0  # number of examples seen
     batch_ct = 0
     m = nn.LogSoftmax(dim=1)
+    test_max_roi,val_max_roi = -1,-1
 
     num_batches = raceDB.batches['num_batches']
 
@@ -225,15 +226,21 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
             t7 = time.perf_counter()
 
 
-        if (epoch)%3==0:
+        if (epoch)%1==0:
             t8 = time.perf_counter()
             # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
             # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
-            test_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
-            # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+            test_stats = test_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
+            # # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
             # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
             # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
-            validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
+            val_stats = validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
+            if test_stats['ROI < 30'] > test_max_roi or val_stats['val_ROI < 30'] > val_max_roi:
+                raceDB.create_hidden_states_dict_v2()
+                test_max_roi = max(test_stats['ROI < 30'],test_max_roi)
+                val_max_roi = max(val_stats['val_ROI < 30'],val_max_roi)
+                print(f"New Max ROI: {test_max_roi} - {val_max_roi}")
+                model_saver_wandb(model, optimizer, epoch, test_max_roi, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
             t9 = time.perf_counter()
         if (epoch)%20==0:
             raceDB.create_hidden_states_dict_v2()
@@ -278,8 +285,8 @@ def clean_data(df):
         )
     )
 
-    df['profit < 30'] = np.where(df['prices'] < 30, df['profit'], 0)
-    df['outlay < 30'] = np.where(df['prices'] < 30, df['bet_amount'], 0)
+    df['profit < 30'] = np.where(df['prices'] < 8, df['profit'], 0)
+    df['outlay < 30'] = np.where(df['prices'] < 8, df['bet_amount'], 0)
 
     df['bet_amount2'] = np.where(
         (df['pred_prob2'] > df['imp_prob']) & (df['imp_prob'] > 0) & (df['imp_prob'] < 1),
@@ -358,7 +365,8 @@ def get_monte_carlo_predictions(data,
         with torch.no_grad():
             output,relu,output_p,= model(data, p1=False)
             if i == 0:
-                print(f"{output.shape=}")
+                # print(f"{output.shape=}")
+                pass
             output = softmax(output)  # shape (n_samples, n_classes)
         predictions = np.vstack((predictions, output.cpu().numpy()))
 
@@ -550,6 +558,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
         all_price_df['round_price'] = all_price_df['prices'].round(0)
         flat_price_df = all_price_df[['round_price','bet_amount','profit','profit_relu','bet_relu']].groupby('round_price').sum().cumsum().reset_index()
         flat_price_df['relu_roi'] = flat_price_df['profit_relu']/flat_price_df['bet_relu']
+        flat_price_df['roi'] = flat_price_df['profit_relu']/flat_price_df['bet_amount']
         flat_price_df_wandb = wandb.Table(dataframe=flat_price_df.reset_index())
 
         flat_date_df_wandb = wandb.Table(dataframe=flat_date_df.reset_index())
@@ -603,7 +612,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
         wandb.log(stats_dict)
         wandb.log({"accuracy2": correct/len_test})
 
-        return accuracy
+        return stats_dict
 
 @torch.no_grad()
 def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,epoch=10,config=None,device='cuda:0'):
@@ -681,6 +690,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
         all_price_df['round_price'] = all_price_df['prices'].round(0)
         flat_price_df = all_price_df[['round_price','bet_amount','profit','profit_relu','bet_relu']].groupby('round_price').sum().cumsum().reset_index()
         flat_price_df['relu_roi'] = flat_price_df['profit_relu']/flat_price_df['bet_relu']
+        flat_price_df['roi'] = flat_price_df['profit_relu']/flat_price_df['bet_amount']
         flat_price_df_wandb = wandb.Table(dataframe=flat_price_df.reset_index())
 
         flat_date_df_wandb = wandb.Table(dataframe=flat_date_df.reset_index())
@@ -733,4 +743,4 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
         wandb.log(stats_dict)
         wandb.log({"accuracy2": correct/len_test})
 
-        return accuracy
+        return stats_dict

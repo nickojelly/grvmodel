@@ -14,8 +14,8 @@ import datetime
 from goto_conversion import goto_conversion
 import wandb
 import matplotlib.pyplot as plt
-
-
+import torch.optim as optim
+from collections import defaultdict
 class DogInput:
     def __init__(self, dogid, raceid,stats, dog,dog_box, hidden_state, bfsp, sp, margin=None, hidden_size=64) -> None:
         self.dogid= dogid
@@ -632,7 +632,7 @@ class Races:
         if hidden_size==None:
             hidden_size = self.hidden_size
 
-        self.dogsDict['nullDog'].input.hidden_out = (-torch.ones(hidden_size+hidden_size)).to(device)
+        self.dogsDict['nullDog'].input.hidden_out = (-torch.ones(hidden_size)).to(device)
         # self.dogsDict['nullDog'].race_input = (-torch.ones(hidden_size)).to('cuda:0')
         for dog in self.dogsDict.values():
             dog.hidden = hidden_state_param
@@ -1733,72 +1733,18 @@ class GRUNetv3_extra(nn.Module):
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
 
-
-
-class GRUNetv4_stacking(nn.Module):
-    def __init__(self,raceDB:Races, input_size, hidden_size,num_models,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
-        super(GRUNetv4_stacking, self).__init__()
-        self.hidden_size = hidden_size
-
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(dropout)
-        self.fc_0 = nn.Linear(8*num_models,8*num_models)
-        self.fc_1 = nn.Linear(8*num_models,8)
-
-        for i in range(num_models):
-            setattr(self, f'model_{i}', GRUNetv4_extra(raceDB,input_size,hidden_size,hidden,output,dropout,fc0_size,fc1_size,num_layers,data_mask_size,model_number=i))
-        self.model_list:[GRUNetv4_extra] = [getattr(self, f'model_{i}') for i in range(num_models)]
-        if output =='raw':
-            self.output_fn = nn.Identity()
-        elif output =='softmax':
-            self.output_fn = nn.Softmax(dim=1)
-        elif output =='log_softmax':
-            self.output_fn = nn.LogSoftmax(dim=1)
-        else:
-            raise
-
-
-
-    # x represents our data
-    def forward(self, x, x_d, dog_input, batch_races, stacking=True):
-        outputs = []
-        relus = []
-        output_ps = []
-        if stacking:
-            for i,model in enumerate(self.model_list):
-                # print(f"running model {i}")
-                output,relu,output_p = model.forward(x, x_d, dog_input, batch_races)
-                outputs.append(output)
-                relus.append(relu)
-                output_ps.append(output_p)
-            outputs = torch.cat(outputs,dim=-1)
-            # print(f"{outputs.shape=}")
-            outputs = self.fc_0(outputs)
-            outputs_relu = self.relu(outputs)
-            outputs = self.dropout(outputs_relu)
-            outputs = self.fc_1(outputs)
-            return outputs, outputs_relu, outputs           
-        else:
-            for i,model in enumerate(self.model_list):
-                # print(f"running model {i}")
-                output,relu,output_p = model.forward(x[i], x_d[i], dog_input[i], batch_races[i])
-                outputs.append(output)
-                relus.append(relu)
-                output_ps.append(output_p)
-            return outputs,relus,output_ps
-
-
-
-
-
 class GRUNetv4_extra(nn.Module):
     def __init__(self,raceDB, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None,model_number=0):
         super(GRUNetv4_extra, self).__init__()
         self.raceDB = raceDB
+        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
+        self.hidden_dict = defaultdict(lambda: self.h0)
+
+
         self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
         self.relu = nn.ReLU()
         self.fc0 = nn.Linear(hidden_size,1)
-        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
+        
 
         self.batch_norm = nn.BatchNorm1d(input_size)
         self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
@@ -1817,6 +1763,7 @@ class GRUNetv4_extra(nn.Module):
         #p2
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        self.fc0 = nn.Linear(((hidden_size) * 8)+70, hidden_size * 8)
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
         self.drop2 = nn.Dropout(dropout)
@@ -1836,22 +1783,33 @@ class GRUNetv4_extra(nn.Module):
         else:
             raise
 
+    def reset_hidden(self):
+        for dog in self.hidden_dict.keys():
+            self.hidden_dict[dog] = self.h0.detach()
+
     # x represents our data
-    def forward(self, x, x_d, dog_input, batch_races):
+    def forward(self, x, x_d, dog_input,dogs, batch_races):
         x_d = x_d.float()
         x = x.float()
         x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
         x = x._replace(data=self.batch_norm(x.data))
-        h = self.h0.unsqueeze(1).repeat(1,x.batch_sizes[0],1)
-        x,hidden = self.gru(x,h)
-
+        for dog in dogs:
+            self.hidden_dict[x].shape
+        # print(type(dogs))
+        # hidden_in = torch.stack([self.hidden_dict[x] for x in dogs]).transpose(0,1)
+        hidden_in = self.h0.unsqueeze(1).repeat(1,x.batch_sizes[0],1)
+        x,hidden = self.gru(x,hidden_in)
+        hidden = hidden.transpose(0,1)
         x = unpack_sequence(x)
         x_d = unpack_sequence(x_d)
         outs = []
         for i,dog in enumerate(x):
-            dog_simple = self.extra_1(x_d[i])
-            dog = torch.cat((dog,dog_simple),dim=1)
+            # dog_simple = self.extra_1(x_d[i])
+            # dog = torch.cat((dog,dog_simple),dim=1)
             outs.append(dog)
+
+        # for i,dog in enumerate(dogs):
+        #     self.hidden_dict[dog] = hidden[i].detach()
 
         for j,dog in enumerate(dog_input):
             [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,outs[j])]
@@ -1884,3 +1842,72 @@ class GRUNetv4_extra(nn.Module):
 
         output = self.output_fn(x), x_rl3, self.output_fn(x_p),
         return output
+
+class GRUNetv4_stacking(nn.Module):
+    def __init__(self,raceDB:Races, input_size, hidden_size,num_models,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
+        super(GRUNetv4_stacking, self).__init__()
+        self.hidden_size = hidden_size
+
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout(dropout)
+        self.fc_0 = nn.Linear(8*num_models,8*num_models)
+        self.fc_1 = nn.Linear(8*num_models,8)
+
+        self.fc_p0 = nn.Linear(8*num_models,8*num_models)
+        self.fc_p1 = nn.Linear(8*num_models,8)
+
+        for i in range(num_models):
+            setattr(self, f'model_{i}', GRUNetv4_extra(raceDB,input_size,hidden_size,hidden,output,dropout,fc0_size,fc1_size,num_layers,data_mask_size,model_number=i))
+        self.model_list:list[GRUNetv4_extra] = [getattr(self, f'model_{i}') for i in range(num_models)]
+        self.optim_list = [torch.optim.Adam(model.parameters(), lr=0.0005) for model in self.model_list]
+        self.scheduler_list = [torch.optim.lr_scheduler.ExponentialLR(optimizer,0.95) for optimizer in self.optim_list]
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+
+
+    # x represents our data
+    def forward(self, x, x_d, dog_input, dogs, batch_races, stacking=True):
+        outputs = []
+        relus = []
+        output_ps = []
+        if stacking:
+            for i,model in enumerate(self.model_list):
+                # print(f"running model {i}")
+                output,relu,output_p = model.forward(x, x_d, dog_input,dogs, batch_races)
+                outputs.append(output)
+                relus.append(relu)
+                output_ps.append(output_p)
+            outputs = torch.cat(outputs,dim=-1).detach()
+            # print(f"{outputs.shape=}")
+            outputs = self.fc_0(outputs)
+            outputs_relu = self.relu(outputs)
+            outputs = self.dropout(outputs_relu)
+            outputs = self.fc_1(outputs)
+
+            output_ps = torch.cat(output_ps,dim=-1).detach()
+            output_ps = self.fc_p0(output_ps)
+            output_ps_relu = self.relu(output_ps)
+            output_ps = self.dropout(output_ps_relu)
+            output_ps = self.fc_p1(output_ps)
+
+            return outputs, outputs_relu, output_ps         
+        else:
+            for i,model in enumerate(self.model_list):
+                # print(f"running model {i}")
+                output,relu,output_p = model.forward(x[i], x_d[i], dog_input[i],dogs[i], batch_races[i])
+                outputs.append(output)
+                relus.append(relu)
+                output_ps.append(output_p)
+            return outputs,relus,output_ps
+
+
+
+
+
