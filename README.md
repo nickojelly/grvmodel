@@ -6,3 +6,6 @@ This repository contains the code and resources for a project that uses a Gated 
 
 This project aims to predict the outcomes of greyhound races based on previous form data. The model used is a GRU, a type of recurrent neural network that is particularly suited to time-series data.
 
+## More Info
+
+For more info please see https://www.nbdata.co/blog/
