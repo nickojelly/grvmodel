@@ -12,7 +12,7 @@ import numpy as np
 from rnn_tools.model_saver import model_saver_wandb
 from torchviz import make_dot
 from rnn_tools.model_saver import model_saver_wandb
-
+import gc
 def validation_CLE(x,y):
     loss_t = -torch.log(torch.exp(x)/torch.sum(torch.exp(x), dim=-1, keepdim=True))*y
     return loss_t
@@ -59,6 +59,41 @@ def gen_vega_spec(model, base_stat):
     }
     return vega_spec
 
+def load_model_cache(raceDB:Races,model:GRUNetv4_extra):
+    num_batches = raceDB.batches['num_batches']
+    model.eval()
+    model.cuda()
+    for i in range(num_batches):
+        _  = model(raceDB.batches['packed_x'][i],
+                            raceDB.packed_x_data[i],
+                            raceDB.batches['train_dog_input'][i],
+                            raceDB.batches['dogs'][i],
+                            raceDB.batches['batch_races'][i],
+                            # stacking=True
+                            )
+    len_test = len(raceDB.test_dog_ids)
+    test_idx = range(0,len_test)
+    race = raceDB.get_test_input(test_idx)
+    _ = model(
+        raceDB.batches['packed_y'],
+        raceDB.packed_y_data,
+        [inner for inner in [x for x in raceDB.get_dog_test(test_idx)]],
+        [x for x in  raceDB.test_dogs.values()] ,
+        race,
+        # stacking=True
+        )
+    len_test = len(raceDB.val_dog_ids)
+    test_idx = range(0,len_test)
+    race = raceDB.get_val_input(test_idx)
+    _ = model(
+        raceDB.batches['packed_v'],
+        raceDB.packed_v_data,
+        [inner for inner in [x for x in raceDB.get_dog_val(test_idx)]],
+        [x for x in  raceDB.val_dogs.values()] ,
+        race,
+        # stacking=True
+        )
+        
 
 # @torch.amp.autocast(device_type='cuda')
 def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntropyLoss, optimizer,scheduler, config=None,update=False):
@@ -72,14 +107,15 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
     print(model.model_list[0])
 
     for epoch in trange(epochs):
-        model.train()
-        hidden_state_init = model.model_list[0].h0
-        raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+        # model.train()
+        # model.train_ensemble()
+        # hidden_state_init = model.model_list[0].h0
+        # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
 
-        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+config['f1_layer_size'])).to('cuda:0')
-        epoch_loss = []
-        epoch_loss_p = []
-        with torch.cuda.amp.autocast():
+        # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+config['f1_layer_size'])).to('cuda:0')
+        # epoch_loss = []
+        # epoch_loss_p = []
+        # with torch.cuda.amp.autocast():
 
             # output,_,output_p = model(raceDB.batches['packed_x'],
             #                             raceDB.packed_x_data,
@@ -126,7 +162,7 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
 
             # print(epoch_loss)
             # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-            raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+            # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
 
         # continue
 
@@ -141,14 +177,32 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
         #     wandb.log({f"loss_avg": torch.mean(epoch_loss).item(), 'epoch':epoch})
 
         # Ensemble
-        with torch.cuda.amp.autocast():
-            for i in range(num_batches):
 
+        t6 = time.perf_counter()
+        # if not update:
+        #     # print(epoch_loss)
+        #     epoch_loss = torch.stack(epoch_loss)
+        #     epoch_loss_p = torch.stack(epoch_loss_p)
+        #     optimizer.zero_grad()
+        #     (epoch_loss_p+epoch_loss).mean().backward()
+        #     optimizer.step()
+        #     wandb.log({f"loss_avg": torch.mean(epoch_loss).item(), 'epoch':epoch})
+
+        #Ensemble
+        with torch.cuda.amp.autocast():
+            losses = torch.tensor(0)
+            t0 = time.perf_counter()
+            for i in range(num_batches):
+                # print(i)
+                t1 = time.perf_counter()
                 output,_,output_p = model(raceDB.batches['packed_x'][i],
                                             raceDB.packed_x_data[i],
                                             raceDB.batches['train_dog_input'][i],
+                                            raceDB.batches['dogs'][i],
                                             raceDB.batches['batch_races'][i],
-                                            stacking=True)
+                                            stacking=True) 
+                t2 = time.perf_counter()
+                print(f"Time to forward pass: {t2 - t1} seconds")
 
                 race = raceDB.batches['batch_races'][i]
                 y = torch.stack([x.classes for x in race])
@@ -160,26 +214,34 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
                 epoch_loss = criterion(output, y)*w
                 epoch_loss_p = criterion(output_p, y_p)*w
                 epoch_loss_ohe = criterion(output, y_ohe)*w
-
-
-
+                losses = (epoch_loss+epoch_loss_p+epoch_loss_ohe).mean()
+                
+                t3 = time.perf_counter()
                 optimizer.zero_grad()
-                (epoch_loss+epoch_loss_p+epoch_loss_ohe).mean().backward()
+                losses.mean().backward()
                 optimizer.step()
-                wandb.log({f"loss_ensemble": torch.mean(epoch_loss).item(), 'epoch':epoch})
-
-        if (epoch)%1==0:
+                model.zero_grad()
+                t4 = time.perf_counter()
+                # print(f"Time to backward pass: {t4 - t3} seconds")
+            t01 = time.perf_counter()
+            print(f"Time to train: {t01 - t0} seconds")
+            gc.collect()
+            torch.cuda.empty_cache()
+        if (epoch)%5==0:
+            t7 = time.perf_counter()
             # for i in range(num_batches-1):
             #     simple_model = model.model_list[i]
             #     test_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
             model = model.eval()
             test_model_v3(model,raceDB, criterion=criterion, epoch=epoch,ensemble=True)
             validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch,ensemble=True)
-            # for i in range(5):
-            #     simple_model = model.model_list[i]
-            #     test_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
-            #     validate_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
-
+            if epoch%100==0:
+                for i in range(len(model.model_list)):
+                    simple_model = model.model_list[i]
+                    test_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
+                    validate_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
+            t8 = time.perf_counter()
+            print(f"Time to test: {t8 - t7} seconds")
         if epoch==0:
             # Generate the Vega specification
             vega_spec = gen_vega_spec(model, "accuracy")
@@ -369,6 +431,7 @@ def validate_model_pass(model: GRUNetv3,
                 raceDB.batches['packed_y'],
                 raceDB.packed_y_data,
                 [inner for inner in [x for x in raceDB.get_dog_test(test_idx)]],
+                [x for x in  raceDB.test_dogs.values()] ,
                 race,
                 stacking=True)
         else:
@@ -376,6 +439,7 @@ def validate_model_pass(model: GRUNetv3,
                 raceDB.batches['packed_v'],
                 raceDB.packed_v_data,
                 [inner for inner in [x for x in raceDB.get_dog_val(test_idx)]],
+                [x for x in  raceDB.val_dogs.values()] ,
                 race,
                 stacking=True)
     else:
@@ -384,6 +448,7 @@ def validate_model_pass(model: GRUNetv3,
                 raceDB.batches['packed_y'],
                 raceDB.packed_y_data,
                 [inner for inner in [x for x in raceDB.get_dog_test(test_idx)]],
+                [x for x in  raceDB.test_dogs.values()] ,
                 race,
                 )
         else:
@@ -391,6 +456,7 @@ def validate_model_pass(model: GRUNetv3,
                 raceDB.batches['packed_v'],
                 raceDB.packed_v_data,
                 [inner for inner in [x for x in raceDB.get_dog_val(test_idx)]],
+                [x for x in  raceDB.val_dogs.values()] ,
                 race,
                 )
 
@@ -572,9 +638,9 @@ def test_model_v3(model:GRUNetv4_extra,raceDB:Races,criterion=None, batch_size=N
         # simple_df = wandb.Table(dataframe=all_price_df[['imp_prob','pred_prob', 'loss','onehot_win' ]].reset_index())
 
 
-        print(correct)
-        print( correct/len(raceDB.test_race_ids))
-        print(accuracy)
+        # print(correct)
+        # print( correct/len(raceDB.test_race_ids))
+        # print(accuracy)
         stats_dict = {F"accuracy/{model_num}": correct/len(raceDB.test_race_ids),
                     # 'multibet profit':all_price_df['profit'].sum(),
                     # 'multibet profit < 30':all_price_df['profit < 30'].sum(),
@@ -695,9 +761,9 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
         # flat_date_df['roi<30_relu'] = flat_date_df['profit_relu<30']/flat_date_df['bet_relu<30']
         # flat_date_df['roi<30'] = flat_date_df['profit < 30']/flat_date_df['outlay < 30']
         # flat_date_df_sum_wandb = wandb.Table(dataframe=flat_date_df.reset_index())
-        print(correct)
-        print( correct/len(raceDB.test_race_ids))
-        print(accuracy)
+        # print(correct)
+        # print( correct/len(raceDB.test_race_ids))
+        # print(accuracy)
 
         stats_dict = {F"val_accuracy/{model_num}_": correct/len(raceDB.val_race_ids),
                     # 'val_multibet profit':all_price_df['profit'].sum(),

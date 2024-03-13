@@ -19,13 +19,15 @@ from tqdm.notebook import tqdm
 from sklearn.preprocessing import OneHotEncoder
 from ft_sec_key import SECKEY
 import logging
+import concurrent.futures
+import numpy as np
 
-def update_results_data():
+
+def update_results_data_week(start_date, end_date):
     seckey = SECKEY
     greys = ft.Fasttrack(seckey)
-    today = (datetime.today()+timedelta(days=1)).strftime('%Y-%m-%d')
-    lastweek = (datetime.today()-timedelta(days=120)).strftime('%Y-%m-%d')
-    race_details, dog_results = greys.getRaceResults(lastweek, dt_end=today)
+
+    race_details, dog_results = greys.getRaceResults(start_date.strftime('%Y-%m-%d'), dt_end=end_date.strftime('%Y-%m-%d'))
     print(f"race detail cols = {race_details.columns}, dog detail cols = {dog_results.columns}")
     race_details = race_details.rename(columns={'@id':'RaceId'})
     dog_results = dog_results.rename(columns={'@id':'DogId'})
@@ -33,23 +35,46 @@ def update_results_data():
     all_results = all_results[all_results['Place']!=None]
     return all_results
 
+def update_results_data():
+    today = datetime.today() + timedelta(days=1)
+    lastweek = datetime.today() - timedelta(days=500)
 
-def update_basic_form_data():
+    weeks = np.arange(lastweek, today, timedelta(days=7)).astype(datetime)
+    weeks = np.append(weeks, today)
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        all_results = list(executor.map(update_results_data_week, weeks[:-1], weeks[1:]))
+
+    all_results = pd.concat(all_results)
+    return all_results
+
+def update_basic_form_data_week(start_date, end_date):
     seckey = SECKEY
     greys = ft.Fasttrack(seckey)
-    today = (datetime.today()+timedelta(days=1)).strftime('%Y-%m-%d')
-    lastweek = (datetime.today()-timedelta(days=120)).strftime('%Y-%m-%d')
 
-    race_details, dog_results = greys.getBasicFormat(lastweek, dt_end=today)
+    race_details, dog_results = greys.getBasicFormat(start_date.strftime('%Y-%m-%d'), dt_end=end_date.strftime('%Y-%m-%d'))
     race_details['RaceId'] = race_details['@id']
     dog_results['DogId'] = dog_results['@id']
     dog_results['box'] = dog_results['RaceBox']
     basic_form = dog_results.merge(race_details,how='left', on='RaceId')[['@id_x', '@id_y', 'DogGrade']]
     basic_form = basic_form.rename(columns={'@id_x':'DogId','@id_y':'RaceId'})
-    old_merge = pd.read_pickle(r'./DATA/all basic form merged.npy')
-    all_races = pd.concat([old_merge,basic_form])
+    return basic_form
+
+def update_basic_form_data():
+    today = datetime.today() + timedelta(days=1)
+    lastweek = datetime.today() - timedelta(days=500)
+
+    weeks = np.arange(lastweek, today, timedelta(days=7)).astype(datetime)
+    weeks = np.append(weeks, today)
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        basic_forms = list(executor.map(update_basic_form_data_week, weeks[:-1], weeks[1:]))
+
+    all_races = pd.read_pickle(r'./DATA/all basic form merged.npy')
+    all_races = pd.concat([all_races] + basic_forms)
     all_races.drop_duplicates(subset=['DogId','RaceId'],keep='last')
     all_races.to_pickle(r'./DATA/all basic form merged.npy')
+
     return all_races
 
 
@@ -68,7 +93,7 @@ if __name__ == "__main__":
     # prev_full_details = r"results-df-merged-prices_cut.csv"
     prev_full_details = r"./DATA/results-df-merged-prices_cut.fth"
 
-    update = False
+    update = True
 
     if update:
         dog_results = update_results_data()

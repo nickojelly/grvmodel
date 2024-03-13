@@ -80,15 +80,18 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
 
     print(model.model_list[0])
     print_cuda_memory_usage()
+    hidden_state_init = model.model_list[0].h0.detach()
+    raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+    raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size'])).to('cuda:0')
 
     for epoch in trange(epochs):
         model.train()
-        hidden_state_init = model.model_list[0].h0
-        raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+        # hidden_state_init = model.model_list[0].h0.detach()
+        # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
 
-        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size'])).to('cuda:0')
-        epoch_loss = []
-        epoch_loss_p = []
+        # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size'])).to('cuda:0')
+        # epoch_loss = []
+        # epoch_loss_p = []
         with torch.cuda.amp.autocast():
 
             output,_,output_p = model(raceDB.batches['packed_x'],
@@ -105,27 +108,21 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
             y_p = [torch.stack([x.prob for x in race]) for race in raceDB.batches['batch_races']]
             w = [torch.stack([x.new_win_weight for x in race]) for race in raceDB.batches['batch_races']]
 
-
-            # y = torch.cat([torch.stack([x.classes for x in race]) for race in raceDB.batches['batch_races']],dim=0)
-            # y_ohe = torch.cat([torch.stack([x.one_hot_class for x in race]) for race in raceDB.batches['batch_races']],dim=0)
-            # y_p = torch.cat([torch.stack([x.prob for x in race]) for race in raceDB.batches['batch_races']],dim=0)
-            # w = torch.cat([torch.stack([x.new_win_weight for x in race]) for race in raceDB.batches['batch_races']],dim=0)
-
-            # loss = [(criterion(output[i], y[i])*w[i]) for i in range(num_batches-1)]
-            # loss_p = [(criterion(output_p[i], y_p[i])*w[i]) for i in range(num_batches-1)]
-            # loss_ohe = [(criterion(output[i], y_ohe[i])*w[i]) for i in range(num_batches-1)]
-            # wandb.log({f"loss_{i}": torch.mean(loss.mean()).item() for i,loss in enumerate(loss)})
+            loss = [(criterion(output[i], y[i])*w[i]) for i in range(num_batches-1)]
+            loss_p = [(criterion(output_p[i], y_p[i])*w[i]) for i in range(num_batches-1)]
+            loss_ohe = [(criterion(output[i], y_ohe[i])*w[i]) for i in range(num_batches-1)]
+            wandb.log({f"loss_{i}": torch.mean(loss.mean()).item() for i,loss in enumerate(loss)})
             # print("loss simple")
             # print_cuda_memory_usage()
 
-            # for i in range(num_batches-1):
-            #     optimizer_single = model.optim_list[i]
-            #     optimizer_single.zero_grad()
-            #     (loss[i]+loss_p[i]+loss_ohe[i]).mean().backward()
-            #     optimizer_single.step()
-            #     model.model_list[i].zero_grad(set_to_none=True)
-            #     if epoch>100:
-            #         model.scheduler_list[i].step()
+            for i in range(num_batches-1):
+                optimizer_single = model.optim_list[i]
+                optimizer_single.zero_grad()
+                (loss[i]+loss_p[i]+loss_ohe[i]).mean().backward()
+                optimizer_single.step()
+                model.model_list[i].zero_grad(set_to_none=True)
+                if epoch>100:
+                    model.scheduler_list[i].step()
 
             # print_cuda_memory_usage()
 
@@ -162,68 +159,65 @@ def train_double_v3(model:GRUNetv4_stacking,raceDB:Races, criterion:nn.CrossEntr
         #     wandb.log({f"loss_avg": torch.mean(epoch_loss).item(), 'epoch':epoch})
 
         #Ensemble
-        # with torch.cuda.amp.autocast():
-        #     losses = torch.tensor(0)
-        #     for i in range(num_batches):
+        with torch.cuda.amp.autocast():
+            losses = torch.tensor(0)
+            for i in range(num_batches):
+                print(i)
 
-        #         output,_,output_p = model(raceDB.batches['packed_x'][i],
-        #                                     raceDB.packed_x_data[i],
-        #                                     raceDB.batches['train_dog_input'][i],
-        #                                     raceDB.batches['dogs'][i],
-        #                                     raceDB.batches['batch_races'][i],
-        #                                     stacking=True) 
-        #         print("stack_output")
+                output,_,output_p = model(raceDB.batches['packed_x'][i],
+                                            raceDB.packed_x_data[i],
+                                            raceDB.batches['train_dog_input'][i],
+                                            raceDB.batches['dogs'][i],
+                                            raceDB.batches['batch_races'][i],
+                                            stacking=True) 
+                print("stack_output")
                 
-        #         print_cuda_memory_usage()
+                print_cuda_memory_usage()
 
-        #         race = raceDB.batches['batch_races'][i]
-        #         y = torch.stack([x.classes for x in race])
-        #         y_ohe = torch.stack([x.one_hot_class for x in race])
-        #         y_p = torch.stack([x.prob for x in race])
-        #         w = torch.stack([x.new_win_weight for x in race])
+                race = raceDB.batches['batch_races'][i]
+                y = torch.stack([x.classes for x in race])
+                y_ohe = torch.stack([x.one_hot_class for x in race])
+                y_p = torch.stack([x.prob for x in race])
+                w = torch.stack([x.new_win_weight for x in race])
 
 
-        #         epoch_loss = criterion(output, y)*w
-        #         epoch_loss_p = criterion(output_p, y_p)*w
-        #         epoch_loss_ohe = criterion(output, y_ohe)*w
-        #         losses = (epoch_loss+epoch_loss_p+epoch_loss_ohe).mean()
+                epoch_loss = criterion(output, y)*w
+                epoch_loss_p = criterion(output_p, y_p)*w
+                epoch_loss_ohe = criterion(output, y_ohe)*w
+                losses = (epoch_loss+epoch_loss_p+epoch_loss_ohe).mean()
                 
-        #         optimizer.zero_grad()
-        #         losses.mean().backward()
-        #         optimizer.step()
-        #         model.zero_grad()
-        #         print("stack loss")
-        #         print_cuda_memory_usage()
+                optimizer.zero_grad()
+                losses.mean().backward()
+                optimizer.step()
+                model.zero_grad()
+                print("stack loss")
+                print_cuda_memory_usage()
 
 
-        #     # model.zero_grad()
-        #     # optimizer.zero_grad()
-        #     # losses.mean().backward()
-        #     # optimizer.step()
-        #     wandb.log({f"loss_ensemble": torch.mean(losses).item(), 'epoch':epoch})
-        #     print("stacking")
-        #     print_cuda_memory_usage()
-        #     torch.cuda.empty_cache()
+            # model.zero_grad()
+            # optimizer.zero_grad()
+            # losses.mean().backward()
+            # optimizer.step()
+            wandb.log({f"loss_ensemble": torch.mean(losses).item(), 'epoch':epoch})
+            print("stacking")
+            print_cuda_memory_usage()
+            torch.cuda.empty_cache()
 
-        # if (epoch)%39000==0:
-        #     with torch.no_grad():
-        #         # for i in range(num_batches-1):
-        #         #     simple_model = model.model_list[i]
-        #         #     test_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
-        #         # asd
-        #         model = model.eval()
-        #         test_model_v3(model,raceDB, criterion=criterion, epoch=epoch,ensemble=True)
-        #         validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch,ensemble=True)
-        #         for i in range(num_batches-1):
-        #             simple_model = model.model_list[i]
-        #             test_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
-        #             validate_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
+        if (epoch)%3==0:
+            with torch.no_grad():
+                model = model.eval()
+                test_model_v3(model,raceDB, criterion=criterion, epoch=epoch,ensemble=True)
+                validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch,ensemble=True)
+                for i in range(num_batches-1):
+                    simple_model = model.model_list[i]
+                    test_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
+                    validate_model_v3(simple_model,raceDB, criterion=criterion, epoch=epoch)
 
-        #         for i in range(num_batches-1):
-        #             simple_model = model.model_list[i]
-        #             simple_model.reset_hidden()
-        #         print("testing")
-        #         print_cuda_memory_usage()
+                for i in range(num_batches-1):
+                    simple_model = model.model_list[i]
+                    simple_model.reset_hidden()
+                print("testing")
+                print_cuda_memory_usage()
 
 
 

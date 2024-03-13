@@ -425,7 +425,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
 
-        all_price_df = all_price_df[all_price_df['prices']>1]
+        # all_price_df = all_price_df[all_price_df['prices']>1]
 
         all_price_df = clean_data(all_price_df)
 
@@ -486,6 +486,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
         wandb.log(stats_dict)
 
         flat_track_df.to_csv(f'./model_all_price/{wandb.run.name} - flat_df.csv')
+        all_price_df.reset_index().to_excel(f'./model_all_price/{wandb.run.name} - all_price_df.xlsx')
 
         if epoch%100==0:
             all_price_df.reset_index().to_feather(f'./model_all_price/{wandb.run.name} - all_price_df.fth')
@@ -549,7 +550,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
 
-        all_price_df = all_price_df[all_price_df['prices']>1]
+        # all_price_df = all_price_df[all_price_df['prices']>1]
 
         all_price_df = clean_data(all_price_df)
 
@@ -612,7 +613,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
 
         flat_track_df.to_csv(f'./model_all_price/{wandb.run.name} - flat_df.csv')
 
-        all_price_df.reset_index().to_excel(f'./model_all_price/{wandb.run.name} - all_price_df.xlsx')
+        all_price_df.reset_index().to_excel(f'./model_all_price/{wandb.run.name} - val_all_price_df.xlsx')
 
         if epoch%100==0:
             all_price_df.reset_index().to_feather(f'./model_all_price/{wandb.run.name} - all_price_df.fth')

@@ -89,7 +89,7 @@ class Dog:
         self.hidden = torch.zeros(2, hidden_size).to('cuda:0')
         self.hidden_filled = 0
         self.l_debug = None
-        self.races = {} #:dict[str,DogInput]
+        self.races :dict[str,DogInput] = {} #
         self.race_train = [] #[DogInput]
         self.races_test = [] #[DogInput]
 
@@ -120,7 +120,7 @@ class Race:
         self.dog6 = dogs_list[5]
         self.dog7 = dogs_list[6]
         self.dog8 = dogs_list[7]
-        self.dogs = dogs_list
+        self.dogs:list[DogInput] = dogs_list
 
     def add_track_name(self, track_name):
         self.track_name = track_name
@@ -185,8 +185,8 @@ class Race:
 
 class Races:
     def __init__(self, hidden_size:int, layers:int, batch_size = 100, device='cuda:0') -> None:
-        self.racesDict = {}#  dict[str,Race]
-        self.dogsDict = {}# dict[str,Dog]
+        self.racesDict :dict[str,Race] = {}
+        self.dogsDict :dict[str,Dog] = {}
         self.raceIDs = []
         self.dog_ids = []
         self.hidden_size = hidden_size
@@ -658,6 +658,17 @@ class Races:
         for dog in self.dogsDict.values():
             dog.hidden = dog.hidden.detach()
             dog.cell = dog.cell.detach()
+
+    def del_hidden(self):
+        for dog in self.dogsDict.values():
+            del dog.hidden
+            del dog.cell
+            for dog_input in dog.races.values():
+                try:
+                    del dog_input.hidden_out
+                except:
+                    pass
+                
 
 class GRUNetv3(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
@@ -1629,12 +1640,12 @@ class GRUNetv3_extra(nn.Module):
         
 
         #p1
-        self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
-        self.fc0_p1_drop = nn.Dropout(dropout)
-        self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
-        self.fc0_p2_drop = nn.Dropout(dropout)
-        self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
-        self.fc0_p3_drop = nn.Dropout(dropout)
+        # self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
+        # self.fc0_p1_drop = nn.Dropout(dropout)
+        # self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
+        # self.fc0_p2_drop = nn.Dropout(dropout)
+        # self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
+        # self.fc0_p3_drop = nn.Dropout(dropout)
 
         #p2
         # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
@@ -1733,6 +1744,132 @@ class GRUNetv3_extra(nn.Module):
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
 
+
+class GRUNetv3_extra_infrence(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
+        super(GRUNetv3_extra_infrence, self).__init__()
+        self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
+
+        self.batch_norm = nn.BatchNorm1d(input_size)
+        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
+
+        #extra data
+        self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+
+        #p2
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        # self.drop0 = nn.Dropout(dropout)
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        #price
+        # self.price_fc2 = nn.Linear(hidden_size*4, fc1_size)
+        # self.price_drop3 = nn.Dropout(dropout)
+        # self.price_fc3 = nn.Linear(fc1_size, 8)
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False):
+
+        if p1:
+            x,x_d = x
+            # x = self.batch_norm(x)
+            x_d = x_d.float()
+            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
+            x = x.float()
+            x_d = x_d.float()
+            x = x._replace(data=self.batch_norm(x.data))
+            x_og = x
+
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            x_d = unpack_sequence(x_d)
+            x_og = unpack_sequence(x_og)
+            outs = []
+            for i,dog in enumerate(x):
+                # dist = self.extra_1(x_d[i][:,0:20])
+                # box = self.extra_2(x_d[i][:,20:40])
+                # track_box = self.extra_3(x_d[i][:,40:60])
+                # t_dist = self.extra_4(x_d[i][:,60:80])
+                # dog = torch.cat((dog,dist,box,track_box,t_dist),dim=1)
+                dog_simple = self.extra_1(x_d[i])
+                dog = torch.cat((dog,dog_simple),dim=1)
+                outs.append(dog)
+            # print(f"{outs[0].shape=} ")
+            return outs,hidden
+        else:
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.relu(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.relu(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.relu(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+            return output
+
+class GRUNetv3_profit(nn.Module):
+    def __init__(self,raceDB:Races):
+        super(GRUNetv3_profit, self).__init__()
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+        self.softmax = nn.Softmax(dim=-1)
+        self.dropout = nn.Dropout(0.3)
+
+        self.fc0 = nn.Linear(8*3, 64)
+        self.fc1 = nn.Linear(64, 128)
+        self.fc2 = nn.Linear(128, 8)
+
+    def forward(self, output, output_p, prices):
+        output = output.float().detach()
+        output_p = output_p.float().detach()
+        prices = prices.float()
+        x = torch.cat([output,output_p,prices],dim=-1)
+        x = self.fc0(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc2(x)
+        x = self.softmax(x)
+        return x
+
 class GRUNetv4_extra(nn.Module):
     def __init__(self,raceDB, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None,model_number=0):
         super(GRUNetv4_extra, self).__init__()
@@ -1763,7 +1900,7 @@ class GRUNetv4_extra(nn.Module):
         #p2
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
-        self.fc0 = nn.Linear(((hidden_size) * 8)+70, hidden_size * 8)
+        # self.fc0 = nn.Linear(((hidden_size) * 8)+70, hidden_size * 8)
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
         self.drop2 = nn.Dropout(dropout)
@@ -1781,67 +1918,77 @@ class GRUNetv4_extra(nn.Module):
         elif output =='log_softmax':
             self.output_fn = nn.LogSoftmax(dim=1)
         else:
-            raise
+            raise   
+
+        self.output_cache = {}
 
     def reset_hidden(self):
         for dog in self.hidden_dict.keys():
             self.hidden_dict[dog] = self.h0.detach()
 
+
     # x represents our data
     def forward(self, x, x_d, dog_input,dogs, batch_races):
-        x_d = x_d.float()
-        x = x.float()
-        x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
-        x = x._replace(data=self.batch_norm(x.data))
-        for dog in dogs:
-            self.hidden_dict[x].shape
-        # print(type(dogs))
-        # hidden_in = torch.stack([self.hidden_dict[x] for x in dogs]).transpose(0,1)
-        hidden_in = self.h0.unsqueeze(1).repeat(1,x.batch_sizes[0],1)
-        x,hidden = self.gru(x,hidden_in)
-        hidden = hidden.transpose(0,1)
-        x = unpack_sequence(x)
-        x_d = unpack_sequence(x_d)
-        outs = []
-        for i,dog in enumerate(x):
-            # dog_simple = self.extra_1(x_d[i])
-            # dog = torch.cat((dog,dog_simple),dim=1)
-            outs.append(dog)
+        if batch_races[0].raceid in self.output_cache.keys():
+            # print('cached')
+            return self.output_cache[batch_races[0].raceid]
+        else:
+            x_d = x_d.float()
+            x = x.float()
+            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
+            x = x._replace(data=self.batch_norm(x.data))
+            for dog in dogs:
+                self.hidden_dict[dog].shape
+            # print(type(dogs))
+            hidden_in = torch.stack([self.hidden_dict[x] for x in dogs]).transpose(0,1)
+            # hidden_in = self.h0.unsqueeze(1).repeat(1,x.batch_sizes[0],1)
+            x,hidden = self.gru(x,hidden_in)
+            hidden = hidden.transpose(0,1)
+            x = unpack_sequence(x)
+            x_d = unpack_sequence(x_d)
+            outs = []
+            for i,dog in enumerate(x):
+                dog_simple = self.extra_1(x_d[i])
+                dog = torch.cat((dog,dog_simple),dim=1)
+                outs.append(dog)
 
-        # for i,dog in enumerate(dogs):
-        #     self.hidden_dict[dog] = hidden[i].detach()
+            for i,dog in enumerate(dogs):
+                self.hidden_dict[dog] = hidden[i].detach()
 
-        for j,dog in enumerate(dog_input):
-            [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,outs[j])]
+            for j,dog in enumerate(dog_input):
+                [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,outs[j])]
 
-        [setattr(race, 'hidden_in', torch.cat([race.race_dist]+[race.race_track]+[d.hidden_out for d in race.dogs])) for race in batch_races]
+            [setattr(race, 'hidden_in', torch.cat([race.race_dist]+[race.race_track]+[d.hidden_out for d in race.dogs])) for race in batch_races]
 
-        x = torch.stack([r.hidden_in for r in batch_races])
-        # print(f"p2 running model {self.model_number}")
-        x = x.float()
-        # x  = self.layer_norm2(x)
-        x = self.relu0(x)
-        # x = self.drop0(x)
-        x = self.fc0(x)
-        x = self.relu(x)
-        x = self.drop1(x)
-        x = self.fc1(x)
-        x = self.relu(x)
-        x_e = self.drop2(x)
-        #regular
-        x = self.fc2(x_e)
-        x_rl3 = self.relu(x)
-        x = self.drop3(x_rl3)
-        x = self.fc3(x)
-        #price
-        x_p = self.fc2(x_e)
-        x_p_rl3 = self.relu(x_p)
-        x_p = self.drop3(x_p_rl3)
-        x_p = self.fc3(x_p)
-        self.output = self.output_fn(x)
+            x = torch.stack([r.hidden_in for r in batch_races])
+            # print(f"p2 running model {self.model_number}")
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.relu(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.relu(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.relu(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+            self.output = self.output_fn(x)
 
-        output = self.output_fn(x), x_rl3, self.output_fn(x_p),
-        return output
+            output = self.output_fn(x).detach(), x_rl3.detach(), self.output_fn(x_p).detach(),
+
+            self.output_cache[batch_races[0].raceid] = output
+
+            return output
 
 class GRUNetv4_stacking(nn.Module):
     def __init__(self,raceDB:Races, input_size, hidden_size,num_models,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
@@ -1870,7 +2017,9 @@ class GRUNetv4_stacking(nn.Module):
         else:
             raise
 
-
+    def train_ensemble(self):
+        self.train()
+        [model.eval() for model in self.model_list]
 
     # x represents our data
     def forward(self, x, x_d, dog_input, dogs, batch_races, stacking=True):
@@ -1906,6 +2055,7 @@ class GRUNetv4_stacking(nn.Module):
                 relus.append(relu)
                 output_ps.append(output_p)
             return outputs,relus,output_ps
+
 
 
 

@@ -8,8 +8,26 @@ import os
 import pickle
 import time
 
-def download_betfair_files(start_date):
+import concurrent.futures
 
+def download_file(link):
+    try:
+        fname = f"./DATA/BetfairSPdata/{link[-12:]}"
+        response = requests.get(link)
+        if response:
+            open(fname, "wb").write(response.content)
+            print(fname)
+    except Exception as e:
+        print(e)
+        time.sleep(5)
+
+        fname = f"./DATA/BetfairSPdata/{link[-12:]}"
+        response = requests.get(link)
+        if response:
+            open(fname, "wb").write(response.content)
+            print(fname)
+
+def download_betfair_files(start_date):
     end_date = date.today() + timedelta(days=1)  # perhaps date.now()
 
     delta = end_date - start_date  # returns timedelta
@@ -19,25 +37,10 @@ def download_betfair_files(start_date):
         day = start_date + timedelta(days=i)
         print(day.strftime('%d%m%y'))
         day_list.append(f"https://promo.betfair.com/betfairsp/prices/dwbfgreyhoundwin{day.strftime('%d%m%Y')}.csv")
-    day_list
-    # os.chdir(r'./DATA/BetfairSPdata')
-    for link in tqdm(day_list):
-        try:
-            fname = f"./DATA/BetfairSPdata/{link[-12:]}"
-            response = requests.get(link)
-            if response:
-                open(fname, "wb").write(response.content)
-                print(fname)
-        except Exception as e:
-            print(e)
-            time.sleep(5)
 
-
-            fname = f"./DATA/BetfairSPdata/{link[-12:]}"
-            response = requests.get(link)
-            if response:
-                open(fname, "wb").write(response.content)
-                print(fname)
+    # Use a ThreadPoolExecutor to download the files in parallel
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        list(tqdm(executor.map(download_file, day_list), total=len(day_list)))
 
 def update_bf_df():
     csv_file_dir = './DATA/BetfairSPdata'
@@ -64,7 +67,7 @@ def update_bf_df():
 
 if __name__ == "__main__":
 
-    start_date = date(2023, 12, 8) 
-    # download_betfair_files(start_date)
+    start_date = date(2019, 1, 1) 
+    download_betfair_files(start_date)
 
     update_bf_df()
