@@ -1745,9 +1745,10 @@ class GRUNetv3_extra(nn.Module):
             return output
 
 
-class GRUNetv3_extra_infrence(nn.Module):
+# @torch.no_grad()
+class GRUNetv3_extra_fast_inf(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
-        super(GRUNetv3_extra_infrence, self).__init__()
+        super(GRUNetv3_extra_fast_inf, self).__init__()
         self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
         self.relu = nn.ReLU()
         self.fc0 = nn.Linear(hidden_size,1)
@@ -1760,10 +1761,8 @@ class GRUNetv3_extra_infrence(nn.Module):
         self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
 
         #p2
-        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
         self.relu0 = nn.ReLU()
         self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
-        # self.drop0 = nn.Dropout(dropout)
         self.drop1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
         self.drop2 = nn.Dropout(dropout)
@@ -1789,10 +1788,121 @@ class GRUNetv3_extra_infrence(nn.Module):
         else:
             raise
 
-    # x represents our data
-    def forward(self, x,h=None, p1=True, warmup=False):
+        self.output_cache_p1 = {}
+        self.output_cache_p2 = {}
 
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False,batch_races=None):
+
+        
         if p1:
+            print("model running p1")
+            x,x_d = x
+            # x = self.batch_norm(x)
+            x_d = x_d.float()
+            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
+            x = x.float()
+            x_d = x_d.float()
+            x = x._replace(data=self.batch_norm(x.data))
+            x_og = x
+
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            x_d = unpack_sequence(x_d)
+            # x_og = unpack_sequence(x_og)
+            outs = []
+            for i,dog in enumerate(x):
+                dog_simple = self.extra_1(x_d[i])
+                dog = torch.cat((dog,dog_simple),dim=1)
+                outs.append(dog)
+            # print(f"{outs[0].shape=} ")
+            output = outs,hidden
+            self.output_cache_p1[batch_races[0].raceid]  = output
+            return outs,hidden
+        
+        else:          
+            print("model running p2")
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.relu(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.relu(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.relu(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x).detach(), x_rl3.detach(), self.output_fn(x_p).detach(),
+            
+            # output = self.output_fn(x).detach(), x_rl3.detach(), self.output_fn(x_p).detach(),
+
+            self.output_cache_p2[batch_races[0].raceid] = output
+
+            return output
+        
+# @torch.no_grad()
+class GRUNetv3_extra_fast_inf_price(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
+        super(GRUNetv3_extra_fast_inf_price, self).__init__()
+        self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
+
+        self.batch_norm = nn.BatchNorm1d(input_size)
+        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
+
+        #extra data
+        self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+
+        #p2
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        #price
+        # self.price_fc2 = nn.Linear(hidden_size*4, fc1_size)
+        # self.price_drop3 = nn.Dropout(dropout)
+        # self.price_fc3 = nn.Linear(fc1_size, 8)
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+        self.output_cache_p1 = {}
+        self.output_cache_p2 = {}
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False,batch_races=None):
+
+        
+        if p1:
+            # print("model running p1")
             x,x_d = x
             # x = self.batch_norm(x)
             x_d = x_d.float()
@@ -1806,6 +1916,119 @@ class GRUNetv3_extra_infrence(nn.Module):
             x = unpack_sequence(x)
             x_d = unpack_sequence(x_d)
             x_og = unpack_sequence(x_og)
+            outs = []
+            for i,dog in enumerate(x):
+                dog_simple = self.extra_1(x_d[i])
+                dog = torch.cat((dog,dog_simple),dim=1)
+                outs.append(dog)
+            # print(f"{outs[0].shape=} ")
+            output = outs,hidden
+            self.output_cache_p1[batch_races[0].raceid]  = output
+            return outs,hidden
+        
+        else:
+            # print("model running p2")
+            x = x.float()
+            # x  = self.layer_norm2(x)
+            x = self.relu0(x)
+            # x = self.drop0(x)
+            x = self.fc0(x)
+            x = self.relu(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.relu(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.relu(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+
+            self.output_cache_p2[batch_races[0].raceid] = output
+
+            return output
+
+
+class GRUNetv3_extra_price(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
+        super(GRUNetv3_extra_price, self).__init__()
+        self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
+
+        self.batch_norm = nn.BatchNorm1d(input_size)
+        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
+
+        #extra data
+        self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+        # self.extra_2 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+        # self.extra_3 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+        # self.extra_4 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+        
+
+        #p1
+        # self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
+        # self.fc0_p1_drop = nn.Dropout(dropout)
+        # self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
+        # self.fc0_p2_drop = nn.Dropout(dropout)
+        # self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
+        # self.fc0_p3_drop = nn.Dropout(dropout)
+
+        #p2
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        # self.drop0 = nn.Dropout(dropout)
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        #price
+        self.price_fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.price_drop3 = nn.Dropout(dropout)
+        self.price_fc3 = nn.Linear(fc1_size, 8)
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False):
+
+        if p1:
+            x,x_d = x
+            # x = self.batch_norm(x)
+            x_d = x_d.float()
+            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
+            x = x.float()
+            # x_d = x_d.float()
+            x = x._replace(data=self.batch_norm(x.data))
+            x_og = x
+
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            x_d = unpack_sequence(x_d)
+            # x_og = unpack_sequence(x_og)
             outs = []
             for i,dog in enumerate(x):
                 # dist = self.extra_1(x_d[i][:,0:20])
@@ -1835,13 +2058,15 @@ class GRUNetv3_extra_infrence(nn.Module):
             x = self.drop3(x_rl3)
             x = self.fc3(x)
             #price
-            x_p = self.fc2(x_e)
+            x_p = self.price_fc2(x_e)
             x_p_rl3 = self.relu(x_p)
-            x_p = self.drop3(x_p_rl3)
-            x_p = self.fc3(x_p)
+            x_p = self.price_drop3(x_p_rl3)
+            x_p = self.price_fc3(x_p)
 
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
+
+
 
 class GRUNetv3_profit(nn.Module):
     def __init__(self,raceDB:Races):

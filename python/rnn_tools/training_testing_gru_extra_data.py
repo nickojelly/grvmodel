@@ -145,12 +145,14 @@ def train_quick_pass(model:GRUNetv3,raceDB,config):
     raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
     for i in range(num_batches):
         dogs = raceDB.batches['dogs'][i]
+        batch_races = raceDB.batches['batch_races'][i]
         X = raceDB.batches['packed_x'][i]
         X_d = raceDB.packed_x_data[i]
         hidden_in = torch.stack([x.hidden for x in dogs]).transpose(0,1)
         _,hidden = model((X,X_d), h=hidden_in)
         hidden = hidden.transpose(0,1)
         [setattr(obj, 'hidden', val) for obj, val in zip(dogs,hidden)]
+    
 
 
 def quick_profitability(prices,classes,output):
@@ -197,7 +199,7 @@ def simple_profit(simple_model,prices,classes,output,output_p):
     return profit_tensor
 
 
-# @torch.amp.autocast(device_type='cuda')
+@torch.amp.autocast(device_type='cuda')
 def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler, config=None,update=False):
     # torch.autograd.set_detect_anomaly(True)
 
@@ -206,12 +208,11 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
 
     num_batches = raceDB.batches['num_batches']
     example_ct = 0  # number of examples seen
-    scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.99)
-    raceDB.hidden_state_inits = []
+    scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.995)
+    # raceDB.hidden_state_inits = []
 
     profit_model = GRUNetv3_profit(raceDB).to('cuda:0')
     profit_optim = optim.Adam(profit_model.parameters(), lr=0.001,maximize=True)
-
     raceDB.profit_model = profit_model
 
 
@@ -222,8 +223,7 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
         raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+4*config['f1_layer_size'])).to('cuda:0')
         raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(512)).to('cuda:0')
         hidden_state_init = model.h0.requires_grad_(True)
-        print(hidden_state_init[0:10,0])
-        raceDB.hidden_state_inits.append(hidden_state_init.detach().cpu().numpy())
+        # raceDB.hidden_state_inits.append(hidden_state_init.detach().cpu().numpy())
         raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
         raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
         for i in range(num_batches):
@@ -236,11 +236,17 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
                 X = raceDB.batches['packed_x'][i]
                 X_d = raceDB.packed_x_data[i]
 
+                p1 = time.perf_counter()
+
                 example_ct+=len(batch_races)
                 hidden_in = torch.stack([x.hidden for x in dogs]).transpose(0,1)
                 output,hidden = model((X,X_d), h=hidden_in)
                 
                 hidden = hidden.transpose(0,1)
+
+                p2 = time.perf_counter()
+                print(f"Model Forward Pass: {p2-p1}")
+                p1 = time.perf_counter()
 
 
                 for j,dog in enumerate(train_dog_input):
@@ -256,20 +262,19 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
                 y = torch.stack([x.classes for x in race])
                 y_ohe = torch.stack([x.one_hot_class for x in race])
                 y_p = torch.stack([x.prob for x in race])
-                lw = torch.stack([x.loss.detach() for x in race]).requires_grad_(True).detach()
+                lw = torch.stack([x.loss.detach() for x in race]).detach()
                 w = torch.stack([x.new_win_weight for x in race])
                 p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
+
+                p2 = time.perf_counter()
+                print(f"Setup 2nd Pass: {p2-p1}")
+                p1 = time.perf_counter()
                 
                 # w = torch.stack([(x.win_price_weightv2*2)**2  for x in race]).nan_to_num(0,0,0).requires_grad_(True)
 
                 output,_,output_p = model(X2, p1=False)
-
-                # profit_output = profit_model(output,output_p,p)
-
-                # profit_loss = 
-
-                # correct,profit_tensor, win_price = quick_profitability(p,y,output)
-                
+                model.zero_grad()
+                profit_model.zero_grad()
                 profit_tensor = simple_profit(profit_model,p,y,output,output_p)
                 mask = torch.isnan(profit_tensor)
                 profit_tensor = profit_tensor[~mask]
@@ -277,63 +282,61 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
 
                 profit = profit_tensor.mean()
 
+                p2 = time.perf_counter()
+                print(f"2nd Pass: {p2-p1}")
+                p1 = time.perf_counter()
+
                 epoch_loss = criterion(output, y)*w*lw**2
                 epoch_loss_ohe = criterion(output, y_ohe)*w*lw**2
                 epoch_loss_p = criterion(output_p, y_p)*w*lw**2
 
                 [setattr(race, 'loss', loss.mean().detach()) for race,loss in zip(batch_races,criterion(output, y))]
 
-                # print(epoch,i)
-                # print(output[0,:])
-                # if epoch == 0 and i == 0:
-                #     dot = make_dot(output[0,:], params=dict(model.named_parameters()))
-                #     dot.format = 'png'
-                #     dot.render(filename='model_graph')
-                #     wandb.log({"model_graph": wandb.Image("model_graph.png")})
+                p2 = time.perf_counter()
+                print(f"Second 2nd Pass: {p2-p1}")
+                p1 = time.perf_counter()
 
-                # print(epoch_loss)
-                # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
                 raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             t6 = time.perf_counter()
+
+            
             if not update:
-                # optimizer.zero_grad()
+                optimizer.zero_grad()
                 profit_optim.zero_grad()
-                # ((epoch_loss_p+epoch_loss).mean()).backward()
+                ((epoch_loss_p+epoch_loss).mean()).backward()
                 profit.backward()
                 profit_optim.step()
                 # profit.backward()
                 optimizer.step()
+                model.zero_grad()
+                profit_model.zero_grad()
                 wandb.log({"loss_1": torch.mean(epoch_loss).item(), 'epoch':epoch,'profit_loss':profit}, step = example_ct)
+
+            p2 = time.perf_counter()
+            print(f"Backwards pass: {p2-p1}")
+            p1 = time.perf_counter()
             raceDB.detach_hidden(dogs)
-            t7 = time.perf_counter()
 
 
         scheduler.step()
         if (epoch)%10==0:
-            t8 = time.perf_counter()
             model = model.eval()
             train_quick_pass(model,raceDB,config)
-            # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-            # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             test_stats = test_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
-            # # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-            # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-            # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             val_stats = validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
-            if (test_stats['model_roi<30'] > test_max_roi or val_stats['val_model_roi<30'] > val_max_roi) or val_stats['val_loss_val'] < val_loss_min:
-            # if (test_stats['ROI < 30'] > test_max_roi or val_stats['val_ROI < 30'] > val_max_roi) or val_stats['val_loss_val'] < val_loss_min:
+            # if (test_stats['model_roi<30'] > test_max_roi or val_stats['val_model_roi<30'] > val_max_roi) or val_stats['val_loss_val'] < val_loss_min:
+            if (test_stats['ROI < 30'] > test_max_roi or val_stats['val_ROI < 30'] > val_max_roi) or val_stats['val_loss_val'] < val_loss_min:
                 raceDB.create_hidden_states_dict_v2()
-                test_max_roi = max(test_stats['model_roi<30'],test_max_roi)
-                val_max_roi = max(val_stats['val_model_roi<30'],val_max_roi)
+                test_max_roi = max(test_stats['ROI < 30'],test_max_roi)
+                val_max_roi = max(val_stats['val_ROI < 30'],val_max_roi)
                 val_loss_min = min(val_stats['val_loss_val'],val_loss_min)
                 print(f"New Max ROI: {test_stats['model_roi<30']}, {val_stats['val_model_roi<30']}, {val_stats['val_loss_val']}")
-                model_saver_wandb(profit_model, optimizer, epoch, test_max_roi, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
-            t9 = time.perf_counter()
-        # if (epoch)%20==0:
-        #     raceDB.create_hidden_states_dict_v2()
-        #     model_saver_wandb(model, optimizer, epoch, 0.1, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
-        #     if update:
-        #         break
+                model_saver_wandb(model, optimizer, epoch, test_max_roi, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
+        if (epoch)%20==0:
+            raceDB.create_hidden_states_dict_v2()
+            model_saver_wandb(model, optimizer, epoch, 0.1, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
+            if update:
+                break
         if not update:
             #print('reset hidden')
             # raceDB.reset_hidden(num_layers=2, hidden_size=config['hidden_size'])    
