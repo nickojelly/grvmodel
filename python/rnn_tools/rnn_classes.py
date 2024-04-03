@@ -15,7 +15,9 @@ from goto_conversion import goto_conversion
 import wandb
 import matplotlib.pyplot as plt
 import torch.optim as optim
+from torch.utils.data.sampler import SubsetRandomSampler
 from collections import defaultdict
+
 class DogInput:
     def __init__(self, dogid, raceid,stats, dog,dog_box, hidden_state, bfsp, sp, margin=None, hidden_size=64) -> None:
         self.dogid= dogid
@@ -28,9 +30,7 @@ class DogInput:
         self.gru_cell_out = None
         self.lstmCellh = None
         self.lstmCellc = None
-        # self.hidden = (-torch.ones(hidden_size)).to('cuda:0')
-        # self.cell = (-torch.ones(hidden_size)).to('cuda:0')
-        # self.hidden_out = (-torch.ones(hidden_size)).to('cuda:0')
+
         self.cell_out = None
         self.box = dog_box
         self.gru_filled = 0
@@ -99,7 +99,7 @@ class Dog:
         self.races[raceid].prevrace(prevraceid)
 
 class Race:
-    def __init__(self, raceid,trackOHE, dist, classes=None):
+    def __init__(self, raceid,trackOHE, dist, state,classes=None):
         self.raceid = raceid
         self.race_dist = dist.to('cuda:0')
         self.race_track = trackOHE.to('cuda:0')
@@ -107,6 +107,8 @@ class Race:
         self.raw_margins = None
         self.raw_places = None
         self.raw_prices = None
+        self.state = state
+        self.hidden_in:torch.Tensor = None
 
         if classes!=None:
             self.classes =  classes.to('cuda:0')
@@ -194,8 +196,8 @@ class Races:
         self.getter = operator.itemgetter(*range(batch_size))
         self.device = device
 
-    def add_race(self,raceid:str, trackOHE, dist, classes=None):
-        self.racesDict[raceid] = Race(raceid, trackOHE, dist, classes)
+    def add_race(self,raceid:str, trackOHE, dist,state, classes=None):
+        self.racesDict[raceid] = Race(raceid, trackOHE, dist,state, classes)
         # self.raceIDs.append(raceid)
 
     def add_dog(self,dogid, dog_name):
@@ -220,10 +222,10 @@ class Races:
         test,train,val = 0,0,0
         for i,r in enumerate(self.raceIDs):
             race_date = self.racesDict[r].race_date
-            if race_date>val_race_date:
+            if race_date>=val_race_date:
                 self.val_race_ids.append(r)
                 val += 1
-            elif race_date>start_date:
+            elif race_date>=start_date:
                 self.test_race_ids.append(r)
                 test += 1
             else:
@@ -312,6 +314,33 @@ class Races:
                 self.train_hidden_dict[dog_id] = (hidden_train,last_race_train)
             except Exception as e:
                 pass
+
+    def create_hidden_in_dict(self):
+        self.hidden_ins_dict = {}
+        self.output_dict = {}
+        for race_id,race in self.racesDict.items():
+            hidden_in = race.hidden_in
+            self.hidden_ins_dict[race_id] = race.hidden_in.detach()
+            self.output_dict[race_id] = race.output
+
+    def load_hidden_in_dict(self,hidden_in_dict,output_dict):
+        missing = []
+        for race_id,race in self.racesDict.items():
+            try:
+                race.hidden_in = hidden_in_dict[race_id]
+                race.output = output_dict[race_id]
+            except Exception as e:
+                print(f"{race_id} not in dict")
+                missing.append(race_id)
+        
+        print(f"Missing {len(missing)} out of {len(self.racesDict)}")
+        print(f"Dropping {len(missing)}")
+        # for m in missing:
+        #     self.racesDict.pop(m)
+
+        # self.raceIDs = [r for r in self.raceIDs if r not in missing]
+        
+
 
     def fill_hidden_states_dict_v2(self, hidden_dict):
         filled, empty, null_dog = 0, 0, 0
@@ -503,6 +532,7 @@ class Races:
             _,end_date = batches[j]
             race_date = self.racesDict[r].race_date
             if race_date>end_date:
+                current_batch.append(r)
                 print(end_date)
                 if current_batch:
                     batch_races_ids.append(current_batch)
@@ -563,6 +593,93 @@ class Races:
                   'packed_y_basic':packed_y_basic,
                   'packed_v_basic':packed_v_basic,
                   'packed_y':packed_y}
+        
+    def create_batches_w_states(self,end_date="2023-06-01", batch_days = 365, stat_mask=None,data_mask=None):
+        start_date = datetime.datetime.strptime("2019-12-01", "%Y-%m-%d").date()
+        end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()-datetime.timedelta(1)
+        period = start_date
+        batches = []
+        # Generate date ranges, 
+        while start_date<end_date:
+            if end_date-start_date<2*datetime.timedelta(batch_days):
+                period = end_date
+            period = min(start_date+datetime.timedelta(batch_days), end_date)
+            batches.append((start_date,period))
+            start_date=period
+        print(batches)
+
+        batch_races_ids = [] # list of race_ids
+        j = 0
+        current_batch = []
+        for i,r in enumerate(self.raceIDs):
+            _,end_date = batches[j]
+            race_date = self.racesDict[r].race_date
+            if race_date>end_date:
+                print(end_date)
+                current_batch.append(r)
+                if current_batch:
+                    batch_races_ids.append(current_batch)
+                current_batch = []
+                j += 1
+                if j>len(batches)-1:
+                    break
+            else:
+                current_batch.append(r)
+        print(f"Train examples {[len(x) for x in batch_races_ids]}")
+
+        train_dogs = []
+        train_dog_input = []
+        for bi, batch in enumerate(tqdm(batch_races_ids)):
+            batch_dogs = []
+            batch_dog_input = []
+            for i in tqdm(self.dog_ids):
+                dog = self.dogsDict[i]
+                train = [dog.races[x] for x in batch if x in dog.races.keys()]
+                if train:
+                    batch_dogs.append(dog)
+                    batch_dog_input.append(train)
+            if batch_dogs:
+                train_dogs.append(batch_dogs)
+                train_dog_input.append(batch_dog_input)
+
+
+        batch_races = [[self.racesDict[r] for r in inner] for inner in batch_races_ids]
+
+        print(f"Train examples {[len(x) for x in train_dogs]}")
+        print(f"Train examples {[len(x) for x in train_dog_input]}")
+        print(f"Train examples {[len(x) for x in batch_races]}")
+        print(f"Train examples {[len(x) for x in batch_races_ids]}")
+
+        test_idx = range(0,len(self.test_dog_ids))
+        val_idx = range(0,len(self.val_dog_ids))
+        packed_x = ""#[pack_sequence([torch.stack(n,0) for n in [[z.full_input for z in inner] for inner in x]], enforce_sorted=False).to('cuda:0') for x in train_dog_input]
+        packed_y = ""#pack_sequence([torch.stack(n,0) for n in [[z.full_input.to('cuda:0') for z in inner] for inner in [x for x in raceDB.get_dog_test(test_idx)]]], enforce_sorted=False)
+        if stat_mask != None:
+            packed_x_basic = [pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
+            packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
+            packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+            self.packed_x_data =[pack_sequence([torch.stack(n,0)for n in [[z.stats.masked_select(data_mask)for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
+            self.packed_y_data = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(data_mask) for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
+            self.packed_v_data = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(data_mask) for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+        else:
+            packed_x_basic = [pack_sequence([torch.stack(n,0)for n in [[z.stats for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
+            packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
+            packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+
+        self.batches = {'num_batches':len(train_dogs),
+                  'dogs':train_dogs,
+                  'train_dog_input':train_dog_input,
+                  'batch_races':batch_races,
+                  'batch_races_ids':batch_races_ids,
+                  'packed_x':packed_x,
+                  'packed_x_basic':packed_x_basic,
+                  'packed_y_basic':packed_y_basic,
+                  'packed_v_basic':packed_v_basic,
+                  'packed_y':packed_y}
+        states = self.states 
+        # for batch in batch_races:
+        #    {} 
+
 
     def margin_from_dog_to_race(self):
         for r in self.test_race_ids:
@@ -668,7 +785,19 @@ class Races:
                     del dog_input.hidden_out
                 except:
                     pass
-                
+
+    def my_collate(self,batch):
+        data = [self.racesDict[x] for x in batch]
+        return data
+
+
+    def data_loader(self, batch_size, mode='train', shuffle=True):
+        self.dataset = self.train_race_ids
+        train_sampler = SubsetRandomSampler(list(range(len(self.dataset))))
+                                            
+        train_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size,  collate_fn=self.my_collate, shuffle=shuffle)
+        
+        return train_loader
 
 class GRUNetv3(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1):
@@ -1111,7 +1240,6 @@ class Attention(nn.Module):
 
         return selected_attention_weights
 
-
 class Attention_simple(nn.Module):
     def __init__(self, hidden_size):
         super(Attention_simple, self).__init__()
@@ -1518,8 +1646,6 @@ class AdvNet(nn.Module):
 
         # x represents our data
 
-
-
 class SimpleNet_stacking(nn.Module):
     def __init__(self, input_size,num_models=10,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
         super(SimpleNet_stacking, self).__init__()
@@ -1590,7 +1716,6 @@ class SimpleNet(nn.Module):
 
         # x represents our data
 
-
 class GRUNetv3_simple_extra_data(nn.Module):
     def __init__(self, input_size,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
         super(GRUNetv3_simple_extra_data, self).__init__()
@@ -1624,6 +1749,7 @@ class GRUNetv3_simple_extra_data(nn.Module):
 class GRUNetv3_extra(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
         super(GRUNetv3_extra, self).__init__()
+        self.name = 'GRUNetv3_extra  '
         self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
         self.relu = nn.ReLU()
         self.fc0 = nn.Linear(hidden_size,1)
@@ -1796,7 +1922,7 @@ class GRUNetv3_extra_fast_inf(nn.Module):
 
         
         if p1:
-            print("model running p1")
+            # print("model running p1")
             x,x_d = x
             # x = self.batch_norm(x)
             x_d = x_d.float()
@@ -1821,7 +1947,7 @@ class GRUNetv3_extra_fast_inf(nn.Module):
             return outs,hidden
         
         else:          
-            print("model running p2")
+            # print("model running p2")
             x = x.float()
             # x  = self.layer_norm2(x)
             x = self.relu0(x)
@@ -1969,18 +2095,6 @@ class GRUNetv3_extra_price(nn.Module):
 
         #extra data
         self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_2 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_3 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_4 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        
-
-        #p1
-        # self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
-        # self.fc0_p1_drop = nn.Dropout(dropout)
-        # self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
-        # self.fc0_p2_drop = nn.Dropout(dropout)
-        # self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
-        # self.fc0_p3_drop = nn.Dropout(dropout)
 
         #p2
         # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
@@ -2031,11 +2145,6 @@ class GRUNetv3_extra_price(nn.Module):
             # x_og = unpack_sequence(x_og)
             outs = []
             for i,dog in enumerate(x):
-                # dist = self.extra_1(x_d[i][:,0:20])
-                # box = self.extra_2(x_d[i][:,20:40])
-                # track_box = self.extra_3(x_d[i][:,40:60])
-                # t_dist = self.extra_4(x_d[i][:,60:80])
-                # dog = torch.cat((dog,dist,box,track_box,t_dist),dim=1)
                 dog_simple = self.extra_1(x_d[i])
                 dog = torch.cat((dog,dog_simple),dim=1)
                 outs.append(dog)
@@ -2094,6 +2203,73 @@ class GRUNetv3_profit(nn.Module):
         x = self.fc2(x)
         x = self.softmax(x)
         return x
+    
+class GRUNetv3_profit_testing(nn.Module):
+    def __init__(self,raceDB:Races):
+        super(GRUNetv3_profit_testing, self).__init__()
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+        self.softmax = nn.Softmax(dim=-1)
+        self.dropout = nn.Dropout(0.3)
+
+        self.fc0 = nn.Linear(8*3, 64)
+        self.fc1 = nn.Linear(64, 128)
+        self.fc2 = nn.Linear(128, 8)
+
+    def forward(self, output, output_p, prices):
+        # output = self.softmax(output.float())
+        # output_p = self.softmax(output_p.float())
+        output = output.detach()
+        output_p = self.softmax(output_p.detach())
+        prices = prices.float()
+        x = torch.cat([output,output_p,prices],dim=-1)
+        x = self.relu(x)
+        x = self.fc0(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc2(x)
+        x = self.softmax(x)
+        return x
+
+class GRUNetv3_profit_stacking(nn.Module):
+    def __init__(self,raceDB:Races,num_models=5):
+        super(GRUNetv3_profit_stacking, self).__init__()
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+        self.softmax = nn.Softmax(dim=-1)
+        self.dropout = nn.Dropout(0.3)
+        self.num_models = num_models
+        for i in range(num_models):
+            setattr(self, f'model_{i}', GRUNetv3_profit(raceDB))
+            setattr(self, f'optim_{i}', optim.Adam(getattr(self, f'model_{i}').parameters(), lr=0.001, maximize=True))
+        self.model_list = [getattr(self, f'model_{i}') for i in range(num_models)]
+        self.optim_list = [getattr(self, f'optim_{i}') for i in range(num_models)]
+        self.fc0 = nn.Linear(num_models*8, 64)
+        self.fc1 = nn.Linear(64, 128)
+        self.fc2 = nn.Linear(128, 8)
+
+    def forward(self, output, output_p, prices):
+        # output = self.softmax(output.float())
+        # output_p = self.softmax(output_p.float())
+        outputs = []
+        for i in range(self.num_models):
+            output = getattr(self, f'model_{i}')(output,output_p,prices)
+            outputs.append(output)
+        x = torch.cat(outputs,-1).detach()
+        x = self.relu(x)
+        x = self.fc0(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc2(x)
+        x = self.softmax(x)
+        return x
+
 
 class GRUNetv4_extra(nn.Module):
     def __init__(self,raceDB, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None,model_number=0):

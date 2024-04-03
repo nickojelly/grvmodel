@@ -37,7 +37,7 @@ def update_results_data_week(start_date, end_date):
 
 def update_results_data():
     today = datetime.today() + timedelta(days=1)
-    lastweek = datetime.today() - timedelta(days=500)
+    lastweek = datetime.today() - timedelta(days=10)
 
     weeks = np.arange(lastweek, today, timedelta(days=7)).astype(datetime)
     weeks = np.append(weeks, today)
@@ -62,7 +62,7 @@ def update_basic_form_data_week(start_date, end_date):
 
 def update_basic_form_data():
     today = datetime.today() + timedelta(days=1)
-    lastweek = datetime.today() - timedelta(days=500)
+    lastweek = datetime.today() - timedelta(days=10)
 
     weeks = np.arange(lastweek, today, timedelta(days=7)).astype(datetime)
     weeks = np.append(weeks, today)
@@ -80,9 +80,7 @@ def update_basic_form_data():
 
 if __name__ == "__main__":
 
-    betfair_sp_file = (
-        r"./DATA/df_betfairSP.fth"
-    )
+    betfair_sp_file = './DATA/df-betfairSP.fth'
     previous_results_file = (
         r"./DATA/all-results-db.npy"
     )
@@ -93,8 +91,7 @@ if __name__ == "__main__":
     # prev_full_details = r"results-df-merged-prices_cut.csv"
     prev_full_details = r"./DATA/results-df-merged-prices_cut.fth"
 
-    update = True
-
+    update = False
     if update:
         dog_results = update_results_data()
         basic_form = update_basic_form_data()
@@ -133,6 +130,13 @@ if __name__ == "__main__":
     norm = ''
 
     # test = pd.read_pickle(prev_full_details)
+    # print(os.getcwd())
+    # print(os.listdir(os,))
+    # betfair_df = pd.read_feather('df-betfairSP_new.fth')
+    # betfair_df['dateF'] = pd.to_datetime(betfair_df.EVENT_DT, dayfirst=True).dt.date
+    # print(f"{betfair_df['dateF'].max()=}")
+
+    # asdfasdf
 
     if simple:
         simp = '_simple'

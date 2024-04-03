@@ -152,6 +152,7 @@ def train_quick_pass(model:GRUNetv3,raceDB,config):
         _,hidden = model((X,X_d), h=hidden_in)
         hidden = hidden.transpose(0,1)
         [setattr(obj, 'hidden', val) for obj, val in zip(dogs,hidden)]
+        
     
 
 
@@ -298,7 +299,6 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
 
                 raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             t6 = time.perf_counter()
-
             
             if not update:
                 optimizer.zero_grad()

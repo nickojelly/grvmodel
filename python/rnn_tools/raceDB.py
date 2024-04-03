@@ -179,7 +179,7 @@ def process_race(data, raceDB,null_dog_i, margin_fn, device, v6=False):
         adjustedMargin = (margin_fn(torch.tensor(empty_margin_list))).to(device) # chage here
 
 
-        raceDB.add_race(i,trackOHE,dist, adjustedMargin)
+        raceDB.add_race(i,trackOHE,dist, j.state.iloc[0],adjustedMargin)
         try:
             dog_win_box = int(j[j['place']==1]['box'].iloc[0])
         except Exception as e:
@@ -377,81 +377,6 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
     # print(list(raceDB.dogsDict.items()))
 
     process_all_races(races_group, raceDB,null_dog_i, margin_fn, device, v6=v6)
-
-
-    # for i,j in tqdm(races_group):
-    # #Track info tensors
-    #     # i = i[0]
-    #     dist = torch.tensor([j.dist.iloc[0]]) 
-    #     trackOHE = torch.tensor(j.trackOHE.iloc[0])
-    #     #margins
-    #     empty_dog_list = [null_dog_i]*8
-    #     empty_margin_list = [100]*8
-    #     empty_log_margin_list = [3]*8
-    #     empty_place_list = [8]*8
-    #     empty_finish_list = [40]*8
-    #     empty_price_list = [0]*8
-    #     empty_start_price_list = [1000]*8
-    #     untouched_margin = [20]*8
-
-    #     places_list = [x for x in j["place"]]
-    #     boxes_list = [int(x) for x in j['box']]
-    #     margin_list = [x for x in j["margin"]]
-    #     time_list = [x for x in j["runtime"]]
-    #     price_list = [x for x in j['bfSP'].astype(float)]
-    #     start_price_list = [x for x in j['StartPrice'].astype(float)]
-
-    #     # empty_log_margin_list = np.log(max(margin_list)+1)
-
-    #     # print(f"{x=}\n{i=},\n{j['dogid']=}")
-        
-    #     dog_list = [raceDB.dogsDict[x].races[i] for x in j["dogid"]]
-
-    #     #adjustedMargin = [margin_list[x-1] for x in boxes_list]
-    #     for n,x in enumerate(boxes_list):
-    #         empty_margin_list[x-1] = margin_list[n]
-    #         empty_log_margin_list[x-1] = margin_list[n]+1
-    #         empty_dog_list[x-1] = dog_list[n]
-    #         empty_place_list[x-1] = places_list[n]
-    #         empty_finish_list[x-1] = time_list[n]
-    #         empty_start_price_list[x-1] = start_price_list[n]
-    #         empty_price_list[x-1] = price_list[n]
-    #         untouched_margin[x-1] = margin_list[n]
-    #     adjustedMargin = (margin_fn(torch.tensor(empty_margin_list))).to(device) # chage here
-
-
-    #     raceDB.add_race(i,trackOHE,dist, adjustedMargin)
-    #     try:
-    #         dog_win_box = int(j[j['place']==1]['box'].iloc[0])
-    #     except Exception as e:
-    #         dog_win_box = 1
-    #         # print('thorwing')
-        
-    #     raceDB.racesDict[i].add_dogs(empty_dog_list)
-    #     if not v6:
-    #         raceDB.racesDict[i].nn_input()
-    #     raceDB.racesDict[i].one_hot_class = torch.zeros_like(adjustedMargin).scatter_(0, torch.tensor(dog_win_box-1).to(device),1)
-    #     raceDB.racesDict[i].track_name = j.track_name.iloc[0]
-    #     raceDB.racesDict[i].grade = j.race_grade.iloc[0]
-    #     try:
-    #         raceDB.racesDict[i].win_weight = track_weights[j.track_name.iloc[0]][dog_win_box-1]
-    #         raceDB.racesDict[i].weights = track_weights[j.track_name.iloc[0]]
-    #         raceDB.racesDict[i].margin_weights = margin_weights[(j.track_name.iloc[0],j.dist.iloc[0])]
-    #         raceDB.racesDict[i].win_margin_weight = margin_weights[(j.track_name.iloc[0],j.dist.iloc[0])][dog_win_box-1]
-    #         raceDB.racesDict[i].win_price_weight = torch.tensor(empty_price_list[dog_win_box-1]).to(device)
-    #         raceDB.racesDict[i].win_price_weightv2 = (1-1/(max(torch.tensor(empty_price_list[dog_win_box-1]),torch.tensor(1)))).to(device)
-    #     except Exception as e:
-    #         print(e)
-    #     raceDB.racesDict[i].raw_margins = empty_margin_list
-    #     raceDB.racesDict[i].raw_places = empty_place_list
-    #     raceDB.racesDict[i].untouched_margin = untouched_margin
-    #     raceDB.racesDict[i].prices = empty_price_list
-    #     raceDB.racesDict[i].start_prices = empty_start_price_list
-    #     raceDB.racesDict[i].race_time = j.race_time.iloc[0]
-    #     raceDB.racesDict[i].race_date = j.date.iloc[0]
-    #     raceDB.racesDict[i].race_num = j.race_num.iloc[0]
-    
-    
 
     raceDB.race_prices_to_prob()
     raceDB.create_new_weights()

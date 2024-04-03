@@ -183,7 +183,6 @@ def generate_prediction_dataframe_v2(prev_results_file:str, prediction_df, ohe='
 
     return form,stats_cols
 
-
 def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_race_data : pd.DataFrame, betfair_sp_file :str, split_dist:str, mode="all", prev_df=None, ohe='encoder_new', simple=False,normalize=False,v6=False):
     ohe = pickle.load(open(ohe, 'rb'))
 
@@ -217,9 +216,11 @@ def generate_results_df_v2(previous_results_file, new_FT : pd.DataFrame ,new_FT_
     # full_details = pd.merge(dog_results,race_details, how='left', on='RaceId')
     
     betfair_df = pd.read_feather(betfair_sp_file)
-    betfair_df['dateF'] = pd.to_datetime(betfair_df.EVENT_DT, dayfirst=True).dt.date
+    betfair_df['dateF'] =  (pd.to_datetime(betfair_df['EVENT_DT'],dayfirst=True) + pd.Timedelta(hours=12)).dt.date
     betfair_df['dog_name'] = betfair_df.dog.str[1:].str.upper()
 
+    print(f"{betfair_df['dateF'].max()=}")
+    # asdfasdd
     resultsdf = dog_results
     print(len(resultsdf))
 

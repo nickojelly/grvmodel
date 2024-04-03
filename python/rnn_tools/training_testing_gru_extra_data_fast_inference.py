@@ -190,7 +190,8 @@ def simple_profit(simple_model,prices,classes,output,output_p):
     # print(output)
     # print(output_p)
     # print(prices)
-    bet_amounts = simple_model(output.detach(),output_p.detach(),prices.nan_to_num(0).detach())
+    prices = prices
+    bet_amounts = simple_model(output.detach(),output_p.detach(),prices.nan_to_num(0,0,0).detach())
 
     label = torch.zeros_like(classes.data).scatter_(1, torch.argmax(classes.data, dim=1).unsqueeze(1), 1.).requires_grad_(True)
     profit_tensor = prices.nan_to_num(0)*label*bet_amounts-bet_amounts
@@ -211,21 +212,21 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
     scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.99)
     raceDB.hidden_state_inits = []
 
-    profit_model = GRUNetv3_profit(raceDB).to('cuda:0')
+    profit_model = GRUNetv3_profit_testing(raceDB).to('cuda:0')
     profit_optim = optim.Adam(profit_model.parameters(), lr=0.001,maximize=True)
+    config['profit_model_name'] = profit_model.__name__
 
     raceDB.profit_model = profit_model
-    # prev_model_file='stellar-resonance-277'
-    # prev_model_version=510
+    prev_model_file='dauntless-salad-98'
+    prev_model_version=1120
 
-    # print(f"Loading model {prev_model_file}, version {prev_model_version}")
-    # model_name = prev_model_file
-    # model_loc = f"C:/Users/Nick/Documents/GitHub/grvmodel/Python/pytorch/New Model/savedmodel/{model_name}/{model_name}_{prev_model_version}.pt"
-    # model_data = torch.load(model_loc,map_location=torch.device('cuda:0'))
-    # print(model_data['model_state_dict'].keys())
-    # profit_model.load_state_dict(model_data['model_state_dict'], strict=True)
-    # config['parent model'] = prev_model_file
-    # raceDB.fill_hidden_states_dict_v2(model_data['db_train'])
+    print(f"Loading model {prev_model_file}, version {prev_model_version}")
+    model_name = prev_model_file
+    model_loc = f"C:/Users/Nick/Documents/GitHub/grvmodel/Python/pytorch/New Model/savedmodel/{model_name}/{model_name}_{prev_model_version}.pt"
+    model_data = torch.load(model_loc,map_location=torch.device('cuda:0'))
+    print(model_data['model_state_dict'].keys())
+    profit_model.load_state_dict(model_data['model_state_dict'], strict=True)
+    config['parent model'] = prev_model_file
     profit_model = profit_model.to('cuda:0')
 
     for epoch in trange(epochs):
@@ -359,6 +360,12 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
                 val_loss_min = min(val_stats['val_loss_val'],val_loss_min)
                 print(f"New Max ROI: {test_stats['model_roi<30']}, {val_stats['val_model_roi<30']}, {val_stats['val_loss_val']}")
                 model_saver_wandb(profit_model, optimizer, epoch, test_max_roi, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
+                resave_df = pd.read_feather(f'./model_all_price/{wandb.run.name} - all_price_df.fth')
+                resave_df.to_feather(f'./model_all_price/{epoch}{wandb.run.name} - all_price_df.fth')
+                resave_df = pd.read_feather(f'./model_all_price/{wandb.run.name} - val_all_price_df.fth')
+                resave_df.to_feather(f'./model_all_price/{epoch}{wandb.run.name} - val_all_price_df.fth')
+                # all_price_df.reset_index().to_feather(f'./model_all_price/{wandb.run.name} - all_price_df.fth')
+
             t9 = time.perf_counter()
         torch.cuda.empty_cache()
 
@@ -610,14 +617,14 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
         output,relu,output_p,= model(Xt, p1=False,batch_races=batch_races)
 
 
-    mean, variance, entropy, mutual_info = get_monte_carlo_predictions(Xt, 100,model,8,y.shape[0],batch_races)
+    # mean, variance, entropy, mutual_info = get_monte_carlo_predictions(Xt, 100,model,8,y.shape[0],batch_races)
     # print(f"{mean=}\n{variance=}\n{entropy=}\n{mutual_info=}")
     profit_tensor = simple_profit(profit_model,p,y,output,output_p)
     mask = torch.isnan(profit_tensor)
     profit_tensor = profit_tensor[~mask]
     # return profit_tensor
 
-    profit = profit_tensor.mean()
+    profit = profit_tensor.mean()  
 
     kl = nn.KLDivLoss(reduction='none')
     
@@ -680,9 +687,13 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
     # print(races['win_price'])
     # dasd
     races['relu'] = [[x]*8 for x in relu.cpu().tolist()]
+    races['output'] = output.cpu().tolist()
+    races['output_p'] = output_p.cpu().tolist()
+    races['p'] = p.cpu().tolist()
     # print(races['relu'])
     races['bet_amount_model'] = bet_amount.tolist()
     races['output_price'] = (1/sft_max(output_p)).tolist()
+    races['pred_logit'] = output.tolist()
     races['pred_prob'] = softmax_preds.tolist()
     races['pred_prob2'] = softmax_preds2.tolist()
     races['prices'] = [x.prices for x in test_races]
@@ -799,7 +810,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
         all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
-        # all_price_df.reset_index().to_feather(f'./model_all_price/RL{wandb.run.name} - all_price_df.fth')
+        # all_price_df.reset_index().to_feather(f'./model_all_price/RL{epoch}{wandb.run.name} - all_price_df.fth')
         all_price_df = all_price_df[all_price_df['prices']>1]
 
         all_price_df = clean_data(all_price_df)
@@ -948,7 +959,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
 
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
-        # all_price_df.reset_index().to_feather(f'./model_all_price/RL{wandb.run.name} - val_all_price_df.fth')
+        # all_price_df.reset_index().to_feather(f'./model_all_price/RL{epoch}{wandb.run.name} - val_all_price_df.fth')
         all_price_df = all_price_df[all_price_df['prices']>1]
 
         all_price_df = clean_data(all_price_df)
