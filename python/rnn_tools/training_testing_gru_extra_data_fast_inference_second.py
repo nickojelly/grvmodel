@@ -126,18 +126,12 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
 
     config['profit_model_name'] = profit_model.__class__.__name__
 
-    print(f"Loading model {prev_model_file}, version {prev_model_version}")
-    model_name = prev_model_file
+    # print(f"Loading model {prev_model_file}, version {prev_model_version}")
+    # model_name = prev_model_file
     #  config['profit_parent'] = prev_model_file
-    model_loc = f"second_models/{model_name}/{model_name}_{prev_model_version}.pt"
-    model_data = torch.load(model_loc,map_location=torch.device('cuda:0'))
-    # print(model_data['model_state_dict'].keys())
-    # profit_model.load_state_dict(model_data['model_state_dict'], strict=True)
-    # for i in profit_model.model_list:
-    #     i.load_state_dict(model_data['profit_model'], strict=True)
-    #     print()
-
-    profit_model.load_state_dict(model_data['profit_model'], strict=True)
+    # model_loc = f"second_models/{model_name}/{model_name}_{prev_model_version}.pt"
+    # model_data = torch.load(model_loc,map_location=torch.device('cuda:0'))
+    # profit_model.load_state_dict(model_data['profit_model'], strict=True)
     # config['parent model'] = prev_model_file
     profit_model = profit_model.to('cuda:0')
     relu = nn.ReLU()

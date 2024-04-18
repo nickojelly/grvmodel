@@ -37,7 +37,7 @@ def update_results_data_week(start_date, end_date):
 
 def update_results_data():
     today = datetime.today() + timedelta(days=1)
-    lastweek = datetime.today() - timedelta(days=10)
+    lastweek = datetime.today() - timedelta(days=1000)
 
     weeks = np.arange(lastweek, today, timedelta(days=7)).astype(datetime)
     weeks = np.append(weeks, today)
@@ -62,7 +62,7 @@ def update_basic_form_data_week(start_date, end_date):
 
 def update_basic_form_data():
     today = datetime.today() + timedelta(days=1)
-    lastweek = datetime.today() - timedelta(days=10)
+    lastweek = datetime.today() - timedelta(days=1000)
 
     weeks = np.arange(lastweek, today, timedelta(days=7)).astype(datetime)
     weeks = np.append(weeks, today)
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     # prev_full_details = r"results-df-merged-prices_cut.csv"
     prev_full_details = r"./DATA/results-df-merged-prices_cut.fth"
 
-    update = False
+    update = True
     if update:
         dog_results = update_results_data()
         basic_form = update_basic_form_data()

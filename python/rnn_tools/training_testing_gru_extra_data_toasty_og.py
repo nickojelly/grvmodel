@@ -780,7 +780,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
 
         flat_date_df_wandb = wandb.Table(dataframe=flat_date_df.reset_index())
 
-        flat_date_df = all_price_df[['date','outlay < 30','profit < 30','bet_amount','profit','profit_relu<30','bet_relu<30','loss', 'onehot_win', 'correct']].groupby('date').sum().rolling(window=5).sum().reset_index()
+        flat_date_df = all_price_df[['date','outlay < 30','profit < 30','bet_amount','profit','profit_relu<30','bet_relu<30','loss', 'onehot_win', 'correct']].groupby('date').sum().rolling(window=14).sum().reset_index()
         flat_date_df['loss'] = flat_date_df['loss']/flat_date_df['onehot_win']
         flat_date_df['accuracy'] = flat_date_df['correct']/flat_date_df['onehot_win']
         flat_date_df['roi<30_relu'] = flat_date_df['profit_relu<30']/flat_date_df['bet_relu<30']
@@ -920,7 +920,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
 
         flat_date_df_wandb = wandb.Table(dataframe=flat_date_df.reset_index())
 
-        flat_date_df = all_price_df[['date','outlay < 30','profit < 30','bet_amount','profit','profit_relu<30','bet_relu<30','loss', 'onehot_win', 'correct',]].groupby('date').sum().rolling(window=5).sum().reset_index()
+        flat_date_df = all_price_df[['date','outlay < 30','profit < 30','bet_amount','profit','profit_relu<30','bet_relu<30','loss', 'onehot_win', 'correct',]].groupby('date').sum().rolling(window=14).sum().reset_index()
         flat_date_df['loss'] = flat_date_df['loss']/flat_date_df['onehot_win']
         flat_date_df['accuracy'] = flat_date_df['correct']/flat_date_df['onehot_win']
         flat_date_df['roi<30_relu'] = flat_date_df['profit_relu<30']/flat_date_df['bet_relu<30']

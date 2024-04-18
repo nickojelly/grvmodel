@@ -101,7 +101,7 @@ def plot_monthly_stats(stats, results, threshold=2):
 
 def check_data(df,stats_cols, date_column, threshold=2):
 
-    stats_cols_list = ['box','weight','DogGrade']+eval(stats_cols)[0]
+    stats_cols_list = ['box']+eval(stats_cols)[0]
     stats = df.stats.tolist()
 
     stats_df = pd.DataFrame(data=np.vstack(stats), columns=stats_cols_list)
@@ -250,10 +250,7 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
 
     dog_stats_df = pd.read_feather(data)
     stats_cols = dog_stats_df['stats_cols'].iloc[0]
-    if show_stats:
-        stats, results = check_data(dog_stats_df,stats_cols, 'date', threshold=2)
 
-    print(stats_cols)
     dog_stats_df = dog_stats_df.drop_duplicates(subset=['dogid', 'raceid'])
     print(dog_stats_df.shape)
     print(len(dog_stats_df.stats.iloc[0]))
@@ -280,6 +277,15 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
         dog_stats_df = dog_stats_df[dog_stats_df['date']>date_filter]
 
     print(f"Latest date = {pd.to_datetime(dog_stats_df.date).max()}")
+
+    print(f"stats = {dog_stats_df['stats'].iloc[10000]}")
+    print(f"stats_cols = {len(eval(stats_cols)[0])=}, {len(dog_stats_df['stats'].iloc[0])=}")
+    print(f"stats_cols = {stats_cols}")
+    # stats_cols = ['box'] + eval(stats_cols)[0]
+    if show_stats:
+        stats, results = check_data(dog_stats_df,stats_cols, 'date', threshold=2)
+
+    print(stats_cols)
 
     #Generate weights for classes per track:%APPDATA%\Code\User\settings.json
 

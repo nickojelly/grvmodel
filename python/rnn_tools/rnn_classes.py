@@ -193,6 +193,7 @@ class Races:
         self.dog_ids = []
         self.hidden_size = hidden_size
         self.layers = layers
+        self.batches_setup = False
         self.getter = operator.itemgetter(*range(batch_size))
         self.device = device
 
@@ -512,7 +513,7 @@ class Races:
                 dog_input.race = self.racesDict[race_id]
                 dog_input.full_input = torch.cat([dog_input.race.race_dist,dog_input.race.race_track,dog_input.stats], dim = 0)
 
-    def create_batches(self,end_date="2023-06-01", batch_days = 365, stat_mask=None,data_mask=None):
+    def create_batches(self,end_date="2023-06-01", batch_days = 365, stat_mask=None,data_mask=None,gen_packed_seq=True):
         start_date = datetime.datetime.strptime("2019-12-01", "%Y-%m-%d").date()
         end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()-datetime.timedelta(1)
         period = start_date
@@ -546,7 +547,7 @@ class Races:
 
         train_dogs = []
         train_dog_input = []
-        for bi, batch in enumerate(tqdm(batch_races_ids)):
+        for bi, batch in tqdm(enumerate(batch_races_ids)):
             batch_dogs = []
             batch_dog_input = []
             for i in tqdm(self.dog_ids):
@@ -571,28 +572,40 @@ class Races:
         val_idx = range(0,len(self.val_dog_ids))
         packed_x = ""#[pack_sequence([torch.stack(n,0) for n in [[z.full_input for z in inner] for inner in x]], enforce_sorted=False).to('cuda:0') for x in train_dog_input]
         packed_y = ""#pack_sequence([torch.stack(n,0) for n in [[z.full_input.to('cuda:0') for z in inner] for inner in [x for x in raceDB.get_dog_test(test_idx)]]], enforce_sorted=False)
-        if stat_mask != None:
-            packed_x_basic =[pack_sequence([torch.stack(n,0)for n in [[z.stats.masked_select(stat_mask)for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
-            packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
-            packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
-            self.packed_x_data =[pack_sequence([torch.stack(n,0)for n in [[z.stats.masked_select(data_mask)for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
-            self.packed_y_data = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(data_mask) for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
-            self.packed_v_data = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(data_mask) for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
-        else:
-            packed_x_basic = [pack_sequence([torch.stack(n,0)for n in [[z.stats for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
-            packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
-            packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+        output_batch = None
+        output_p_batch = None
+        if gen_packed_seq:
+            if stat_mask != None:
+                packed_x_basic =[pack_sequence([torch.stack(n,0)for n in [[z.stats.masked_select(stat_mask)for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
+                packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
+                packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(stat_mask) for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+                self.packed_x_data =[pack_sequence([torch.stack(n,0)for n in [[z.stats.masked_select(data_mask)for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
+                self.packed_y_data = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(data_mask) for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
+                self.packed_v_data = pack_sequence([torch.stack(n,0) for n in [[z.stats.masked_select(data_mask) for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+            else:
+                packed_x_basic = [pack_sequence([torch.stack(n,0)for n in [[z.stats for z in inner] for inner in x]], enforce_sorted=False) for x in train_dog_input if x]
+                packed_y_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_test(test_idx)]]], enforce_sorted=False)
+                packed_v_basic = pack_sequence([torch.stack(n,0) for n in [[z.stats for z in inner] for inner in [x for x in self.get_dog_val(val_idx)]]], enforce_sorted=False)
+        else: 
+            packed_x_basic = None
+            packed_y_basic = None
+            packed_v_basic = None
+            output_batch = [torch.stack([r.output[0] for r in batch]) for batch in batch_races]
+            output_p_batch = [torch.stack([r.output[1] for r in batch]) for batch in batch_races]
 
         self.batches = {'num_batches':len(train_dogs),
-                  'dogs':train_dogs,
-                  'train_dog_input':train_dog_input,
-                  'batch_races':batch_races,
-                  'batch_races_ids':batch_races_ids,
-                  'packed_x':packed_x,
-                  'packed_x_basic':packed_x_basic,
-                  'packed_y_basic':packed_y_basic,
-                  'packed_v_basic':packed_v_basic,
-                  'packed_y':packed_y}
+                'dogs':train_dogs,
+                'train_dog_input':train_dog_input,
+                'batch_races':batch_races,
+                'batch_races_ids':batch_races_ids,
+                'packed_x':packed_x,
+                'packed_x_basic':packed_x_basic,
+                'packed_y_basic':packed_y_basic,
+                'packed_v_basic':packed_v_basic,
+                'packed_y':packed_y,
+                'output_batch':output_batch,
+                'output_p_batch':output_p_batch
+                }
         
     def create_batches_w_states(self,end_date="2023-06-01", batch_days = 365, stat_mask=None,data_mask=None):
         start_date = datetime.datetime.strptime("2019-12-01", "%Y-%m-%d").date()
@@ -792,6 +805,15 @@ class Races:
 
 
     def data_loader(self, batch_size, mode='train', shuffle=True):
+        self.dataset = self.train_race_ids
+        train_sampler = SubsetRandomSampler(list(range(len(self.dataset))))
+                                            
+        train_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size,  collate_fn=self.my_collate, shuffle=shuffle)
+        
+        return train_loader
+    
+
+    def data_loader_extra_shuffle(self, batch_size, mode='train', shuffle=True):
         self.dataset = self.train_race_ids
         train_sampler = SubsetRandomSampler(list(range(len(self.dataset))))
                                             
@@ -1760,18 +1782,6 @@ class GRUNetv3_extra(nn.Module):
 
         #extra data
         self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_2 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_3 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        # self.extra_4 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
-        
-
-        #p1
-        # self.fc0_p1 = nn.Linear(hidden_size+4*fc1_size,hidden_size)
-        # self.fc0_p1_drop = nn.Dropout(dropout)
-        # self.fc0_p2 = nn.Linear(hidden_size,hidden_size)
-        # self.fc0_p2_drop = nn.Dropout(dropout)
-        # self.fc0_p3 = nn.Linear(hidden_size,hidden_size)
-        # self.fc0_p3_drop = nn.Dropout(dropout)
 
         #p2
         # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
@@ -1822,26 +1832,9 @@ class GRUNetv3_extra(nn.Module):
             x_og = unpack_sequence(x_og)
             outs = []
             for i,dog in enumerate(x):
-                # dist = self.extra_1(x_d[i][:,0:20])
-                # box = self.extra_2(x_d[i][:,20:40])
-                # track_box = self.extra_3(x_d[i][:,40:60])
-                # t_dist = self.extra_4(x_d[i][:,60:80])
-                # dog = torch.cat((dog,dist,box,track_box,t_dist),dim=1)
+
                 dog_simple = self.extra_1(x_d[i])
                 dog = torch.cat((dog,dog_simple),dim=1)
-                # print(dog.shape)
-                
-                # dog = torch.cat((dog,x_d[i]),dim=1)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p1(dog)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p1_drop(dog)
-                # dog = self.fc0_p2(dog)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p2_drop(dog)
-                # dog = self.fc0_p3(dog)
-                # dog = self.relu(dog)
-                # dog = self.fc0_p3_drop(dog)
                 outs.append(dog)
             # print(f"{outs[0].shape=} ")
             return outs,hidden
@@ -2204,6 +2197,56 @@ class GRUNetv3_profit(nn.Module):
         x = self.softmax(x)
         return x
     
+class GRUNetv3_profit_testing2(nn.Module):
+    def __init__(self,raceDB:Races):
+        super(GRUNetv3_profit_testing2, self).__init__()
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+        self.softmax = nn.Softmax(dim=-1)
+        self.dropoutfc1 = nn.Dropout(0.3)
+        self.dropoutfc2 = nn.Dropout(0.3)
+        self.dropoutfc3 = nn.Dropout(0.3)
+        self.dropout2 = nn.Dropout(0.5)
+        self.batch_norm = nn.BatchNorm1d(2630)
+        self.fc0 = nn.Linear(2630+8+8, 1280)
+        self.fc1 = nn.Linear(1280, 1280)
+        self.fc12  = nn.Linear(1280, 128)
+        self.fc2 = nn.Linear(128, 8)
+
+    def forward(self, output, output_p, prices):
+        # output = self.softmax(output.float())
+        # output_p = self.softmax(output_p.float())
+        output = output.detach()
+        # output = self.batch_norm(output.float())
+        output = self.dropout2(output)
+        output_p = self.softmax(output_p.detach())
+        output_p = output_p.float().detach()
+        # price_over_30_mask = prices > 30
+        # price_over_30_mask = price_over_30_mask.to(float)*-1000
+        # prices = (prices.float()**-1).nan_to_num(0,0,0)
+        prices = prices**-1
+        prices = prices.nan_to_num(0,0,0)
+        x = torch.cat([output,output_p,prices],dim=-1).float()
+        # x = self.batch_norm(x)
+        if x.isnan().any():
+            raise ValueError("NaN values detected in the input")
+        x = self.relu(x)
+        x = self.fc0(x)
+        x = self.relu(x)
+        x = self.dropoutfc1(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropoutfc2(x)
+        x = self.fc12(x)
+        x = self.relu(x)
+        x = self.dropoutfc3(x)
+        x = self.fc2(x)
+        if x.isnan().any():
+            raise ValueError("NaN values detected in the input and end of fc2")
+        # x = x+price_over_30_mask
+        x = self.softmax(x)
+        return x
+
 class GRUNetv3_profit_testing(nn.Module):
     def __init__(self,raceDB:Races):
         super(GRUNetv3_profit_testing, self).__init__()
@@ -2211,7 +2254,7 @@ class GRUNetv3_profit_testing(nn.Module):
         self.sigmoid = nn.Sigmoid()
         self.softmax = nn.Softmax(dim=-1)
         self.dropout = nn.Dropout(0.3)
-
+        # self.batch_norm = nn.BatchNorm1d(8*3)
         self.fc0 = nn.Linear(8*3, 64)
         self.fc1 = nn.Linear(64, 128)
         self.fc2 = nn.Linear(128, 8)
@@ -2221,8 +2264,15 @@ class GRUNetv3_profit_testing(nn.Module):
         # output_p = self.softmax(output_p.float())
         output = output.detach()
         output_p = self.softmax(output_p.detach())
-        prices = prices.float()
+        # output_p = output_p.float().detach()
+
+        prices = prices.float().nan_to_num(0,0,0)
+        price_over_30_mask = prices > 30
+        price_over_30_mask = price_over_30_mask.to(float)*-1000
         x = torch.cat([output,output_p,prices],dim=-1)
+        # x = self.batch_norm(x)
+        if x.isnan().any():
+            raise ValueError("NaN values detected in the input")
         x = self.relu(x)
         x = self.fc0(x)
         x = self.relu(x)
@@ -2231,6 +2281,9 @@ class GRUNetv3_profit_testing(nn.Module):
         x = self.relu(x)
         x = self.dropout(x)
         x = self.fc2(x)
+        if x.isnan().any():
+            raise ValueError("NaN values detected in the input and end of fc2")
+        x = x+price_over_30_mask
         x = self.softmax(x)
         return x
 
@@ -2269,7 +2322,6 @@ class GRUNetv3_profit_stacking(nn.Module):
         x = self.fc2(x)
         x = self.softmax(x)
         return x
-
 
 class GRUNetv4_extra(nn.Module):
     def __init__(self,raceDB, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None,model_number=0):
