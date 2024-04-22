@@ -2169,7 +2169,6 @@ class GRUNetv3_extra_price(nn.Module):
             return output
 
 
-
 class GRUNetv3_profit(nn.Module):
     def __init__(self,raceDB:Races):
         super(GRUNetv3_profit, self).__init__()

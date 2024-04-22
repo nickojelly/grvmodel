@@ -186,22 +186,43 @@ def quick_profitability(prices,classes,output):
 
     return correct, profit_tensor*-1, win_price
 
-def simple_profit(simple_model,prices,classes,output,output_p):
-    
-    # print(output)
-    # print(output_p)
-    # print(prices)
-    bet_amounts = simple_model(output,output_p,prices.nan_to_num(0))
+def simple_profit(simple_model,prices,classes,output,output_p, shuffle = False, shuffle_idx = None):
+    prices = prices
+    # Shuffle the data of the last dimension
+    if shuffle:
+        idx = shuffle_idx
+        # output = output[:,idx]
+        output_p = output_p[:,idx]
+        classes = classes[:,idx]
+        prices = prices[:,idx]
+    # print(f"{output=}\n{output_p=}\n{classes=}")
+    # print(f"{output.shape=}")
+    bet_amounts = simple_model(output,output_p,prices.nan_to_num(0,0,0).detach())
+
+    price_over_30_mask = prices<30
+    price_over_30_mask = price_over_30_mask.to(float).nan_to_num(0,0,0)
+    classes = classes*price_over_30_mask
 
     label = torch.zeros_like(classes.data).scatter_(1, torch.argmax(classes.data, dim=1).unsqueeze(1), 1.).requires_grad_(True)
-    profit_tensor = prices.nan_to_num(0)*label*bet_amounts-bet_amounts
+    profit_tensor = prices.nan_to_num(0,0,0)*label*bet_amounts.nan_to_num(0,0,0)-bet_amounts.nan_to_num(0,0,0)
     # print(f"{profit_tensor=}")
 
     return profit_tensor
+def betfair_log_loss(output, classes, probabilites):
 
+    label = torch.zeros_like(classes.data).scatter_(1, torch.argmax(classes.data, dim=1).unsqueeze(1), 1.)
+    output_prob = F.softmax(output,dim=-1)
+    log_loss = (-(label*output_prob.log()+(1-label)*(1-output_prob).log())).sum(dim=-1)
+    betfair_loss = (-(label*probabilites.log()+(1-label)*(1-probabilites).log())).sum(dim=-1)
+
+    nan_mask = torch.isnan(betfair_loss)
+    betfair_loss[nan_mask] = 0
+    log_loss[nan_mask] = 0
+
+    return log_loss.mean(), betfair_loss.mean()
 
 @torch.amp.autocast(device_type='cuda')
-def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler, config=None,update=False):
+def train_double_v3_og(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler, config=None,update=False):
     # torch.autograd.set_detect_anomaly(True)
 
     epochs = config['epochs']
@@ -245,9 +266,6 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
                 
                 hidden = hidden.transpose(0,1)
 
-                p2 = time.perf_counter()
-                print(f"Model Forward Pass: {p2-p1}")
-                p1 = time.perf_counter()
 
 
                 for j,dog in enumerate(train_dog_input):
@@ -267,15 +285,18 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
                 w = torch.stack([x.new_win_weight for x in race])
                 p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
 
-                p2 = time.perf_counter()
-                print(f"Setup 2nd Pass: {p2-p1}")
-                p1 = time.perf_counter()
+
                 
                 # w = torch.stack([(x.win_price_weightv2*2)**2  for x in race]).nan_to_num(0,0,0).requires_grad_(True)
 
+                # idx = torch.randperm(8)+1
+                # X2_split = X2.hsplit([70+x*320 for x in range(0,8)])
+                # X2_split_arrange = [X2_split[x] for x in idx]
+                # X2 = torch.cat([X2_split[0]]+X2_split_arrange,dim=-1)
+
                 output,_,output_p = model(X2, p1=False)
-                model.zero_grad()
-                profit_model.zero_grad()
+                # model.zero_grad()
+                # profit_model.zero_grad()
                 profit_tensor = simple_profit(profit_model,p,y,output,output_p)
                 mask = torch.isnan(profit_tensor)
                 profit_tensor = profit_tensor[~mask]
@@ -283,39 +304,33 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
 
                 profit = profit_tensor.mean()
 
-                p2 = time.perf_counter()
-                print(f"2nd Pass: {p2-p1}")
-                p1 = time.perf_counter()
 
-                epoch_loss = criterion(output, y)*w*lw**2
+
+                epoch_loss = criterion(output, y)*w*2
                 epoch_loss_ohe = criterion(output, y_ohe)*w*lw**2
-                epoch_loss_p = criterion(output_p, y_p)*w*lw**2
+                epoch_loss_p = criterion(output_p, y_p)*w
 
                 [setattr(race, 'loss', loss.mean().detach()) for race,loss in zip(batch_races,criterion(output, y))]
 
-                p2 = time.perf_counter()
-                print(f"Second 2nd Pass: {p2-p1}")
-                p1 = time.perf_counter()
+
 
                 raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             t6 = time.perf_counter()
             
             if not update:
                 optimizer.zero_grad()
-                profit_optim.zero_grad()
+                # profit_optim.zero_grad()
                 ((epoch_loss_p+epoch_loss).mean()).backward()
-                profit.backward()
-                profit_optim.step()
+                # profit.backward()
+                # profit_optim.step()
                 # profit.backward()
                 optimizer.step()
                 model.zero_grad()
-                profit_model.zero_grad()
+                # profit_model.zero_grad()
+                raceDB.detach_hidden(dogs)
                 wandb.log({"loss_1": torch.mean(epoch_loss).item(), 'epoch':epoch,'profit_loss':profit}, step = example_ct)
 
-            p2 = time.perf_counter()
-            print(f"Backwards pass: {p2-p1}")
-            p1 = time.perf_counter()
-            raceDB.detach_hidden(dogs)
+
 
 
         scheduler.step()
@@ -337,6 +352,165 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
             model_saver_wandb(model, optimizer, epoch, 0.1, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
             if update:
                 break
+        if not update:
+            #print('reset hidden')
+            # raceDB.reset_hidden(num_layers=2, hidden_size=config['hidden_size'])    
+            hidden_state_init = model.h0
+            raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+        torch.cuda.empty_cache()
+
+    return model
+
+def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler, config=None,update=False):
+    # torch.autograd.set_detect_anomaly(True)
+
+    epochs = config['epochs']
+    test_max_roi,val_max_roi,val_loss_min = -1,-1,100
+
+    num_batches = raceDB.batches['num_batches']
+    example_ct = 0  # number of examples seen
+    scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.99)
+    raceDB.hidden_state_inits = []
+
+    profit_model = GRUNetv3_profit(raceDB).to('cuda:0')
+    profit_optim = optim.Adam(profit_model.parameters(), lr=0.001,maximize=True)
+
+    raceDB.profit_model = profit_model
+
+
+    for epoch in trange(epochs):
+        model.train()
+        if update:
+            model.eval()
+        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+4*config['f1_layer_size'])).to('cuda:0')
+        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(512)).to('cuda:0')
+        hidden_state_init = model.h0.requires_grad_(True)
+        print(hidden_state_init[0:10,0])
+        raceDB.hidden_state_inits.append(hidden_state_init.detach().cpu().numpy())
+        raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+        for i in range(num_batches):
+            with torch.cuda.amp.autocast():
+                dogs = raceDB.batches['dogs'][i]
+                train_dog_input = raceDB.batches['train_dog_input'][i]
+                # train_dog_input_np = raceDB.batches['train_dog_input_np'][i]
+                batch_races = raceDB.batches['batch_races'][i]
+                batch_races_ids = raceDB.batches['batch_races_ids'][i]
+                X = raceDB.batches['packed_x'][i]
+                X_d = raceDB.packed_x_data[i]
+
+                example_ct+=len(batch_races)
+                hidden_in = torch.stack([x.hidden for x in dogs]).transpose(0,1)
+                output,hidden = model((X,X_d), h=hidden_in)
+                
+                hidden = hidden.transpose(0,1)
+
+
+                for j,dog in enumerate(train_dog_input):
+                    [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,output[j])]
+
+                [setattr(obj, 'hidden', val) for obj, val in zip(dogs,hidden)]
+
+                [setattr(race, 'hidden_in', torch.cat([race.race_dist]+[race.race_track]+[d.hidden_out for d in race.dogs])) for race in batch_races]
+                
+                race = batch_races
+
+                X2 = torch.stack([r.hidden_in for r in race]) #Input for FFNN
+                y = torch.stack([x.classes for x in race])
+                y_ohe = torch.stack([x.one_hot_class for x in race])
+                y_p = torch.stack([x.prob for x in race])
+                lw = torch.stack([x.loss.detach() for x in race]).requires_grad_(True).detach()
+                w = torch.stack([x.new_win_weight for x in race])
+                p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
+
+                idx = torch.randperm(8)+1
+                X2_split = X2.hsplit([70+x*320 for x in range(0,8)])
+                X2_split_arrange = [X2_split[x] for x in idx]
+                X2 = torch.cat([X2_split[0]]+X2_split_arrange,dim=-1)
+                
+                # w = torch.stack([(x.win_price_weightv2*2)**2  for x in race]).nan_to_num(0,0,0).requires_grad_(True)
+
+                output,_,output_p = model(X2, p1=False)
+
+                # profit_output = profit_model(output,output_p,p)
+
+                # profit_loss = 
+
+                # correct,profit_tensor, win_price = quick_profitability(p,y,output)
+                
+                profit_tensor = simple_profit(profit_model,p,y,output,output_p,shuffle=True,shuffle_idx=idx-1)
+                mask = torch.isnan(profit_tensor)
+                profit_tensor = profit_tensor[~mask]
+                # return profit_tensor
+
+                y = y[:,idx-1]
+                y_p = y_p[:,idx-1]
+
+                
+                betfair_probs = torch.stack([x.implied_prob for x in race],dim=0)
+                betfair_probs = betfair_probs[:,idx-1]
+                # print(f"")
+                log_loss, betfair_loss = betfair_log_loss(output, y, betfair_probs)
+
+                profit = profit_tensor.mean()
+
+                epoch_loss = criterion(output, y)#*w*lw**2
+                epoch_loss_ohe = criterion(output, y_ohe)#*w*lw**2
+                epoch_loss_p = criterion(output_p, y_p)#*w*lw**2
+
+                [setattr(race, 'loss', loss.mean().detach()) for race,loss in zip(batch_races,criterion(output, y))]
+
+                # print(epoch,i)
+                # print(output[0,:])
+                # if epoch == 0 and i == 0:
+                #     dot = make_dot(output[0,:], params=dict(model.named_parameters()))
+                #     dot.format = 'png'
+                #     dot.render(filename='model_graph')
+                #     wandb.log({"model_graph": wandb.Image("model_graph.png")})
+
+                # print(epoch_loss)
+                # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+                raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+            t6 = time.perf_counter()
+            if not update:
+                optimizer.zero_grad()
+                profit_optim.zero_grad()
+                # ((epoch_loss_p+epoch_loss).mean()+log_loss).backward()
+                log_loss.backward()
+                profit.backward()
+                profit_optim.step()
+                # profit.backward()
+                optimizer.step()
+                wandb.log({"loss_1": torch.mean(epoch_loss).item(), 'epoch':epoch,'profit_loss':profit}, step = example_ct)
+            raceDB.detach_hidden(dogs)
+            t7 = time.perf_counter()
+
+
+        # scheduler.step()
+        if (epoch)%5==0:
+            t8 = time.perf_counter()
+            model = model.eval()
+            train_quick_pass(model,raceDB,config)
+            # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+            # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+            test_stats = test_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
+            # # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+            # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
+            # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+            val_stats = validate_model_v3(model,raceDB, criterion=criterion, epoch=epoch)
+            if (test_stats['ROI < 30'] > test_max_roi or val_stats['val_ROI < 30'] > val_max_roi) or val_stats['val_loss_val'] < val_loss_min:
+                raceDB.create_hidden_states_dict_v2()
+                test_max_roi = max(test_stats['ROI < 30'],test_max_roi)
+                val_max_roi = max(val_stats['val_ROI < 30'],val_max_roi)
+                val_loss_min = min(val_stats['val_loss_val'],val_loss_min)
+                print(f"New Max ROI: {test_stats['ROI < 30']}, {val_stats['val_ROI < 30']}, {val_stats['val_loss_val']}")
+                model_saver_wandb(model, optimizer, epoch, test_max_roi, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
+            t9 = time.perf_counter()
+        # if (epoch)%20==0:
+        #     raceDB.create_hidden_states_dict_v2()
+        #     model_saver_wandb(model, optimizer, epoch, 0.1, raceDB.hidden_states_dict_gru_v6, raceDB.train_hidden_dict, model_name="long nsw new  22000 RUN")
+        #     if update:
+        #         break
         if not update:
             #print('reset hidden')
             # raceDB.reset_hidden(num_layers=2, hidden_size=config['hidden_size'])    
@@ -637,6 +811,10 @@ def validate_model_pass(model:GRUNetv3,raceDB:Races,race, criterion,test_idx,dev
 
     bet_amount = bet_amount.nan_to_num(0)
 
+    betfair_probs = torch.stack([x.implied_prob for x in race],dim=0)
+    # print(f"")
+    log_loss, betfair_loss = betfair_log_loss(output, y, betfair_probs)
+
     
 
     races = {}
@@ -708,7 +886,7 @@ def validate_model_pass(model:GRUNetv3,raceDB:Races,race, criterion,test_idx,dev
     # price_df.to_csv('price_df.csv')
     # asdfasdf   
 
-    return all_price_df, loss, loss_p,loss_kl_bfsp,loss_kl, correct, accuracy,mutual_info
+    return all_price_df, loss, loss_p,loss_kl_bfsp,loss_kl, correct, accuracy,mutual_info,log_loss, betfair_loss
 
 #Testing
 @torch.no_grad()
@@ -753,7 +931,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
 
         race = raceDB.get_test_input(test_idx)
 
-        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
+        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,log_loss, betfair_loss = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
         all_price_df.reset_index().to_feather(f'./model_all_price/RL{wandb.run.name} - all_price_df.fth')
@@ -829,6 +1007,8 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
                     'avg_win_price':all_price_df[all_price_df['win < 30'] == 1]['prices'].mean(),
                     'model_roi':all_price_df['profit_model'].sum()/all_price_df['bet_amount_model'].sum(),
                     'model_roi<30':all_price_df.query('prices<30')['profit_model'].sum()/all_price_df.query('prices<30')['bet_amount_model'].sum(),
+                    'test_log_loss':log_loss,
+                    'test_betfair_loss':betfair_loss,
                     }
         
         flat_track_wandb = wandb.Table(dataframe=flat_track_df.reset_index())
@@ -893,7 +1073,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
         val_idx_races = range(0,len(raceDB.val_race_ids))
         race = raceDB.get_val_input(val_idx_races)
 
-        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info = validate_model_pass(model,raceDB,race,criterion,val_idx_races,device=device)
+        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,log_loss, betfair_loss = validate_model_pass(model,raceDB,race,criterion,val_idx_races,device=device)
 
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
@@ -965,6 +1145,8 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
                     'val_avg_win_price':all_price_df[all_price_df['win < 30'] == 1]['prices'].mean(),
                     'val_model_roi':all_price_df['profit_model'].sum()/all_price_df['bet_amount_model'].sum(),
                     'val_model_roi<30':all_price_df.query('prices<30')['profit_model'].sum()/all_price_df.query('prices<30')['bet_amount_model'].sum(),
+                    'val_log_loss':log_loss,
+                    'val_betfair_loss':betfair_loss,
                     }
         
         # print(stats_dict)

@@ -114,7 +114,14 @@ def simple_profit(simple_model,prices,classes,output,output_p, shuffle = False, 
 
     return profit_tensor
 
+def betfair_log_loss(output, classes, probabilites):
 
+    label = torch.zeros_like(classes.data).scatter_(1, torch.argmax(classes.data, dim=1).unsqueeze(1), 1.)
+    output_prob = F.softmax(output,dim=-1)
+    log_loss = (-(label*output_prob.log()+(1-label)*(1-output_prob).log())).sum(dim=-1).mean()
+    betfair_loss = (-(label*probabilites.log()+(1-label)*(1-probabilites).log())).sum(dim=-1).mean()
+
+    return log_loss, betfair_loss
 
 # @torch.amp.autocast(device_type='cuda')
 def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optimizer,scheduler, config=None,update=False):
@@ -134,10 +141,10 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
     profit_optim = optim.Adam(profit_model.parameters(), lr=0.0001,maximize=True)
 
     raceDB.profit_model = profit_model
-    load_prev_model = False
+    load_prev_model = True
     if load_prev_model:
-        prev_model_file='NZ-solar-night-351'
-        prev_model_version=9460
+        prev_model_file='NZ-fine-aardvark-399'
+        prev_model_version= 4300
         config['profit_parent'] = prev_model_file
         print(f"Loading profit model {prev_model_file}, version {prev_model_version}")
         model_name = prev_model_file
@@ -563,6 +570,8 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
 
     relu = relu.mean(dim=1)
 
+    betfair_probs = torch.stack([x.implied_prob for x in race],dim=0)
+    log_loss, betfair_loss = betfair_log_loss(output, y, betfair_probs)
     
 
     races = {}
@@ -626,7 +635,7 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
     all_price_df = pd.DataFrame(races)
     mutual_info = torch.ones_like(output)
 
-    return all_price_df, loss, loss_p,loss_kl_bfsp,loss_kl, correct, accuracy,mutual_info,profit
+    return all_price_df, loss, loss_p,loss_kl_bfsp,loss_kl, correct, accuracy,mutual_info,profit,log_loss, betfair_loss
 
 #Testing
 @torch.no_grad()
@@ -657,7 +666,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
 
         race = raceDB.get_test_input(test_idx)
 
-        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
+        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit,log_loss, betfair_loss = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
         # all_price_df.reset_index().to_feather(f'./model_all_price/RL{epoch}{wandb.run.name} - all_price_df.fth')
@@ -734,7 +743,9 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
                     'model_roi':all_price_df['profit_model'].sum()/all_price_df['bet_amount_model'].sum(),
                     'model_roi<30':all_price_df.query('prices<30')['profit_model'].sum()/all_price_df.query('prices<30')['bet_amount_model'].sum(),
                     'test_profit_loss':profit.item(),
-                    'test_profit_hist':all_price_df.query('prices<30 and bet_amount_model > 0.1')['profit_model < 30'].tolist()
+                    'test_profit_hist':all_price_df.query('prices<30 and bet_amount_model > 0.1')['profit_model < 30'].tolist(),
+                    'test_log_loss':log_loss,
+                    'test_betfair_loss':betfair_loss,
                     }
         
         flat_track_wandb = wandb.Table(dataframe=flat_track_df.reset_index())
@@ -786,7 +797,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
         val_idx_races = range(0,len(raceDB.val_race_ids))
         race = raceDB.get_val_input(val_idx_races)
 
-        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit = validate_model_pass(model,raceDB,race,criterion,val_idx_races,device=device)
+        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit,log_loss, betfair_loss = validate_model_pass(model,raceDB,race,criterion,val_idx_races,device=device)
 
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
@@ -859,6 +870,8 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
                     'val_model_roi':all_price_df['profit_model'].sum()/all_price_df['bet_amount_model'].sum(),
                     'val_model_roi<30':all_price_df.query('prices<30')['profit_model'].sum()/all_price_df.query('prices<30')['bet_amount_model'].sum(),
                     'val_profit_loss':profit.item(),
+                    'val_log_loss':log_loss,
+                    'val_betfair_loss':betfair_loss,
                     }
         
         # print(stats_dict)
