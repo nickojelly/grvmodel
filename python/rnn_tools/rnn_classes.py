@@ -1767,7 +1767,6 @@ class GRUNetv3_simple_extra_data(nn.Module):
 
         return x
 
-
 class GRUNetv3_extra(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
         super(GRUNetv3_extra, self).__init__()
@@ -1862,6 +1861,102 @@ class GRUNetv3_extra(nn.Module):
 
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
+
+class GRUNetv3_extra_after_gru(nn.Module):
+    def __init__(self,  hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
+        super(GRUNetv3_extra_after_gru, self).__init__()
+        self.name = 'GRUNetv3_extra_after_gru'
+        self.relu = nn.ReLU()
+
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        self.fc0 = nn.Linear(((hidden_size+1*fc1_size) * 8)+70, hidden_size * 8)
+        # self.drop0 = nn.Dropout(dropout)
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False):
+        x = x.float()
+        # x  = self.layer_norm2(x)
+        x = self.relu0(x)
+        # x = self.drop0(x)
+        x = self.fc0(x)
+        x = self.relu(x)
+        x = self.drop1(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x_e = self.drop2(x)
+        #regular
+        x = self.fc2(x_e)
+        x_rl3 = self.relu(x)
+        x = self.drop3(x_rl3)
+        x = self.fc3(x)
+        #price
+        x_p = self.fc2(x_e)
+        x_p_rl3 = self.relu(x_p)
+        x_p = self.drop3(x_p_rl3)
+        x_p = self.fc3(x_p)
+
+        output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+        return output
+
+class GRUNetv3_extra_quick_stack(nn.Module):
+    def __init__(self,input_size,raceDB:Races,hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None,num_models=5,):
+        super(GRUNetv3_extra_quick_stack, self).__init__()
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+        self.softmax = nn.Softmax(dim=-1)
+        self.dropout = nn.Dropout(0.3)
+        self.num_models = num_models
+        for i in range(num_models):
+            setattr(self, f'model_{i}', GRUNetv3_extra_after_gru(hidden_size,fc0_size=fc0_size,fc1_size=fc1_size))
+            setattr(self, f'optim_{i}', optim.Adam(getattr(self, f'model_{i}').parameters(), lr=0.0001, maximize=False))
+        self.model_list = [getattr(self, f'model_{i}') for i in range(num_models)]
+        self.optim_list = [getattr(self, f'optim_{i}') for i in range(num_models)]
+
+
+        self.fc0 = nn.Linear(num_models*8, 128)
+        self.fc1 = nn.Linear(128, 128)
+        self.fc2 = nn.Linear(128, 8)
+        self.batchnorm = nn.BatchNorm1d(num_models*8)
+
+    def forward(self, X2,p1=False):
+        # output = self.softmax(output.float())
+        # output_p = self.softmax(output_p.float())
+        outputs = []
+        for i in range(self.num_models):
+            output,r,output_p = getattr(self, f'model_{i}')(X2)
+            outputs.append(output)
+        x = torch.cat(outputs,-1)
+        x = self.batchnorm(x)
+        x = self.relu(x)
+        x = self.fc0(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc2(x)
+        # x = self.softmax(x)
+        
+        return x,x,x
 
 
 # @torch.no_grad()
@@ -2074,7 +2169,6 @@ class GRUNetv3_extra_fast_inf_price(nn.Module):
 
             return output
 
-
 class GRUNetv3_extra_price(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
         super(GRUNetv3_extra_price, self).__init__()
@@ -2168,7 +2262,6 @@ class GRUNetv3_extra_price(nn.Module):
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
 
-
 class GRUNetv3_profit(nn.Module):
     def __init__(self,raceDB:Races):
         super(GRUNetv3_profit, self).__init__()
@@ -2207,9 +2300,9 @@ class GRUNetv3_profit_testing2(nn.Module):
         self.dropoutfc3 = nn.Dropout(0.3)
         self.dropout2 = nn.Dropout(0.5)
         self.batch_norm = nn.BatchNorm1d(2630)
-        self.fc0 = nn.Linear(2630+8+8, 1280)
-        self.fc1 = nn.Linear(1280, 1280)
-        self.fc12  = nn.Linear(1280, 128)
+        self.fc0 = nn.Linear(2630+8+8, 128)
+        self.fc1 = nn.Linear(128, 128)
+        self.fc12  = nn.Linear(128, 128)
         self.fc2 = nn.Linear(128, 8)
 
     def forward(self, output, output_p, prices):

@@ -155,14 +155,6 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
             with torch.cuda.amp.autocast():
                 simple_model = profit_model.model_list[i]
                 simple_optim = profit_model.optim_list[i]
-
-                # dogs = raceDB.batches['dogs'][i]
-                # train_dog_input = raceDB.batches['train_dog_input'][i]
-                # train_dog_input_np = raceDB.batches['train_dog_input_np'][i]
-                # batch_races = raceDB.batches['batch_races'][i]
-                # batch_races_ids = raceDB.batches['batch_races_ids'][i]
-                # X = raceDB.batches['packed_x'][i]
-                # X_d = raceDB.packed_x_data[i]
                 race = batch_races
                 X2 = torch.stack([r.hidden_in for r in race]) #Input for FFNN
                 y = torch.stack([x.classes for x in race])
@@ -209,13 +201,6 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
         over_batch_profits = []
         for i,batch_races in enumerate(data_loader):
             with torch.cuda.amp.autocast():
-                # dogs = raceDB.batches['dogs'][i]
-                # train_dog_input = raceDB.batches['train_dog_input'][i]
-                # train_dog_input_np = raceDB.batches['train_dog_input_np'][i]
-                # batch_races = raceDB.batches['batch_races'][i]
-                # batch_races_ids = raceDB.batches['batch_races_ids'][i]
-                # X = raceDB.batches['packed_x'][i]
-                # X_d = raceDB.packed_x_data[i]
                 race = batch_races
                 X2 = torch.stack([r.hidden_in for r in race]) #Input for FFNN
                 y = torch.stack([x.classes for x in race])

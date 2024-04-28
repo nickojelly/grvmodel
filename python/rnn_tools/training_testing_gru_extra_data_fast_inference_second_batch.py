@@ -136,6 +136,7 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
     raceDB.hidden_state_inits = []
 
     profit_model = GRUNetv3_profit_testing2(raceDB).to('cuda:0')
+    # profit_model = GRUNetv3_profit(raceDB).to('cuda:0')
     data_loader = raceDB.data_loader(batch_size=config['batch_size'],shuffle=True)
     # profit_model = GRUNetv3_profit_stacking(raceDB,num_models=len(data_loader)).to('cuda:0')
     profit_optim = optim.Adam(profit_model.parameters(), lr=0.0001,maximize=True)

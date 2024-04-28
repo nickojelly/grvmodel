@@ -385,7 +385,7 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
         raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+4*config['f1_layer_size'])).to('cuda:0')
         raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(512)).to('cuda:0')
         hidden_state_init = model.h0.requires_grad_(True)
-        print(hidden_state_init[0:10,0])
+        # print(hidden_state_init[0:10,0])
         raceDB.hidden_state_inits.append(hidden_state_init.detach().cpu().numpy())
         raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
         raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
@@ -454,9 +454,9 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
 
                 profit = profit_tensor.mean()
 
-                epoch_loss = criterion(output, y)#*w*lw**2
-                epoch_loss_ohe = criterion(output, y_ohe)#*w*lw**2
-                epoch_loss_p = criterion(output_p, y_p)#*w*lw**2
+                epoch_loss = criterion(output, y)#*lw**2
+                epoch_loss_ohe = criterion(output, y_ohe)#*lw**2
+                epoch_loss_p = criterion(output_p, y_p)#*lw**2
 
                 [setattr(race, 'loss', loss.mean().detach()) for race,loss in zip(batch_races,criterion(output, y))]
 
@@ -472,16 +472,16 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
                 # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
                 raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             t6 = time.perf_counter()
-            if not update:
+            if not update and epoch > 0:
                 optimizer.zero_grad()
                 profit_optim.zero_grad()
-                # ((epoch_loss_p+epoch_loss).mean()+log_loss).backward()
-                log_loss.backward()
+                ((epoch_loss_p+epoch_loss).mean()+ log_loss).backward()
+                # log_loss.backward()
                 profit.backward()
                 profit_optim.step()
                 # profit.backward()
                 optimizer.step()
-                wandb.log({"loss_1": torch.mean(epoch_loss).item(), 'epoch':epoch,'profit_loss':profit}, step = example_ct)
+                wandb.log({"loss_1": torch.mean(epoch_loss).item(), 'epoch':epoch,'profit_loss':profit})
             raceDB.detach_hidden(dogs)
             t7 = time.perf_counter()
 

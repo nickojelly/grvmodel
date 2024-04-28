@@ -102,6 +102,14 @@ def simple_profit(simple_model,prices,classes,output,output_p):
 
     return profit_tensor
 
+def betfair_log_loss(output, classes, probabilites):
+
+    label = torch.zeros_like(classes.data).scatter_(1, torch.argmax(classes.data, dim=1).unsqueeze(1), 1.)
+    output_prob = F.softmax(output,dim=-1)
+    log_loss = (-(label*output_prob.log()+(1-label)*(1-output_prob).log())).sum(dim=-1).mean()
+    betfair_loss = (-(label*probabilites.log()+(1-label)*(1-probabilites).log())).sum(dim=-1).mean()
+
+    return log_loss, betfair_loss
 
 # @torch.amp.autocast(device_type='cuda')
 def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optimizer,scheduler, config=None,update=False):
@@ -302,7 +310,7 @@ def apply_kelly_to_df(df):
 
     return df
 
-def clean_data(df):
+def clean_data(df:pd.DataFrame)->pd.DataFrame:
     kl_div = nn.KLDivLoss(reduction='batchmean')
 
     df['imp_prob'] = 1 / df['prices']
@@ -487,7 +495,8 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
 
     # mean, variance, entropy, mutual_info = get_monte_carlo_predictions(Xt, 100,model,8,y.shape[0],batch_races)
     # print(f"{mean=}\n{variance=}\n{entropy=}\n{mutual_info=}")
-    profit_tensor = simple_profit(profit_model,p,y,output,output_p)
+    profit_tensor = simple_profit(profit_model,p,y,Xt,output_p)
+    # profit_tensor = simple_profit(profit_model,p,y,output,output_p)
     mask = torch.isnan(profit_tensor)
     profit_tensor = profit_tensor[~mask]
     # return profit_tensor
@@ -496,7 +505,7 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
 
     kl = nn.KLDivLoss(reduction='none')
     
-    relu = relu.mean(dim=1)
+    
 
     _, actual = torch.max(y.data, 1)
     onehot_win = F.one_hot(actual, num_classes=8)
@@ -540,10 +549,14 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
 
     profit_tensor = price_tensor*correct_tensor*0.95-pred_label
 
-    bet_amount = profit_model(output,output_p,p)
+    bet_amount = profit_model(Xt,output_p,p)
 
     bet_amount = bet_amount.nan_to_num(0)
 
+    relu = relu.mean(dim=1)
+
+    betfair_probs = torch.stack([x.implied_prob for x in race],dim=0)
+    log_loss, betfair_loss = betfair_log_loss(output, y, betfair_probs)
     
 
     races = {}
@@ -605,24 +618,9 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
         races[k] = [item for sublist in value for item in sublist]
         # print(len(races[k]))
     all_price_df = pd.DataFrame(races)
-    # try:
-    #     price_df = pd.DataFrame(raceDB.market_prices)
-    #     price_df['date'] = price_df.market_time.dt.date
-    #     all_price_df['date'] = pd.to_datetime(all_price_df['date']).dt.date
-    #     price_df = price_df.merge(right=all_price_df, how='inner', left_on=['selection_name','date'],right_on=['dog_name','date'])
-    #     price_df.prices = 1/price_df.ltp_60
-    #     all_price_df = price_df
-    #     # print(f"{all_price_df.dog_name=}\n{price_df.selection_name=}")
-    # except Exception as e:
-    #     pass
-    # print(f"{all_price_df.date=}\n{price_df.date=}")
-    # print(price_df)
-    # print(price_df.value_counts())
-    # price_df.to_csv('price_df.csv')
-    # asdfasdf   
     mutual_info = torch.ones_like(output)
 
-    return all_price_df, loss, loss_p,loss_kl_bfsp,loss_kl, correct, accuracy,mutual_info,profit
+    return all_price_df, loss, loss_p,loss_kl_bfsp,loss_kl, correct, accuracy,mutual_info,profit,log_loss, betfair_loss
 
 #Testing
 @torch.no_grad()
@@ -653,7 +651,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
 
         race = raceDB.get_test_input(test_idx)
 
-        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
+        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit,log_loss, betfair_loss = validate_model_pass(model,raceDB,race,criterion,test_idx,device=device)
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
         # all_price_df.reset_index().to_feather(f'./model_all_price/RL{epoch}{wandb.run.name} - all_price_df.fth')
@@ -730,17 +728,21 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
                     'model_roi':all_price_df['profit_model'].sum()/all_price_df['bet_amount_model'].sum(),
                     'model_roi<30':all_price_df.query('prices<30')['profit_model'].sum()/all_price_df.query('prices<30')['bet_amount_model'].sum(),
                     'test_profit_loss':profit.item(),
+                    'test_profit_hist':all_price_df.query('prices<30 and bet_amount_model > 0.1')['profit_model < 30'].tolist(),
+                    'test_log_loss':log_loss,
+                    'test_betfair_loss':betfair_loss,
                     }
         
         flat_track_wandb = wandb.Table(dataframe=flat_track_df.reset_index())
         try:
-            wandb.log({'flat_track':flat_track_wandb})
+            # wandb.log({'flat_track':flat_track_wandb})
             wandb.log({'flat_date':flat_date_df_wandb})
-            wandb.log({'flat_price_df':flat_price_df_wandb})
+            # wandb.log({'flat_price_df':flat_price_df_wandb})
             wandb.log({'flat_date_sum':flat_date_df_sum_wandb})
-            wandb.log({'simple_df':simple_df})
+            # wandb.log({'simple_df':simple_df})
         except Exception as e:
-            print(e)
+            # print(e)
+            pass
         wandb.log(stats_dict)
 
         flat_track_df.to_csv(f'./model_all_price/{wandb.run.name} - flat_df.csv')
@@ -780,7 +782,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
         val_idx_races = range(0,len(raceDB.val_race_ids))
         race = raceDB.get_val_input(val_idx_races)
 
-        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit = validate_model_pass(model,raceDB,race,criterion,val_idx_races,device=device)
+        all_price_df, loss, loss_p,loss_bfsp,loss_kl, correct, accuracy, mutual_info,profit,log_loss, betfair_loss = validate_model_pass(model,raceDB,race,criterion,val_idx_races,device=device)
 
 
         all_price_df.race_num = pd.to_numeric(all_price_df.race_num)
@@ -853,18 +855,21 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
                     'val_model_roi':all_price_df['profit_model'].sum()/all_price_df['bet_amount_model'].sum(),
                     'val_model_roi<30':all_price_df.query('prices<30')['profit_model'].sum()/all_price_df.query('prices<30')['bet_amount_model'].sum(),
                     'val_profit_loss':profit.item(),
+                    'val_log_loss':log_loss,
+                    'val_betfair_loss':betfair_loss,
                     }
         
         # print(stats_dict)
         
         flat_track_wandb = wandb.Table(dataframe=flat_track_df.reset_index())
         try:
-            wandb.log({'val_flat_track':flat_track_wandb})
+            # wandb.log({'val_flat_track':flat_track_wandb})
             wandb.log({'val_flat_date':flat_date_df_wandb})
-            wandb.log({'val_flat_price_df':flat_price_df_wandb})
+            # wandb.log({'val_flat_price_df':flat_price_df_wandb})
             wandb.log({'val_flat_date_sum':flat_date_df_sum_wandb})
         except Exception as e:
-            print(e)
+            # print(e)
+            pass
         wandb.log(stats_dict)
 
         flat_track_df.to_csv(f'./model_all_price/{wandb.run.name} - flat_df.csv')
