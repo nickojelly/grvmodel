@@ -1747,7 +1747,7 @@ class GRUNetv3_simple_extra_data(nn.Module):
         self.relu = nn.ReLU()
 
         #p1
-        self.fc0_p1 = nn.LazyLinear(fc0_size)
+        self.fc0_p1 = nn.Linear(data_mask_size,fc0_size)
         self.fc0_p1_drop = nn.Dropout(dropout)
         self.fc0_p2 = nn.Linear(fc0_size,fc1_size)
         self.fc0_p2_drop = nn.Dropout(dropout)
@@ -1879,7 +1879,7 @@ class GRUNetv3_extra_embedding(nn.Module):
         self.track_embedding = nn.Embedding(1024, 50)
 
         #extra data
-        self.extra_1 = GRUNetv3_simple_extra_data(20,dropout,fc0_size,fc1_size)
+        self.extra_1 = GRUNetv3_simple_extra_data(input_size,dropout,fc0_size,fc1_size,data_mask_size=data_mask_size)
 
         #p2
         # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)

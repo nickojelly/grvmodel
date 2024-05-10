@@ -251,6 +251,11 @@ def train_double_v3(model:GRUNetv3_extra_embedding,raceDB:Races, criterion, opti
 
 
         # scheduler.step()
+        t0 = time.perf_counter()
+        quick_pass_val(model,raceDB, criterion=criterion, epoch=epoch)
+        t1 = time.perf_counter()
+        print(f"Quickpass time {t1-t0}")
+        torch.cuda.empty_cache()
         if (epoch)%20==0:
             t8 = time.perf_counter()
             model = model.eval()
@@ -503,8 +508,9 @@ def get_monte_carlo_predictions(data,
 
     return mean, variance, entropy, mutual_info
 
-def quick_pass_val(model:GRUNetv3_extra_embedding,raceDB:Races,race, criterion,test_idx,device='cuda:0'):
+def quick_pass_val(model:GRUNetv3_extra_embedding,raceDB:Races,criterion,epoch,device='cuda:0'):
     #Testing
+    model.eval()
     with torch.no_grad():
         len_test = len(raceDB.test_dog_ids)
         test_idx = range(0,len_test)
@@ -523,11 +529,24 @@ def quick_pass_val(model:GRUNetv3_extra_embedding,raceDB:Races,race, criterion,t
         for i,dog in enumerate(dog_input):
                 [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,output[i])]
 
-        raceDB.margin_from_dog_to_race_v3(mode='test')
+        # raceDB.margin_from_dog_to_race_v3(mode='test')
         len_test = len(raceDB.test_race_ids)
         test_idx = range(0,len_test)
         race = raceDB.get_test_input(test_idx)
 
+        Xt = torch.stack([torch.cat([race.race_dist]+[d.hidden_out for d in race.dogs])  for race in race])
+        y = torch.stack([x.classes for x in race])
+        track_hashes = torch.tensor([x.track_hash for x in race]).to('cuda:0')
+
+        output,relu,output_p,= model(Xt, p1=False,hashes=track_hashes)
+
+        loss_test = criterion(output, y).mean()
+
+        betfair_probs = torch.stack([x.implied_prob for x in race],dim=0)
+        # print(f"")
+        log_loss_test, betfair_loss_test = betfair_log_loss(output, y, betfair_probs)
+
+        
     #Validation
     with torch.no_grad():
         len_test = len(raceDB.val_dog_ids)
@@ -551,22 +570,29 @@ def quick_pass_val(model:GRUNetv3_extra_embedding,raceDB:Races,race, criterion,t
                 [setattr(obj, 'hidden_out', val.detach()) for obj, val in zip(dog,output[i])]
 
 
-        raceDB.margin_from_dog_to_race_v3(mode='val')
-
-        # print(f"{val_idx=}, {len_test=}")
-
         len_test = len(raceDB.val_race_ids)
         val_idx_races = range(0,len(raceDB.val_race_ids))
         race = raceDB.get_val_input(val_idx_races)
 
-        Xt = torch.stack(torch.stack([torch.cat([race.race_dist]+[d.hidden_out for d in race.dogs])  for race in race]))
-        y_p = torch.stack([x.prob for x in race])
-        y_bfsp = torch.stack([x.implied_prob for x in race])    
-        r = torch.stack([r.relu for r in race])
-        p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
+        Xt = torch.stack([torch.cat([race.race_dist]+[d.hidden_out for d in race.dogs])  for race in race])
+        y = torch.stack([x.classes for x in race])
         track_hashes = torch.tensor([x.track_hash for x in race]).to('cuda:0')
 
         output,relu,output_p,= model(Xt, p1=False,hashes=track_hashes)
+
+        loss_val = criterion(output, y).mean()
+
+        betfair_probs = torch.stack([x.implied_prob for x in race],dim=0)
+        # print(f"")
+        log_loss_val, betfair_loss_val = betfair_log_loss(output, y, betfair_probs)
+
+        wandb.log({"q_loss_test": loss_test.item(),
+                    "q_loss_val": loss_val.item(),
+                    "q_betfair_loss_test": betfair_loss_test.item(), 
+                    "q_betfair_loss_val": betfair_loss_val.item(),
+                    "q_log_loss_val": log_loss_val.item(),
+                    "q_log_loss_test": log_loss_test.item(),
+                    "epoch":epoch,})
 
 
 def validate_model_pass(model:GRUNetv3_extra_embedding,raceDB:Races,race, criterion,test_idx,device='cuda:0'):
@@ -577,11 +603,11 @@ def validate_model_pass(model:GRUNetv3_extra_embedding,raceDB:Races,race, criter
 
     sft_max = nn.Softmax(dim=-1)
     # [setattr(race, 'hidden_in', torch.cat([race.race_dist]+[d.hidden_out for d in race.dogs])) for race in race]
-    Xt = torch.stack(torch.stack([torch.cat([race.race_dist]+[d.hidden_out for d in race.dogs])  for race in race])) #Input for FFNN
+    Xt = torch.stack([torch.cat([race.race_dist]+[d.hidden_out for d in race.dogs])  for race in race]) #Input for FFNN
     y = torch.stack([x.classes for x in race])
     y_p = torch.stack([x.prob for x in race])
     y_bfsp = torch.stack([x.implied_prob for x in race])    
-    r = torch.stack([r.relu for r in race])
+    r = torch.stack([r.implied_prob for r in race])
     p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
 
     track_hashes = torch.tensor([x.track_hash for x in race]).to('cuda:0')
@@ -756,7 +782,7 @@ def test_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=None,ep
                 [setattr(obj, 'hidden_out', val) for obj, val in zip(dog,output[i])]
 
 
-        raceDB.margin_from_dog_to_race_v3(mode='test')
+        # raceDB.margin_from_dog_to_race_v3(mode='test')
 
         len_test = len(raceDB.test_race_ids)
         test_idx = range(0,len_test)
@@ -898,7 +924,7 @@ def validate_model_v3(model:GRUNetv3,raceDB:Races,criterion=None, batch_size=Non
                 [setattr(obj, 'hidden_out', val.detach()) for obj, val in zip(dog,output[i])]
 
 
-        raceDB.margin_from_dog_to_race_v3(mode='val')
+        # raceDB.margin_from_dog_to_race_v3(mode='val')
 
         # print(f"{val_idx=}, {len_test=}")
 

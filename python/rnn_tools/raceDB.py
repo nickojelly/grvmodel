@@ -405,7 +405,7 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
     raceDB.earilest_date = eariest_date
     return raceDB
 
-def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmin', test_date=None, v6=False, date_filter=None, track_filter=None, device='cuda:0',show_stats=False)-> Races:
+def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmin', test_date=None, v6=False, date_filter=None, track_filter=None,only_tracks=None, device='cuda:0',show_stats=False)-> Races:
 
     # with open(data, 'rb') as f:
     #     data, stats_cols = pickle.load(f)
@@ -459,7 +459,8 @@ def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmi
 
         print(dog_stats_df.shape)
 
-    
+    if only_tracks:
+        dog_stats_df = dog_stats_df[dog_stats_df['track_name'].isin(only_tracks)].reset_index()
 
     
     dog_stats_df = dog_stats_df.reset_index(drop=True)
