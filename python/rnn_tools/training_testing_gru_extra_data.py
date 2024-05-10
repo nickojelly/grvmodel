@@ -142,7 +142,7 @@ def train_quick_pass(model:GRUNetv3,raceDB,config):
     hidden_state_init = model.h0
     raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
         
-    raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+    raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+config['f1_layer_size'])).to('cuda:0')
     for i in range(num_batches):
         dogs = raceDB.batches['dogs'][i]
         batch_races = raceDB.batches['batch_races'][i]
@@ -247,7 +247,7 @@ def train_double_v3_og(model:GRUNetv3,raceDB:Races, criterion, optimizer,schedul
         hidden_state_init = model.h0.requires_grad_(True)
         # raceDB.hidden_state_inits.append(hidden_state_init.detach().cpu().numpy())
         raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+config['f1_layer_size'])).to('cuda:0')
         for i in range(num_batches):
             with torch.cuda.amp.autocast():
                 dogs = raceDB.batches['dogs'][i]
@@ -314,7 +314,7 @@ def train_double_v3_og(model:GRUNetv3,raceDB:Races, criterion, optimizer,schedul
 
 
 
-                raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+                # raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
             t6 = time.perf_counter()
             
             if not update:
@@ -388,7 +388,7 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
         # print(hidden_state_init[0:10,0])
         raceDB.hidden_state_inits.append(hidden_state_init.detach().cpu().numpy())
         raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+        raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+config['f1_layer_size'])).to('cuda:0')
         for i in range(num_batches):
             with torch.cuda.amp.autocast():
                 dogs = raceDB.batches['dogs'][i]
@@ -428,15 +428,8 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
                 X2_split_arrange = [X2_split[x] for x in idx]
                 X2 = torch.cat([X2_split[0]]+X2_split_arrange,dim=-1)
                 
-                # w = torch.stack([(x.win_price_weightv2*2)**2  for x in race]).nan_to_num(0,0,0).requires_grad_(True)
-
                 output,_,output_p = model(X2, p1=False)
 
-                # profit_output = profit_model(output,output_p,p)
-
-                # profit_loss = 
-
-                # correct,profit_tensor, win_price = quick_profitability(p,y,output)
                 
                 profit_tensor = simple_profit(profit_model,p,y,output,output_p,shuffle=True,shuffle_idx=idx-1)
                 mask = torch.isnan(profit_tensor)
@@ -470,11 +463,12 @@ def train_double_v3(model:GRUNetv3,raceDB:Races, criterion, optimizer,scheduler,
 
                 # print(epoch_loss)
                 # raceDB.reset_hidden_w_param(hidden_state_init,num_layers=2, hidden_size=config['hidden_size'])
-                raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(256+64)).to('cuda:0')
+                raceDB.dogsDict['nullDog'].input.hidden_out = (-torch.ones(config['hidden_size']+config['f1_layer_size'])).to('cuda:0')
             t6 = time.perf_counter()
             if not update and epoch > 0:
                 optimizer.zero_grad()
                 profit_optim.zero_grad()
+                # epoch_loss.mean().backward()
                 ((epoch_loss_p+epoch_loss).mean()+ log_loss).backward()
                 # log_loss.backward()
                 profit.backward()

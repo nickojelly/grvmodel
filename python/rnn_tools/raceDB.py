@@ -132,17 +132,20 @@ def process_data(data):
         dog_data["next_race"] = dog_data["raceid"].shift(-1).fillna(-1)
         dog = Dog(dog_id, dog_data.dog_name.iloc[0], 64, 1) 
         dogs[dog_id] = dog
-        dog_data.apply(lambda x: dogs[dog_id].add_races(x['raceid'], x['date'],x['stats_cuda'],x['next_race'], x['prev_race'], x['box'],x['margin'], x['bfSP'], x['StartPrice']), axis=1)
+        dog_data.apply(lambda x: dogs[dog_id].add_races(x['raceid'], x['date'],x['stats_cuda'].nan_to_num(0,0,0),x['next_race'], x['prev_race'], x['box'],x['margin'], x['bfSP'], x['StartPrice']), axis=1)
     return dogs
 
 def process_race(data, raceDB,null_dog_i, margin_fn, device, v6=False):
     races = {}
     # print(list(raceDB.dogsDict.items()))
+    print(f"{data=}")
     for i,j in data:
     #Track info tensors
         # i = i[0]
         dist = torch.tensor([j.dist.iloc[0]]) 
-        trackOHE = torch.tensor(j.trackOHE.iloc[0])
+        #ONLY TEMPORARY
+        # trackOHE = torch.tensor(j.trackOHE.iloc[0])
+        trackOHE = torch.zeros(69)
         #margins
         empty_dog_list = [null_dog_i]*8
         empty_margin_list = [100]*8
@@ -209,6 +212,7 @@ def process_race(data, raceDB,null_dog_i, margin_fn, device, v6=False):
         raceDB.racesDict[i].race_time = j.race_time.iloc[0]
         raceDB.racesDict[i].race_date = j.date.iloc[0]
         raceDB.racesDict[i].race_num = j.race_num.iloc[0]
+        raceDB.racesDict[i].track_hash = j.track_hash.iloc[0]
 
 def process_all_data(df_g, raceDB):
     groups = list(df_g)
@@ -231,7 +235,7 @@ def process_all_data(df_g, raceDB):
 def process_all_races(df_g, raceDB,null_dog_i, margin_fn, device, v6=False):
     groups = list(df_g)
     chunked_groups = list(chunks(groups, 24))
-    # print(len(chunked_groups))
+    print(len(chunked_groups))
     # [print(i,len(x)) for i,x in enumerate(chunked_groups)]
     _process_jobs = []
     results = []
@@ -254,12 +258,16 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
     dog_stats_df = dog_stats_df.drop_duplicates(subset=['dogid', 'raceid'])
     print(dog_stats_df.shape)
     print(len(dog_stats_df.stats.iloc[0]))
+    if 'stats_topaz' in dog_stats_df.columns:
+        dog_stats_df['stats'] = dog_stats_df['stats_topaz']
     dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats']), axis =1)
-    # dog_stats_df['box'] = dog_stats_df['stats'].apply(lambda x: x[0])
+    # dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats_topaz']), axis =1)
     dog_stats_df['runtime'] = pd.to_numeric(dog_stats_df['runtime'])
     dog_stats_df.loc[dog_stats_df['place']==1, 'margin']=0
 
     print(f"Latest date = {pd.to_datetime(dog_stats_df.date).max()}")
+
+    dog_stats_df['state']  = d
 
     if state_filter:
         if isinstance(state_filter, list):
@@ -276,9 +284,14 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
     if date_filter:
         dog_stats_df = dog_stats_df[dog_stats_df['date']>date_filter]
 
+    
+
+    eariest_date = pd.to_datetime(dog_stats_df.date).min().date()
+    latest_date = pd.to_datetime(dog_stats_df.date).max().date()
+
     print(f"Latest date = {pd.to_datetime(dog_stats_df.date).max()}")
 
-    print(f"stats = {dog_stats_df['stats'].iloc[10000]}")
+    print(f"stats = {dog_stats_df['stats'].iloc[0]}")
     print(f"stats_cols = {len(eval(stats_cols)[0])=}, {len(dog_stats_df['stats'].iloc[0])=}")
     print(f"stats_cols = {stats_cols}")
     # stats_cols = ['box'] + eval(stats_cols)[0]
@@ -382,11 +395,204 @@ def build_dataset(data, hidden_size, state_filter=None, margin_type='sftmin', te
     raceDB.raceIDs = race_ids
     # print(list(raceDB.dogsDict.items()))
 
-    process_all_races(races_group, raceDB,null_dog_i, margin_fn, device, v6=v6)
+    # process_all_races(races_group, raceDB,null_dog_i, margin_fn, device, v6=v6)
+    process_race(races_group, raceDB,null_dog_i, margin_fn, device,v6=v6)
+    raceDB.race_prices_to_prob()
+    raceDB.create_new_weights()
+
+    print(f"number of races = {len(raceDB.racesDict)}, number of unique dogs = {len(raceDB.dogsDict)}")
+    raceDB.create_test_split()
+    raceDB.earilest_date = eariest_date
+    return raceDB
+
+def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmin', test_date=None, v6=False, date_filter=None, track_filter=None, device='cuda:0',show_stats=False)-> Races:
+
+    # with open(data, 'rb') as f:
+    #     data, stats_cols = pickle.load(f)
+
+    # dog_stats_df = pd.DataFrame(data)
+
+    dog_stats_df = pd.read_feather(data)
+
+    # 
+    if 'stats_topaz' in dog_stats_df.columns:
+        dog_stats_df['stats'] = dog_stats_df['stats_topaz']
+    dog_stats_df = dog_stats_df.drop_duplicates(subset=['dogid', 'raceid'])
+    print(dog_stats_df.shape)
+    print(len(dog_stats_df.stats.iloc[0]))
+
+    dog_stats_df = dog_stats_df.rename(columns={'win':'win',
+                                                'boxNumber':'box',
+                                                'resultTime':'runtime',
+                                                'resultMargin':'margin',
+                                                'BSP':'bfSP',
+                                                'startPrice':'StartPrice',
+                                                'track':'track_name',
+                                                'raceNumber':'race_num',
+                                                'distance':'dist',
+                                                'dogName':'dog_name',
+                                                'raceTypeCode':'race_grade'})
+    
+    dog_stats_df['race_time'] = '00:00:00'
+
+    stats_cols = dog_stats_df['stats_cols'].iloc[0]
+    dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats']), axis =1)
+    # dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats_topaz']), axis =1)
+    dog_stats_df['runtime'] = pd.to_numeric(dog_stats_df['runtime'])
+    dog_stats_df.loc[dog_stats_df['place']==1, 'margin']=0
+
+    print(f"Latest date = {pd.to_datetime(dog_stats_df.date).max()}")
+
+
+    if state_filter:
+        if isinstance(state_filter, list):
+            dog_stats_df_filtered = dog_stats_df[dog_stats_df['state'].isin(state_filter)].reset_index()
+            print(f'size after state filter {dog_stats_df.shape}')
+            if track_filter:
+                dog_stats_df_extra_tracks = dog_stats_df[dog_stats_df['track_name'].isin(track_filter)].reset_index()
+                print(f'size after track filter {dog_stats_df.shape}')
+                dog_stats_df = pd.concat([dog_stats_df_filtered,dog_stats_df_extra_tracks])
+
+            else:
+                dog_stats_df = dog_stats_df_filtered
+
+
+        print(dog_stats_df.shape)
+
+    
+
+    
+    dog_stats_df = dog_stats_df.reset_index(drop=True)
+
+
+
+    if date_filter:
+        dog_stats_df = dog_stats_df[dog_stats_df['date']>date_filter]
+
+    eariest_date = pd.to_datetime(dog_stats_df.date).min().date()
+    latest_date = pd.to_datetime(dog_stats_df.date).max().date()
+    
+    print(dog_stats_df.columns)
+
+    print(dog_stats_df[['state','track_name']].value_counts(sort=False))
+
+    
+
+    print(f"Latest date = {pd.to_datetime(dog_stats_df.date).max()}")
+
+    print(f"stats = {dog_stats_df['stats'].iloc[0]}")
+    print(f"stats_cols = {len(eval(stats_cols)[0])=}, {len(dog_stats_df['stats'].iloc[0])=}")
+    print(f"stats_cols = {stats_cols}")
+    # stats_cols = ['box'] + eval(stats_cols)[0]
+    if show_stats:
+        stats, results = check_data(dog_stats_df,stats_cols, 'date', threshold=2)
+
+    print(stats_cols)
+
+    #Generate weights for classes per track:%APPDATA%\Code\User\settings.json
+
+    grouped = dog_stats_df.groupby('track_name')
+    track_weights = {}
+
+    for i,j in grouped:
+        weights = (1-(j[j['place']==1]['box'].value_counts(sort=False)/len(j[j['place']==1]))).tolist()
+        if len(weights) !=8:
+            weights.append(0)
+        track_weights[i] = torch.tensor(weights).to(device)
+
+    grouped = dog_stats_df.groupby(['track_name','dist'], as_index=False)
+
+    grouped_track_box = dog_stats_df.groupby(['track_name', 'box', 'dist'], as_index=False)
+    x = grouped_track_box.margin.sum()
+    track_margin_sum = grouped.margin.sum().reset_index()
+    x_r = x.reset_index().merge(track_margin_sum, how='left', on=['track_name','dist'])
+    x_r['adj'] = x_r['margin_x']/x_r['margin_y']
+    x_r_g = x_r.groupby(['track_name','dist'], as_index=False)
+    margin_weights = {}
+    for i,j in x_r_g:
+        test = j
+        #break
+        track = i[0]
+        dist = i[1]
+        #margin_weights[track] = {}
+        weights = j['adj'].tolist()
+        if len(weights)!= 8:
+            weights.append(0)
+        margin_weights[i]  = torch.tensor(weights).to(device)
+
+    #Created RaceDB
+    raceDB = Races(hidden_size, 1)
+    raceDB.stats_cols = stats_cols
+    raceDB.states = state_filter
+    raceDB.tracks = dog_stats_df.track_name.unique().tolist()
+
+    raceDB.latest_date = pd.to_datetime(dog_stats_df.date).max()
+
+    num_features_per_dog = len(dog_stats_df['stats'].iloc[0])
+    print(f"{num_features_per_dog=}")
+
+    #Fill in dog portion:
+    dog_stats_df = dog_stats_df.sort_values(['date'])
+    dog_stats_group = dog_stats_df.groupby("dogid", sort=False, as_index=False)
+    unique_dogs = dog_stats_df.drop_duplicates(subset='dogid')['dogid']
+    raceDB.dog_ids = unique_dogs.tolist()
+
+    print(f"___Processing {len(unique_dogs)} unique dogs___")
+    result = process_all_data(dog_stats_group, raceDB)
+    dogs_dict = {}
+    [dogs_dict.update(x) for x in result]
+    raceDB.dogsDict = dogs_dict
+
+    if margin_type=='sftmin':
+        margin_fn = nn.Softmin(dim=-1)
+    elif margin_type=='boosted_sftmin':
+        margin_fn = boosted_softmin
+    elif margin_type=='raw':
+        margin_fn = nn.Identity()
+    elif margin_type=='neg_raw':
+        margin_fn = neg_identity
+    #lsoftmax = F.log_softmax(dim=1)
+    races_group = dog_stats_df.groupby(['raceid'])
+
+    null_dog = Dog("nullDog", "no_name", raceDB.hidden_size, raceDB.layers)
+    raceDB.add_dog("nullDog", "no_name")
+    null_dog = raceDB.dogsDict['nullDog']
+    null_dog_i = DogInput("nullDog", "-1", torch.ones(num_features_per_dog)*-100, null_dog,0, torch.zeros(raceDB.hidden_size),100,0,0,hidden_size=hidden_size)
+    null_dog.input = null_dog_i
+    null_dog_i.nextrace(-1)
+    null_dog_i.prevrace(-1)
+
+    # return raceDB
+
+    #TO FIX LATER PROPER BOX PLACEMENT #FIXED
+    races_group = dog_stats_df.groupby('raceid')
+
+    null_dog = Dog("nullDog", "no_name", raceDB.hidden_size, raceDB.layers)
+    raceDB.add_dog("nullDog", "no_name")
+    null_dog = raceDB.dogsDict['nullDog']
+    null_dog_i = DogInput("nullDog", "-1", torch.ones(num_features_per_dog)*-100, null_dog,0, torch.zeros(raceDB.hidden_size),100,0,0,hidden_size=hidden_size)
+    null_dog.input = null_dog_i
+    null_dog_i.nextrace(-1)
+    null_dog_i.prevrace(-1)
+
+    # return raceDB
+    
+
+    #TO FIX LATER PROPER BOX PLACEMENT #FIXED
+    dog_stats_df = dog_stats_df.sort_values('date')
+    races_group = dog_stats_df.groupby('raceid', sort=False)
+    race_ids = dog_stats_df.raceid.unique().tolist()
+    print(f"{race_ids=}")
+    raceDB.raceIDs = race_ids
+    # print(list(raceDB.dogsDict.items()))
+
+    # process_all_races(races_group, raceDB,null_dog_i, margin_fn, device, v6=v6)
+    process_race(races_group, raceDB,null_dog_i, margin_fn, device,v6=v6)
 
     raceDB.race_prices_to_prob()
     raceDB.create_new_weights()
 
     print(f"number of races = {len(raceDB.racesDict)}, number of unique dogs = {len(raceDB.dogsDict)}")
     raceDB.create_test_split()
+    raceDB.earilest_date = eariest_date
     return raceDB
