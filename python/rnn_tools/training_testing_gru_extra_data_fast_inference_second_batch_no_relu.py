@@ -164,15 +164,17 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
             for i,batch_races in enumerate(data_loader):
                 with torch.cuda.amp.autocast():
                     race = batch_races
-                    X2 = torch.stack([r.hidden_in for r in race]) #Input for FFNN
+                    # X2 = torch.stack([r.hidden_in for r in race]) #Input for FFNN
                     y = torch.stack([x.classes for x in race])
                     y_ohe = torch.stack([x.one_hot_class for x in race])
                     y_p = torch.stack([x.prob for x in race])
                     lw = torch.stack([x.loss.detach() for x in race]).requires_grad_(True).detach()
                     w = torch.stack([x.new_win_weight for x in race])
                     p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
+                    output = torch.stack([x.output for x in race])
+                    output_p = torch.stack([x.output_p for x in race])
 
-                    output,relu,output_p = model(X2, p1=False)
+                    # output,relu,output_p = model(X2, p1=False)
 
                     profit_tensor = simple_profit(profit_model,p,y,output,output_p, shuffle=True)
                     # profit_tensor = simple_profit(profit_model,p,y,output,output_p)

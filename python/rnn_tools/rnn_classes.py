@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import torch.optim as optim
 from torch.utils.data.sampler import SubsetRandomSampler
 from collections import defaultdict
-
+import numpy as np
 class DogInput:
     def __init__(self, dogid, raceid,stats, dog,dog_box, hidden_state, bfsp, sp, margin=None, hidden_size=64) -> None:
         self.dogid= dogid
@@ -321,7 +321,7 @@ class Races:
         self.output_dict = {}
         for race_id,race in self.racesDict.items():
             hidden_in = race.hidden_in
-            self.hidden_ins_dict[race_id] = race.hidden_in.detach()
+            # self.hidden_ins_dict[race_id] = race.hidden_in.detach()
             self.output_dict[race_id] = race.output
 
     def load_hidden_in_dict(self,hidden_in_dict,output_dict):
@@ -410,19 +410,27 @@ class Races:
 
     def race_prices_to_prob(self):
         for r in self.racesDict.values():
-            #
-            # r.implied_prob = torch.tensor([(1/(torch.tensor(x)+0.0001))/(torch.tensor(x).sum()+0.0001) for x in r.start_prices],device=self.device)
-            # if sum()
-            r.prices_tensor = torch.tensor(r.start_prices,device='cuda:0')
+
+            r.prices_tensor = torch.tensor(r.prices,device='cuda:0')
             if sum(r.start_prices)==0:
                 r.implied_prob = torch.tensor([(1/(torch.tensor(x)+0.0001))/(torch.tensor(x).sum()+0.0001) for x in r.start_prices],device=self.device)
                 r.prob = torch.tensor((1/(torch.tensor(r.start_prices)+0.0001))/((1/torch.tensor(r.start_prices)).sum()+0.0001),device=self.device)
+                r.start_prob =  torch.tensor((1/(torch.tensor(r.start_prices)+0.0001))/((1/torch.tensor(r.start_prices)).sum()+0.0001),device=self.device)
+                r.fin_prob = r.start_prob
             else:
-                start_prices = [x if x>1 else 100 for x in r.start_prices]
-                # print(start_prices)
+                bfsp_prices = [x if x>1 else 10000 for x in r.prices]
+                r.prob = torch.tensor(goto_conversion(bfsp_prices),device=self.device)
+                r.implied_prob = torch.tensor(goto_conversion(bfsp_prices),device=self.device)
 
-                r.prob = torch.tensor(goto_conversion(start_prices),device=self.device)
-                r.implied_prob = torch.tensor(goto_conversion(start_prices),device=self.device)
+                start_prices = [x if x>1 else 10000 for x in r.start_prices]
+                r.start_prob = torch.tensor(goto_conversion(start_prices),device=self.device)
+
+                bfsp_unavailable = all([(np.isnan(x) or x==0) for x in r.prices])
+
+                if bfsp_unavailable:
+                    r.fin_prob = r.start_prob
+                else:
+                    r.fin_prob = r.prob
 
     def create_new_weights(self):
         races = self.racesDict.values()
@@ -1767,6 +1775,35 @@ class GRUNetv3_simple_extra_data(nn.Module):
         x = self.fc0_p3(x)
 
         return x
+    
+# class GRUNetv3_simple_extra_data(nn.Module):
+#     def __init__(self, input_size,dropout=0.3, fc0_size=256,fc1_size=64,data_mask_size=None):
+#         super(GRUNetv3_simple_extra_data, self).__init__()
+
+#         self.batch_norm = nn.LazyBatchNorm1d()
+#         self.relu = nn.ReLU()
+
+#         #p1
+#         self.fc0_p1 = nn.LazyLinear(fc0_size)
+#         self.fc0_p1_drop = nn.Dropout(dropout)
+#         self.fc0_p2 = nn.Linear(fc0_size,fc1_size)
+#         self.fc0_p2_drop = nn.Dropout(dropout)
+#         self.fc0_p3 = nn.Linear(fc1_size,fc1_size)
+#         self.fc0_p3_drop = nn.Dropout(dropout)
+
+#             # x represents our data
+#     def forward(self, x):
+#         x = x.float()
+#         # x = self.batch_norm(x)
+#         x = self.fc0_p1(x)
+#         x = self.relu(x)
+#         x = self.fc0_p1_drop(x)
+#         x = self.fc0_p2(x)
+#         x = self.relu(x)
+#         x = self.fc0_p2_drop(x)
+#         x = self.fc0_p3(x)
+
+#         return x
 
 class GRUNetv3_extra(nn.Module):
     def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
@@ -1931,7 +1968,6 @@ class GRUNetv3_extra_embedding(nn.Module):
             x_og = unpack_sequence(x_og)
             outs = []
             for i,dog in enumerate(x):
-
                 dog_simple = self.extra_1(x_d[i])
                 dog = torch.cat((dog,dog_simple),dim=1)
                 outs.append(dog)

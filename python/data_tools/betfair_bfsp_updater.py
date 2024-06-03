@@ -36,7 +36,7 @@ def download_file(links):
 
 def download_betfair_files(start_date):
     end_date = date.today() + timedelta(days=1)  # perhaps date.now()
-    end_date = date(2018, 5, 1) 
+    # end_date = date(2024, 4, 1) 
 
     num_workers = 6
     
@@ -94,7 +94,7 @@ def update_bf_df():
 
 if __name__ == "__main__":
 
-    start_date = date(2015, 1, 1) 
-    # download_betfair_files(start_date)
+    start_date = date(2024, 4, 1) 
+    download_betfair_files(start_date)
 
     update_bf_df()

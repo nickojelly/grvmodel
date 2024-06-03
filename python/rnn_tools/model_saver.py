@@ -33,7 +33,7 @@ def model_saver(model, optimizer, epoch, loss, hidden_state_dict,train_state_dic
             {
                 "epoch": epoch,
                 "model_state_dict": model.state_dict(),
-                "optim": optimizer.state_dict(),
+                # "optim": optimizer.state_dict(),
                 "loss": loss,
                 "db":hidden_state_dict,
                 "db_train":train_state_dict,
@@ -61,7 +61,7 @@ def model_saver_linux(model, optimizer, epoch, loss, hidden_state_dict,train_sta
             {
                 "epoch": epoch,
                 "model_state_dict": model.state_dict(),
-                "optim": optimizer.state_dict(),
+                # "optim": optimizer.state_dict(),
                 "loss": loss,
                 "db":hidden_state_dict,
                 "db_train":train_state_dict,
@@ -89,7 +89,7 @@ def model_saver_wandb(model, optimizer, epoch, loss, hidden_state_dict,train_sta
             {
                 "epoch": epoch,
                 "model_state_dict": model.state_dict(),
-                "optim": optimizer.state_dict(),
+                # "optim": optimizer.state_dict(),
                 "loss": loss,
                 "db":hidden_state_dict,
                 "db_train":train_state_dict,
@@ -115,7 +115,7 @@ def model_saver_second(model, optimizer, epoch, loss, hidden_state_dict,train_st
         {
             "epoch": epoch,
             "model_state_dict": model.state_dict(),
-            "optim": optimizer.state_dict(),
+            # "optim": optimizer.state_dict(),
             "loss": loss,
             "db":hidden_state_dict,
             "db_train":train_state_dict,
@@ -144,7 +144,7 @@ def model_saver_second_profit(model,profit_model, optimizer, epoch, loss, hidden
             "epoch": epoch,
             "model_state_dict": model.state_dict(),
             'profit_model': profit_model.state_dict(),
-            "optim": optimizer.state_dict(),
+            # "optim": optimizer.state_dict(),
             "loss": loss,
             "db":hidden_state_dict,
             "db_train":train_state_dict,

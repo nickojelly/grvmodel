@@ -170,7 +170,6 @@ def train_quick_pass(model:GRUNetv3,raceDB,config):
         losses.append(loss)
         for j,race_e in enumerate(batch_races):
             race_e.output = (output[j].detach(),output_p[j].detach())
-        # [setattr(race, 'output', output_t) for race,output_t in zip(batch_races,(output.detach(),output_p.detach()))]
     losses = torch.cat(losses)
     loss = losses.mean()
     wandb.log({"loss_quick": loss.item()})

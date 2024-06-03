@@ -115,7 +115,7 @@ def neg_identity(input):
 
 def boosted_softmin(input):
     sft_min = nn.Softmin(dim=-1)
-    return sft_min(torch.exp(input))
+    return sft_min(torch.exp(input*2))
 
 print(os.getcwd())
 
@@ -414,6 +414,8 @@ def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmi
 
     dog_stats_df = pd.read_feather(data)
 
+    dog_stats_df = dog_stats_df.query('boxNumber <= 8')
+
     # 
     if 'stats_topaz' in dog_stats_df.columns:
         dog_stats_df['stats'] = dog_stats_df['stats_topaz']
@@ -436,7 +438,7 @@ def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmi
     dog_stats_df['race_time'] = '00:00:00'
 
     stats_cols = dog_stats_df['stats_cols'].iloc[0]
-    dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats']), axis =1)
+    
     # dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats_topaz']), axis =1)
     dog_stats_df['runtime'] = pd.to_numeric(dog_stats_df['runtime'])
     dog_stats_df.loc[dog_stats_df['place']==1, 'margin']=0
@@ -464,6 +466,8 @@ def build_dataset_topaz(data, hidden_size, state_filter=None, margin_type='sftmi
 
     
     dog_stats_df = dog_stats_df.reset_index(drop=True)
+
+    dog_stats_df['stats_cuda'] = dog_stats_df.apply(lambda x: torch.tensor(x['stats']), axis =1)
 
 
 
