@@ -105,7 +105,7 @@ def simple_profit(simple_model,prices,classes,output,output_p, shuffle = False):
 
     price_over_30_mask = prices<30
     price_over_30_mask = price_over_30_mask.to(float).nan_to_num(0,0,0)
-    classes = classes*price_over_30_mask
+    # classes = classes*price_over_30_mask
 
     label = torch.zeros_like(classes.data).scatter_(1, torch.argmax(classes.data, dim=1).unsqueeze(1), 1.).requires_grad_(True)
     profit_tensor = prices.nan_to_num(0,0,0)*label*bet_amounts.nan_to_num(0,0,0)-bet_amounts.nan_to_num(0,0,0)
@@ -130,13 +130,13 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
     profit_model = GRUNetv3_profit(raceDB).to('cuda:0')
     data_loader = raceDB.data_loader(batch_size=config['batch_size'],shuffle=True)
     # profit_model = GRUNetv3_profit_stacking(raceDB,num_models=len(data_loader)).to('cuda:0')
-    profit_optim = optim.Adam(profit_model.parameters(), lr=0.001,maximize=True)
+    profit_optim = optim.Adam(profit_model.parameters(), lr=0.0001,maximize=True)
 
     raceDB.profit_model = profit_model
-    load_prev_model =  False
+    load_prev_model =  True
     if load_prev_model:
-        prev_model_file='sage-blaze-232'
-        prev_model_version=200
+        prev_model_file='lucky-plant-226'
+        prev_model_version=3260
         config['profit_parent'] = prev_model_file
 
         print(f"Loading profit model {prev_model_file}, version {prev_model_version}")
@@ -171,12 +171,12 @@ def train_double_v3(model:GRUNetv3_extra_fast_inf,raceDB:Races, criterion, optim
                     lw = torch.stack([x.loss.detach() for x in race]).requires_grad_(True).detach()
                     w = torch.stack([x.new_win_weight for x in race])
                     p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
-                    output = torch.stack([x.output for x in race])
-                    output_p = torch.stack([x.output_p for x in race])
+                    output = torch.stack([x.output[0] for x in race])
+                    output_p = torch.stack([x.output[1] for x in race])
 
                     # output,relu,output_p = model(X2, p1=False)
 
-                    profit_tensor = simple_profit(profit_model,p,y,output,output_p, shuffle=True)
+                    profit_tensor = simple_profit(profit_model,p,y,output,output_p, shuffle=False)
                     # profit_tensor = simple_profit(profit_model,p,y,output,output_p)
                     mask = torch.isnan(profit_tensor)
                     
@@ -474,17 +474,21 @@ def validate_model_pass(model:GRUNetv3_extra_fast_inf,raceDB:Races,race, criteri
     profit_model.eval()
     model.eval()
     sft_max = nn.Softmax(dim=-1)
-    Xt = torch.stack([r.hidden_in for r in race]) #Input for FFNN
+    # Xt = torch.stack([r.hidden_in for r in race]) #Input for FFNN
     y = torch.stack([x.classes for x in race])
     y_p = torch.stack([x.prob for x in race])
     y_bfsp = torch.stack([x.implied_prob for x in race])    
     # r = torch.stack([r.relu for r in race])
+    output = torch.stack([x.output[0] for x in race])
+    output_p = torch.stack([x.output[1] for x in race])
+
     p = torch.stack([torch.tensor(x.prices,device='cuda:0') for x in race])
+    relu = p
 
     
     batch_races = race
 
-    output,relu,output_p,= model(Xt, p1=False)
+    # output,relu,output_p,= model(Xt, p1=False)
 
 
     # mean, variance, entropy, mutual_info = get_monte_carlo_predictions(Xt, 100,model,8,y.shape[0],batch_races)

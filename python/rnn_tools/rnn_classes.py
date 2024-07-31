@@ -328,7 +328,7 @@ class Races:
         missing = []
         for race_id,race in self.racesDict.items():
             try:
-                race.hidden_in = hidden_in_dict[race_id]
+                # race.hidden_in = hidden_in_dict[race_id]
                 race.output = output_dict[race_id]
             except Exception as e:
                 print(f"{race_id} not in dict")
@@ -1964,12 +1964,12 @@ class GRUNetv3_extra_embedding(nn.Module):
 
             x,hidden = self.gru(x, h)
             x = unpack_sequence(x)
-            x_d = unpack_sequence(x_d)
-            x_og = unpack_sequence(x_og)
+            # x_d = unpack_sequence(x_d)
+            # x_og = unpack_sequence(x_og)
             outs = []
             for i,dog in enumerate(x):
-                dog_simple = self.extra_1(x_d[i])
-                dog = torch.cat((dog,dog_simple),dim=1)
+                # dog_simple = self.extra_1(x_d[i])
+                # dog = torch.cat((dog,dog_simple),dim=1)
                 outs.append(dog)
             # print(f"{outs[0].shape=} ")
             return outs,hidden
@@ -2001,6 +2001,101 @@ class GRUNetv3_extra_embedding(nn.Module):
 
             output = self.output_fn(x), x_rl3, self.output_fn(x_p),
             return output
+
+class GRUNetv3_extra_embedding_testing(nn.Module):
+    def __init__(self, input_size, hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
+        super(GRUNetv3_extra_embedding_testing, self).__init__()
+        self.name = 'GRUNetv3_extra_embedding_testing'
+        self.gru = nn.GRU(input_size,hidden_size,num_layers=num_layers, dropout=0.3)
+        self.relu = nn.ReLU()
+        self.fc0 = nn.Linear(hidden_size,1)
+        self.h0 = nn.Parameter(torch.zeros(num_layers, hidden_size))
+
+        self.batch_norm = nn.BatchNorm1d(input_size)
+        self.batch_norm_data = nn.BatchNorm1d(data_mask_size)
+
+        self.track_embedding = nn.Embedding(1024, 50)
+
+        #extra data
+        self.extra_1 = GRUNetv3_simple_extra_data(input_size,dropout,fc0_size,fc1_size,data_mask_size=data_mask_size)
+
+        #p2
+        # self.layer_norm2 = nn.LayerNorm((hidden_size * 8)+70)
+        self.relu0 = nn.ReLU()
+        #change back to 70 for proper track thing etc etc
+        self.fc0 = nn.Linear(((hidden_size) * 8)+1+50, hidden_size * 8)
+        # self.drop0 = nn.Dropout(dropout)
+        self.drop1 = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(hidden_size * 8, hidden_size*4)
+        self.drop2 = nn.Dropout(dropout)
+
+        #regular
+        self.fc2 = nn.Linear(hidden_size*4, fc1_size)
+        self.drop3 = nn.Dropout(dropout)
+        self.fc3 = nn.Linear(fc1_size, 8)
+        self.hidden_size = hidden_size
+
+        #price
+        # self.price_fc2 = nn.Linear(hidden_size*4, fc1_size)
+        # self.price_drop3 = nn.Dropout(dropout)
+        # self.price_fc3 = nn.Linear(fc1_size, 8)
+
+
+        if output =='raw':
+            self.output_fn = nn.Identity()
+        elif output =='softmax':
+            self.output_fn = nn.Softmax(dim=1)
+        elif output =='log_softmax':
+            self.output_fn = nn.LogSoftmax(dim=1)
+        else:
+            raise
+
+    # x represents our data
+    def forward(self, x,h=None, p1=True, warmup=False,hashes=None):
+
+        if p1:
+            x,x_d = x
+            x_d = x_d.float()
+            x_d = x_d._replace(data=self.batch_norm_data(x_d.data))
+            x = x.float()
+            x_d = x_d.float()
+            x = x._replace(data=self.batch_norm(x.data))
+            x_og = x
+            x,hidden = self.gru(x, h)
+            x = unpack_sequence(x)
+            # x_d = unpack_sequence(x_d)
+            x_og = unpack_sequence(x_og)
+            outs = []
+            for i,dog in enumerate(x):
+                # dog_simple = self.extra_1(x_d[i])
+                # dog = torch.cat((dog,x_og[i]),dim=1)
+                outs.append(dog)
+            return outs,hidden
+        else:
+            x = x.float()
+            x = self.relu0(x)
+            embedding = self.track_embedding(hashes)
+            x = torch.cat((x,embedding),dim=-1)
+            x = self.fc0(x)
+            x = self.relu(x)
+            x = self.drop1(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x_e = self.drop2(x)
+            #regular
+            x = self.fc2(x_e)
+            x_rl3 = self.relu(x)
+            x = self.drop3(x_rl3)
+            x = self.fc3(x)
+            #price
+            x_p = self.fc2(x_e)
+            x_p_rl3 = self.relu(x_p)
+            x_p = self.drop3(x_p_rl3)
+            x_p = self.fc3(x_p)
+
+            output = self.output_fn(x), x_rl3, self.output_fn(x_p),
+            return output
+
 
 class GRUNetv3_extra_after_gru(nn.Module):
     def __init__(self,  hidden_size,hidden=None,output='raw', dropout=0.3, fc0_size=256,fc1_size=64,num_layers=1,data_mask_size=None):
@@ -2097,7 +2192,6 @@ class GRUNetv3_extra_quick_stack(nn.Module):
         # x = self.softmax(x)
         
         return x,x,x
-
 
 # @torch.no_grad()
 class GRUNetv3_extra_fast_inf(nn.Module):
@@ -2515,7 +2609,7 @@ class GRUNetv3_profit_testing(nn.Module):
         x = self.fc2(x)
         if x.isnan().any():
             raise ValueError("NaN values detected in the input and end of fc2")
-        x = x+price_over_30_mask
+        # x = x+price_over_30_mask
         x = self.softmax(x)
         return x
 
